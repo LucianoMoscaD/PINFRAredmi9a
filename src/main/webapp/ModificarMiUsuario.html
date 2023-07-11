@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar mi usuario</title>
+    <style>
+		html {
+		font-family: Gill Sans Extrabold, sans-serif;
+		}
+		img{
+			margin: 40px;
+		}
+		form {
+			padding: 20px;
+			background-color: lightgray;
+			margin:15px;
+			border-radius: 4px;
+		}
+		h2 {
+		margin: 15px;
+		}		
+    </style>
+</head>
+<body>
+    <h1><img src="uteclogo.jpg" alt="Logo UTEC" width="200px" height=auto>Sistema de Gestión de Alumnos</h1>
+    <hr color="skyblue" size="5px">
+    <h2>Modificar mi usuario</h2>
+  
+
+    <form action="/EntregaSemana1/BuscarAlumnoServlet" method="get">
+        <table>
+            <tr> 
+                <td>Primer Nombre: </td>
+                <td><input type="text" name="nombre1"></td>
+            </tr>
+            <tr> 
+                <td>Segundo Nombre: </td>
+                <td><input type="text" name="nombre2"></td>
+            </tr>
+            <tr>
+                <td>Primer Apellido: </td>
+                <td><input type="text" name="apellido1"></td>
+            </tr>
+            <tr>
+                <td>Segundo Apellido: </td>
+                <td><input type="text" name="apellido2"></td>
+            </tr>
+            <tr>
+                <td>Nombre de usuario: </td>
+                <td><input type="text" name="usuario"></td>
+            </tr>
+            <tr>
+                <td>Contraseña: </td>
+                <td><input type="text" name="contrasena"></td>
+            </tr>
+            <tr>
+                <td>Cédula de identidad: </td>
+                <td><input type="number" name="cedula"></td>
+            </tr>
+            <tr>
+                <td>Fecha de nacimiento: </td>
+                <td><input type="text" name="fechaNac"></td>
+            </tr>
+            <tr>
+                <td>Telefono: </td>
+                <td><input type="text" name="telefono"></td>
+            </tr>
+            <tr>
+                <td>Departamento: </td>
+                <td><input type="text" name="departamento"></td>
+            </tr>
+            <tr>
+                <td>Localidad: </td>
+                <td><input type="text" name="localidad"></td>
+            </tr>
+            <tr>
+                <td>Email Personal: </td>
+                <td><input type="text" name="mail"></td>
+            </tr>
+            <tr>
+                <td>Email Institucional: </td>
+                <td><input type="text" name="mailInstitucional"></td>
+            </tr>
+            <tr>
+                <td>ITR: </td>
+                <td><select name="itr">
+			 	 <option value="CentroSur">CentroSur</option>
+			  	 <option value="Suroeste" selected>Suroeste</option>
+			     <option value="Norte">Norte</option>
+				</select></td>
+            </tr>
+            <tr>
+                <td>Tipo de Usuario:</td>
+                <td><select name="rol">
+			 	 <option value="Analista">Analista</option>
+			  	 <option value="Tutor" selected>Tutor</option>
+			     <option value="Estudiante">Estudiante</option>
+				</select></td>
+            </tr>
+            <!-- Dependiendo del rol elegido se muestran los siguientes campos -->
+	
+			<!-- Estudiante -->
+            
+            <tr>
+                <td>Año de ingreso a la carrera: </td>
+                <td><input type="text" name="generacion"></td> <!-- en la entidad Estudiante -->
+            </tr>
+            <!-- Tutor -->
+            <tr>
+                <td>Area a la que pertenece: </td>
+                <td><select name="area">
+			 	 <option value="Programacion">Programacion</option>
+			  	 <option value="Infrastructura" selected>Infrastructura</option>
+			     <option value="Testing">Testing</option>
+			     <option value="Base de Datos">Base de Datos </option>
+				</select></td>
+            </tr>
+            <!-- Tutor -->
+            <tr>
+                <td>Rol que cumple: </td>
+                <td><select name="rol">
+			 	 <option value="Encargado">Encargado</option>
+			  	 <option value="Tutor" selected>Tutor</option>
+				</select></td>
+            </tr>
+           
+
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Guardar Modificaciones"></td>
+                <td><input type="submit" value="Cancelar"></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>
