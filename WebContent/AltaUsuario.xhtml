@@ -7,42 +7,65 @@
 <h:head></h:head>
 <body>
 
-	<h2>Ingreso de Usuario</h2>
+<h:outputLink value="#{request.contextPath}/index.xhtml">
+        <h:outputText value="Volver" />
+    </h:outputLink>
 
-	<h:messages id="messages" showDetail="true" globalOnly="true"
-		closable="true" />
+    <h2>Ingreso de Usuario</h2>
 
-	<h:form id="idDatosUsuario">
+    <h:messages id="messages" showDetail="true" globalOnly="true"
+        closable="true" />
 
-		<h:commandButton value="Guardar cambios"
-			action="#{gestionUsuario.salvarCambios}" />
+    <h:form id="idDatosParticipanteo">
+        <h:panelGrid columns="3">
+            <h:outputLabel value="Nombre" />
+            <h:inputText id="nombre"
+                value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
+            <h:message for="nombre" style="color:red" />
 
+            <h:outputLabel value="Apellido" />
+            <h:inputText id="apellido"
+                value="#{gestionUsuario.usuarioSeleccionado.apellido}" />
+            <h:message for="apellido" style="color:red" />
 
-		<h:panelGrid columns="3">
+            <h:outputLabel value="Fecha de Nacimiento" />
+            <h:inputText id="fechaNac"
+                value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
+            <h:message for="fechaNac" style="color:red" />
 
-			<h:outputLabel value="Id" />
-			<h:inputText id="id" disabled="true"
-				value="#{gestionUsuario.usuarioSeleccionado.id}" />
-			<h:message for="id" style="color:red" />
+            <h:outputLabel value="Rol" />
+            <h:inputText id="rol"
+                value="#{gestionUsuario.usuarioSeleccionado.alumno}" />
+            <h:message for="rol" style="color:red" />
 
-			<h:outputLabel value="Nombre" />
-			<h:inputText id="nombre"
-				value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
-			<h:message for="nombre" style="color:red" />
+            <h:outputLabel value="Dirección" />
+            <h:inputText id="direccion"
+                value="#{gestionUsuario.usuarioSeleccionado.direccion}" />
+            <h:message for="direccion" style="color:red" />
+<h:outputLabel value="Mail" />
+            <h:inputText id="mail"
+                value="#{gestionUsuario.usuarioSeleccionado.mail}" />
+            <h:message for="mail" style="color:red" />
 
-			<h:outputLabel value="Password" />
-			<h:inputText id="password"
-				value="#{gestionUsuario.usuarioSeleccionado.password}" />
-			<h:message for="Password" style="color:red" />
+            <h:outputLabel value="Activo" />
+            <h:inputText id="activo"
+                value="#{gestionUsuario.usuarioSeleccionado.activo}" />
+            <h:message for="activo" style="color:red" />
 
-		</h:panelGrid>
+            <h:outputLabel value="Carrera o Especialidad" />
+            <h:inputText id="carreraOEspecialidad"
+                value="#{gestionUsuario.usuarioSeleccionado.carreraOEspecialidad}" />
+            <h:message for="carreraOEspecialidad" style="color:red" />
 
-		
+            <h:outputLabel value="Número de Estudiante" />
+            <h:inputText id="numeroEstudiante"
+                value="#{gestionUsuario.usuarioSeleccionado.numeroalumno}" />
+            <h:message for="numeroEstudiante" style="color:red" />
 
-	</h:form>
-	<h:outputLink value="#{request.contextPath}/index.xhtml">
-		<h:outputText value="Volver" />
-	</h:outputLink>
+        </h:panelGrid>
+    </h:form>
+    <h:commandButton value="Guardar cambios"
+        action="#{gestionUsuario.salvarCambios}" />
 
 </body>
 </html>

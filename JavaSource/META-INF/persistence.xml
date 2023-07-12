@@ -13,18 +13,24 @@
       		<property name="hibernate.format_sql" value="true"/>
 		</properties>
 	</persistence-unit>
-    -->
-    
-	<persistence-unit name="PINFRA">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:/PINFRA</jta-data-source>
-		<mapping-file>META-INF/orm.xml</mapping-file>
-		<validation-mode>AUTO</validation-mode>
-		<properties>
+			<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="javax.persistence.schema-generation.create-database-schemas" value="true" />
+		</properties>
+    -->
+    
+	<persistence-unit name="PINFRA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<validation-mode>AUTO</validation-mode>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> 			
+     		<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+      		<property name="show_sql" value="true"/>
+      		<property name="hibernate.format_sql" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>
