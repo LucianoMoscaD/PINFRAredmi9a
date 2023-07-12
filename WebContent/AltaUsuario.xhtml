@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+
+	<h2>Ingreso de Usuario</h2>
+
+	<h:messages id="messages" showDetail="true" globalOnly="true"
+		closable="true" />
+
+	<h:form id="idDatosUsuario">
+
+		<h:commandButton value="Guardar cambios"
+			action="#{gestionUsuario.salvarCambios}" />
+
+
+		<h:panelGrid columns="3">
+
+			<h:outputLabel value="Id" />
+			<h:inputText id="id" disabled="true"
+				value="#{gestionUsuario.usuarioSeleccionado.id}" />
+			<h:message for="id" style="color:red" />
+
+			<h:outputLabel value="Nombre" />
+			<h:inputText id="nombre"
+				value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
+			<h:message for="nombre" style="color:red" />
+
+			<h:outputLabel value="Password" />
+			<h:inputText id="password"
+				value="#{gestionUsuario.usuarioSeleccionado.password}" />
+			<h:message for="Password" style="color:red" />
+
+		</h:panelGrid>
+
+		
+
+	</h:form>
+	<h:outputLink value="#{request.contextPath}/index.xhtml">
+		<h:outputText value="Volver" />
+	</h:outputLink>
+
+</body>
+</html>
