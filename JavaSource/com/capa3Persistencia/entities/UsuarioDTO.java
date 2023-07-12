@@ -1,19 +1,19 @@
-package com.capa1presentacion;
+package com.capa3Persistencia.entities;
 
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Length;
 
-public class Usuario {
+@Entity
+@Table(name = "USUARIOS")
+public class UsuarioDTO {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -47,17 +47,17 @@ public class Usuario {
 	private String carreraOEspecialidad;
 	
 	@Column(nullable = true)
-	private String numeroalumno;
+	private String numeroEstudiante;
 	
 	
 	
-	public Usuario() {
+	public UsuarioDTO() {
 		super();
 	}
 
 
-	public Usuario(long id, String nombre, String apellido, Date fechaNac, int alumno, String direccion, String mail,
-			String activo, String carreraOEspecialidad, String numeroalumno) {
+	public UsuarioDTO(long id, String nombre, String apellido, Date fechaNac, int alumno, String direccion, String mail,
+			String activo, String carreraOEspecialidad, String numeroEstudiante) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -68,7 +68,7 @@ public class Usuario {
 		this.mail = mail;
 		this.activo = activo;
 		this.carreraOEspecialidad = carreraOEspecialidad;
-		this.numeroalumno = numeroalumno;
+		this.numeroEstudiante = numeroEstudiante;
 	}
 
 
@@ -169,23 +169,23 @@ public class Usuario {
 
 
 
-	public String getNumeroalumno() {
-		return numeroalumno;
+	public String getNumeroEstudiante() {
+		return numeroEstudiante;
 	}
 
 
 
-	public void setNumeroalumno(String numeroalumno) {
-		this.numeroalumno = numeroalumno;
+	public void setNumeroEstudiante(String numeroEstudiante) {
+		this.numeroEstudiante = numeroEstudiante;
 	}
 
-	public int getalumno() {
+	public int getAlumno() {
 		return alumno;
 	}
 
 
 
-	public void setalumno(int alumno) {
+	public void setAlumno(int alumno) {
 		this.alumno = alumno;
 	}
 
@@ -195,7 +195,7 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
 				+ ", alumno=" + alumno + ", direccion=" + direccion + ", mail=" + mail + ", activo=" + activo
-				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroalumno=" + numeroalumno + "]";
+				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroEstudiante=" + numeroEstudiante + "]";
 	}
 
 }

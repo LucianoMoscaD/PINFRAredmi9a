@@ -1,21 +1,18 @@
 package com.capa1presentacion;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.capa2LogicaNegocio.GestionEmpleadoService;
 import com.capa2LogicaNegocio.GestionUsuarioService;
 import com.capa3Persistencia.dao.UsuariosDAO;
-import com.capa3Persistencia.entities.UsuarioPersistencia;
+import com.capa3Persistencia.entities.UsuarioDTO;
 import com.capa3Persistencia.exception.PersistenciaException;
 import com.utils.ExceptionsTools;
 
@@ -100,22 +97,9 @@ public class GestionUsuario implements Serializable {
 	}
 
 	public String mostrarUsuarios() {
-		List<UsuarioPersistencia> listaUsuarios = persistenciaBean.buscarUsuarios();
-		return usuarioDAO.convertirListaAJson(listaUsuarios);
+		List<UsuarioDTO> listaUsuarios = persistenciaBean.buscarUsuarios();
+		return UsuariosDAO.convertirListaAJson(listaUsuarios);
 	}
 
-	public boolean checkCredenciales() throws PersistenciaException, IOException {
-
-		if (usuarioDAO.seleccionarEmpleados(usuarioSeleccionado.getNombre(), usuarioSeleccionado.getPassword()).isEmpty()) {
-			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Usuario y/o contrase�a incorrectos", "fgfsg");
-			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-			return false;
-		} else {
-			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            externalContext.redirect(externalContext.getRequestContextPath() + "/Bienvenida.xhtml");
-			return true;
-		}
-	}
 
 }

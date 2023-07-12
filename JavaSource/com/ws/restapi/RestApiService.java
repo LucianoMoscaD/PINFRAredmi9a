@@ -5,19 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import com.capa1presentacion.Empleado;
 import com.capa1presentacion.Usuario;
-import com.capa2LogicaNegocio.GestionEmpleadoService;
 import com.capa2LogicaNegocio.GestionUsuarioService;
-import com.capa3Persistencia.dao.EmpleadosEmpresaDAO;
-import com.capa3Persistencia.entities.EmpleadoEmpresa;
 
-@Path("empleados")
+@Path("usuarios")
 public class RestApiService {
 	
 	
@@ -25,6 +24,21 @@ public class RestApiService {
 	@EJB
 	GestionUsuarioService gestionUsuarioService;
 	
+	@POST
+	@Path("crearUsuario")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Usuario crearUsuario(Usuario nuevoUsuario) {
+	    try {
+
+	        Usuario usuarioCreado = gestionUsuarioService.agregarUsuario(nuevoUsuario);
+	        
+	        return usuarioCreado;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
 	
 	@GET
 	@Path("obtenerUsuario/{id}")
@@ -58,4 +72,30 @@ public class RestApiService {
 			return  new ArrayList<Usuario>(); 
 		}	
 	}
+//		
+//	@PUT
+//	@Path("modificarUsuario/{id}")
+//	@Produces("application/json")
+//	@Consumes("application/json")
+//	public Usuario modificarUsuario(@PathParam("id") Long id, Usuario usuarioModificado) {
+//	    try {
+//	        Usuario usuarioExistente = gestionUsuarioService.buscarUsuario(id);
+//	        if (usuarioExistente == null) {
+//	            return new Usuario(); // Or throw an exception or return an error response
+//	        }
+//	        
+//	        // Update the attributes of the existing usuario with the modified usuario
+//	        usuarioExistente.setNombre(usuarioModificado.getNombre());
+//	        usuarioExistente.setApellido(usuarioModificado.getApellido());
+//	        // Update other attributes similarly
+//	        
+//	        // Save the modified usuario
+//	        gestionUsuarioService.modificarUsuario(usuarioExistente);
+//	        
+//	        return usuarioExistente;
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        return new Usuario();
+//	    }
+//	}
 }

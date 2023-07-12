@@ -2,6 +2,7 @@ package com.ws.restapi;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.capa3Persistencia.dao.EmpleadosEmpresaDAO;
 import com.capa3Persistencia.dao.UsuariosDAO;
-import com.capa3Persistencia.entities.EmpleadoEmpresa;
-import com.capa3Persistencia.entities.UsuarioPersistencia;
+import com.capa3Persistencia.entities.UsuarioDTO;
 
 /**
  * Servlet implementation class CargarDatos
@@ -36,35 +35,51 @@ public class CargarDatos extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath()+"\n");
-		PrintWriter out = response.getWriter();
-		
-		try {
-			UsuarioPersistencia e=new UsuarioPersistencia("Gerardo", "ventas");
-			UsuarioPersistencia empleadoCreado = usuariosDAO.agregarUsuario(e);
-			out.println("Se creo el empleado:"+ empleadoCreado.getId()+" Nombre"+empleadoCreado.getNombre());
-			
-			e=new UsuarioPersistencia("Daniel", "ventas");
-			empleadoCreado = usuariosDAO.agregarUsuario(e);
-			out.println("Se creo el empleado:"+ empleadoCreado.getId()+" Nombre"+empleadoCreado.getNombre());
-			
-			e=new UsuarioPersistencia("Maria", "ventas");
-			empleadoCreado = usuariosDAO.agregarUsuario(e);
-			out.println("Se creo el empleado:"+ empleadoCreado.getId()+" Nombre"+empleadoCreado.getNombre());
-			
-			
-			
-			out.println("Se creo el usuario:"+ empleadoCreado.getId());
-			
-		}catch(Exception e) {
-			out.println("No se creo el usuario:"+ e.getClass().getSimpleName()+"-"+e.getMessage());
-		}
-		
-		
-		
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath()+"\n");
+//		PrintWriter out = response.getWriter();
+//		
+//		try {
+//			UsuarioPersistencia e=new UsuarioPersistencia("Gerardo", "ventas");
+//			UsuarioPersistencia empleadoCreado = usuariosDAO.agregarUsuario(e);
+//			out.println("Se creo el empleado:"+ empleadoCreado.getId()+" Nombre"+empleadoCreado.getNombre());
+//			
+//			e=new UsuarioPersistencia("Daniel", "ventas");
+//			empleadoCreado = usuariosDAO.agregarUsuario(e);
+//			out.println("Se creo el empleado:"+ empleadoCreado.getId()+" Nombre"+empleadoCreado.getNombre());
+//			
+//			e=new UsuarioPersistencia("Maria", "ventas");
+//			empleadoCreado = usuariosDAO.agregarUsuario(e);
+//			out.println("Se creo el empleado:"+ empleadoCreado.getId()+" Nombre"+empleadoCreado.getNombre());
+//			
+//			
+//			
+//			out.println("Se creo el usuario:"+ empleadoCreado.getId());
+//			
+//		}catch(Exception e) {
+//			out.println("No se creo el usuario:"+ e.getClass().getSimpleName()+"-"+e.getMessage());
+//		}
+//		
+//		
+//		
+//	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.getWriter().append("Served at: ").append(request.getContextPath()).append("\n");
+        PrintWriter out = response.getWriter();
+
+        try {
+            List<UsuarioDTO> listaUsuarios = usuariosDAO.buscarUsuarios();
+            for (UsuarioDTO usuario : listaUsuarios) {
+                out.println("Usuario: " + usuario.getId() + " Nombre: " + usuario.getNombre() + " " + usuario.getApellido());
+                // Print other attributes as needed
+            }
+
+        } catch (Exception e) {
+            out.println("No se creó el usuario: " + e.getClass().getSimpleName() + "-" + e.getMessage());
+        }
+    }
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -75,3 +90,4 @@ public class CargarDatos extends HttpServlet {
 	}
 
 }
+

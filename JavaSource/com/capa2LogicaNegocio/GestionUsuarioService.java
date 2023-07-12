@@ -8,73 +8,83 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import com.capa1presentacion.Empleado;
 import com.capa1presentacion.Usuario;
-import com.capa3Persistencia.dao.EmpleadosEmpresaDAO;
 import com.capa3Persistencia.dao.UsuariosDAO;
-import com.capa3Persistencia.entities.EmpleadoEmpresa;
-import com.capa3Persistencia.entities.UsuarioPersistencia;
+import com.capa3Persistencia.entities.UsuarioDTO;
 import com.capa3Persistencia.exception.PersistenciaException;
-
-
-
 
 @Stateless
 @LocalBean
 
-public class GestionUsuarioService implements Serializable{
-
+public class GestionUsuarioService implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@EJB
-	UsuariosDAO usuariosPersistenciaDAO;		
 
-	public Usuario fromUsuarioPersistencia(UsuarioPersistencia e) {
-		Usuario usuario=new Usuario();
-		usuario.setId(e.getId().longValue());
+	@EJB
+	UsuariosDAO usuariosPersistenciaDAO;
+
+	public Usuario fromUsuarioDTO(UsuarioDTO e) {
+		Usuario usuario = new Usuario();
+		usuario.setId(e.getId());
+		usuario.setApellido(e.getApellido());
 		usuario.setNombre(e.getNombre());
-		usuario.setPassword(e.getPassword());
-		
+		usuario.setFechaNac(e.getFechaNac());
+		usuario.setDireccion(e.getDireccion());
+		usuario.setNumeroalumno(e.getNumeroEstudiante());
+		usuario.setActivo(e.getActivo());
+		usuario.setCarreraOEspecialidad(e.getCarreraOEspecialidad());
+		usuario.setMail(e.getMail());
+
 		return usuario;
 	}
-	public UsuarioPersistencia toUsuarioPersistencia(Usuario e) {
-		UsuarioPersistencia usuario = new UsuarioPersistencia();
-		usuario.setId(e.getId()!=null?e.getId().longValue():null);
+
+	public UsuarioDTO toUsuarioDTO(Usuario e) {
+
+		UsuarioDTO usuario = new UsuarioDTO();
+
+		usuario.setId(e.getId());
+		usuario.setApellido(e.getApellido());
 		usuario.setNombre(e.getNombre());
-		usuario.setPassword(e.getPassword());
+		usuario.setFechaNac(e.getFechaNac());
+		usuario.setDireccion(e.getDireccion());
+		usuario.setNumeroEstudiante(e.getNumeroalumno());
+		usuario.setActivo(e.getActivo());
+		usuario.setCarreraOEspecialidad(e.getCarreraOEspecialidad());
+		usuario.setMail(e.getMail());
+
+
 		return usuario;
 	}
-	
+
 	// servicios para capa de Presentacion
 	public List<Usuario> seleccionarUsuarios() throws PersistenciaException {
-		//buscamos todos los  objetos UsuarioPersistencia
-		List<UsuarioPersistencia> listaUsuariosPersistencia = usuariosPersistenciaDAO.buscarUsuarios();
-		
-		List<Usuario> listaUsuarios=new ArrayList<Usuario>();
-		//recorremos listaUsuariosPersistencia y vamos populando listaUsuarios (haciendo la conversion requerida)
-		for (UsuarioPersistencia usuarioPersistencia : listaUsuariosPersistencia) {
-			listaUsuarios.add(fromUsuarioPersistencia(usuarioPersistencia));
+		// buscamos todos los objetos UsuarioDTO
+		List<UsuarioDTO> listaUsuariosPersistencia = usuariosPersistenciaDAO.buscarUsuarios();
+
+		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		// recorremos listaUsuariosPersistencia y vamos populando listaUsuarios
+		// (haciendo la conversion requerida)
+		for (UsuarioDTO usuarioPersistencia : listaUsuariosPersistencia) {
+			listaUsuarios.add(fromUsuarioDTO(usuarioPersistencia));
 		}
 		return listaUsuarios;
 	}
-	
-	public Usuario agregarUsuario(Usuario usuarioSeleccionado) throws PersistenciaException   {
-		UsuarioPersistencia u = usuariosPersistenciaDAO.agregarUsuario(toUsuarioPersistencia(usuarioSeleccionado));
-		return fromUsuarioPersistencia(u);
+
+	public Usuario agregarUsuario(Usuario usuarioSeleccionado) throws PersistenciaException {
+		UsuarioDTO u = usuariosPersistenciaDAO.agregarUsuario(toUsuarioDTO(usuarioSeleccionado));
+		return fromUsuarioDTO(u);
 	}
 
-	
 	public Usuario buscarUsuario(Long id) {
-		UsuarioPersistencia e = usuariosPersistenciaDAO.buscarUsuario(id);
-		return fromUsuarioPersistencia(e);
+		UsuarioDTO e = usuariosPersistenciaDAO.buscarUsuario(id);
+		return fromUsuarioDTO(e);
 	}
-	
-	public List<UsuarioPersistencia> buscarUsuarios() {
-		List<UsuarioPersistencia> e = null;
+
+	public List<UsuarioDTO> buscarUsuarios() {
+		List<UsuarioDTO> e = null;
 		try {
 			e = usuariosPersistenciaDAO.buscarUsuarios();
 		} catch (PersistenciaException e1) {
@@ -83,33 +93,10 @@ public class GestionUsuarioService implements Serializable{
 		}
 		return e;
 	}
-//
-//	public List<Usuario> seleccionarEmpleados(String criterioNombre,String criterioDepartamento,Boolean criterioActivo) throws PersistenciaException {
-//		//buscamos empleados segun criterio indicado
-//		List<EmpleadoEmpresa> listaEmpleadosEmpresa = usuariosPersistenciaDAO.seleccionarEmpleados(criterioNombre,criterioDepartamento,criterioActivo);
-//		//lista para devolver la seleccion de empleados
-//		List<Empleado> listaEmpleados=new ArrayList<Empleado>();
-//		//recorremos listaEmpleadosEmpresa y vamos populando listaEmpleado (haciendo la conversion requerida)
-//		for (EmpleadoEmpresa empleadoEmpresa : listaEmpleadosEmpresa) {
-//			listaEmpleados.add(fromEmpleadoEmpresa(empleadoEmpresa));
-//		}
-//		return listaEmpleados;
-//		
-//	}
-//	
 
+	public void modificarUsuario(Usuario usuarioExistente) throws PersistenciaException {
+		UsuarioDTO u = usuariosPersistenciaDAO.modificarUsuario(toUsuarioDTO(usuarioExistente));
+	}
 
-//	public Empleado buscarEmpleado(Long i) {
-//		EmpleadoEmpresa e = usuariosPersistenciaDAO.buscarEmpleado(i);
-//		return fromEmpleadoEmpresa(e);
-//	}
-//	
-
-
-//	public void actualizarEmpleado(Empleado empleadoSeleccionado) throws PersistenciaException   {
-//		EmpleadoEmpresa e = usuariosPersistenciaDAO.modificarEmpleado(toEmpleadoEmpresa(empleadoSeleccionado));
-//	}
-//	
-//	
-	
 }
+
