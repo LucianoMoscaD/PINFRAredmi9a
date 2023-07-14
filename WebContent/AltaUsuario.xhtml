@@ -4,7 +4,25 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
+<h:head>
+
+    <style>
+		html {
+		font-family: Gill Sans Extrabold, sans-serif;
+		}
+		img{
+			margin: 40px;
+		}
+		form {
+			padding: 20px;
+			background-color: lightgray;
+			margin:15px;
+			border-radius: 4px;
+		}
+		h2 {
+		margin: 15px;
+		}		
+    </style></h:head>
 <body>
 
 <h:outputLink value="#{request.contextPath}/index.xhtml">
@@ -15,8 +33,8 @@
 
     <h:messages id="messages" showDetail="true" globalOnly="true"
         closable="true" />
-
-    <h:form id="idDatosParticipanteo">
+	
+    <h:form id="idDatosParticipantes">
         <h:panelGrid columns="3">
             <h:outputLabel value="Nombre" />
             <h:inputText id="nombre"
@@ -42,7 +60,8 @@
             <h:inputText id="direccion"
                 value="#{gestionUsuario.usuarioSeleccionado.direccion}" />
             <h:message for="direccion" style="color:red" />
-<h:outputLabel value="Mail" />
+            
+			<h:outputLabel value="Mail" />
             <h:inputText id="mail"
                 value="#{gestionUsuario.usuarioSeleccionado.mail}" />
             <h:message for="mail" style="color:red" />
@@ -63,9 +82,10 @@
             <h:message for="numeroEstudiante" style="color:red" />
 
         </h:panelGrid>
+            <h:commandButton value="Guardar cambios"
+        action="#{gestionUsuario.salvarCambios()}" />
     </h:form>
-    <h:commandButton value="Guardar cambios"
-        action="#{gestionUsuario.salvarCambios}" />
+
 
 </body>
 </html>

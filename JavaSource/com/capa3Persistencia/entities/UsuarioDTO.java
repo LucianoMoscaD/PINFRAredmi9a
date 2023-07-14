@@ -29,7 +29,7 @@ public class UsuarioDTO {
 	private String apellido;
 
 	@Column(nullable = false, length = 50)
-	private Date fechaNac;
+	private String fechaNac;
 
 	@Column(nullable = false)
 	private int alumno;
@@ -56,7 +56,7 @@ public class UsuarioDTO {
 	}
 
 
-	public UsuarioDTO(long id, String nombre, String apellido, Date fechaNac, int alumno, String direccion, String mail,
+	public UsuarioDTO(long id, String nombre, String apellido, String fechaNac, int alumno, String direccion, String mail,
 			String activo, String carreraOEspecialidad, String numeroEstudiante) {
 		super();
 		this.id = id;
@@ -109,13 +109,13 @@ public class UsuarioDTO {
 
 
 
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
 
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 

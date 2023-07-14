@@ -42,8 +42,7 @@ public class GestionUsuario implements Serializable {
 		usuarioSeleccionado = new Usuario();
 	}
 
-	// Pasar a modo
-	public String salvarCambios() {
+	public void salvarCambios() {
 
 		Usuario usuarioNuevo;
 		try {
@@ -57,7 +56,6 @@ public class GestionUsuario implements Serializable {
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Se ha agregado un nuevo Usuario con id:" + nuevoId.toString(), "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-			return "";
 		} catch (PersistenciaException e) {
 
 			Throwable rootException = ExceptionsTools.getCause(e);
@@ -71,8 +69,6 @@ public class GestionUsuario implements Serializable {
 		} finally {
 
 		}
-
-		return "";
 	}
 
 	public String reset() {

@@ -18,8 +18,6 @@ import com.capa2LogicaNegocio.GestionUsuarioService;
 
 @Path("usuarios")
 public class RestApiService {
-	
-	
 
 	@EJB
 	GestionUsuarioService gestionUsuarioService;
