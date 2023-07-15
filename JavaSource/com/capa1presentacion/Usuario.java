@@ -29,7 +29,7 @@ public class Usuario {
 	private String apellido;
 
 	@Column(nullable = false, length = 50)
-	private String fechaNac;
+	private Date fechaNac;
 
 	@Column(nullable = false)
 	private int alumno;
@@ -40,23 +40,27 @@ public class Usuario {
 	@Column(nullable = false, length = 50)
 	private String mail;
 
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	private String activo;
 	
 	@Column(nullable = true, length = 100)
 	private String carreraOEspecialidad;
 	
 	@Column(nullable = true)
-	private String numeroalumno;
+	private String numeroAlumno;
 	
+	@Column(nullable = true)
+	private String usuario;
 	
+	@Column(nullable = true)
+	private String password;
 	
 	public Usuario() {
 		super();
 	}
 
 
-	public Usuario(long id, String nombre, String apellido, String fechaNac, int alumno, String direccion, String mail,
+	public Usuario(long id, String nombre, String apellido, Date fechaNac, int alumno, String direccion, String mail,
 			String activo, String carreraOEspecialidad, String numeroalumno) {
 		super();
 		this.id = id;
@@ -68,7 +72,7 @@ public class Usuario {
 		this.mail = mail;
 		this.activo = activo;
 		this.carreraOEspecialidad = carreraOEspecialidad;
-		this.numeroalumno = numeroalumno;
+		this.numeroAlumno = numeroalumno;
 	}
 
 
@@ -95,6 +99,45 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
+	
+	public int getAlumno() {
+		return alumno;
+	}
+
+
+	public void setAlumno(int alumno) {
+		this.alumno = alumno;
+	}
+
+
+	public String getNumeroAlumno() {
+		return numeroAlumno;
+	}
+
+
+	public void setNumeroAlumno(String numeroAlumno) {
+		this.numeroAlumno = numeroAlumno;
+	}
+
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 
 	public String getApellido() {
@@ -109,13 +152,13 @@ public class Usuario {
 
 
 
-	public String getFechaNac() {
+	public Date getFechaNac() {
 		return fechaNac;
 	}
 
 
 
-	public void setFechaNac(String fechaNac) {
+	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
@@ -170,13 +213,13 @@ public class Usuario {
 
 
 	public String getNumeroalumno() {
-		return numeroalumno;
+		return numeroAlumno;
 	}
 
 
 
 	public void setNumeroalumno(String numeroalumno) {
-		this.numeroalumno = numeroalumno;
+		this.numeroAlumno = numeroalumno;
 	}
 
 	public int getalumno() {
@@ -195,7 +238,7 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
 				+ ", alumno=" + alumno + ", direccion=" + direccion + ", mail=" + mail + ", activo=" + activo
-				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroalumno=" + numeroalumno + "]";
+				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroalumno=" + numeroAlumno + "]";
 	}
 
 }

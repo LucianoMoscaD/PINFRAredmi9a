@@ -13,15 +13,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/validation/api/main/jakarta.validation-api-2.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/org/hibernate/validator/main/hibernate-validator-6.0.23.Final.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/inject/api/main/jakarta.inject-api-1.0.5.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/enterprise/api/main/jakarta.enterprise.cdi-api-2.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/faces/api/main/jboss-jsf-api_2.3_spec-3.1.0.SP01.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/ejb/api/main/jboss-ejb-api_3.2_spec-2.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/persistence/api/main/jakarta.persistence-api-2.2.3.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/json/api/main/jakarta.json-api-1.1.6.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/servlet/api/main/jboss-servlet-api_4.0_spec-2.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="C:/wildfly-26.1.0.Final/modules/system/layers/base/javax/ws/rs/api/main/jboss-jaxrs-api_2.1_spec-2.0.2.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lmd62/Desktop/repositorioPDT/PDT2022/dependencies/hibernate-core-5.3.24.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lmd62/Desktop/repositorioPDT/PDT2022/dependencies/javax.persistence.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lmd62/Desktop/repositorioPDT/PDT2022/dependencies/jboss-client.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-6.2.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

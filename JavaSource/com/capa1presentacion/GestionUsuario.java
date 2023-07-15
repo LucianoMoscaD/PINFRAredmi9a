@@ -1,14 +1,22 @@
 package com.capa1presentacion;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.spi.Context;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import com.capa2LogicaNegocio.GestionUsuarioService;
 import com.capa3Persistencia.dao.UsuariosDAO;
@@ -32,6 +40,10 @@ public class GestionUsuario implements Serializable {
 	UsuariosDAO usuarioDAO;
 
 	private Usuario usuarioSeleccionado;
+	
+	private Usuario usuarioLogueado;
+	
+	boolean logueado; 
 
 	public GestionUsuario() {
 		super();
@@ -40,6 +52,7 @@ public class GestionUsuario implements Serializable {
 	@PostConstruct
 	public void init() {
 		usuarioSeleccionado = new Usuario();
+		
 	}
 
 	public void salvarCambios() {
@@ -96,6 +109,44 @@ public class GestionUsuario implements Serializable {
 		List<UsuarioDTO> listaUsuarios = persistenciaBean.buscarUsuarios();
 		return UsuariosDAO.convertirListaAJson(listaUsuarios);
 	}
+	
+//	public void checkCredenciales(final String usuario, final String password) {
+//	    try {
+//	        Class.forName("org.h2.Driver");
+//
+//	        Context context = new InitialContext();
+//	        DataSource dataSource = (DataSource) context.lookup("java:jboss/datasources/ExampleDS");
+//	        try (Connection connection = dataSource.getConnection()) {
+//	            String query = "SELECT * FROM Usuarios WHERE Usuario = ? AND Password = ?";
+//	            PreparedStatement statement = connection.prepareStatement(query);
+//	            statement.setString(1, usuario);
+//	            statement.setString(2, password);
+//	            
+//	            ResultSet resultSet = statement.executeQuery();
+//	            
+//	            if (resultSet.next()) {
+//	                // User credentials are valid
+//	                logueado = true;
+//	            } else {
+//	                // User credentials are invalid
+//	                logueado = false;
+//	            }
+//	        }
+//	    } catch ( | SQLException | NamingException e) {
+//	        // Handle any errors that occurred during the database connection or query execution
+//	        e.printStackTrace();
+//	    }
+//	}
 
+
+	public Usuario getUsuarioLogueado() {
+		return usuarioLogueado;
+		
+	}
+
+	public void setUsuarioLogueado(Usuario usuarioLogueado) {
+		this.usuarioLogueado = usuarioLogueado;
+		
+	}
 
 }

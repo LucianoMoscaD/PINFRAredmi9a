@@ -2,90 +2,132 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
+    <title>Alta de usuarios</title>
+	<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
 
-    <style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style></h:head>
+img {
+	margin: 40px;
+}
+
+.aligned-input {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+
+.input-container {
+	display: flex;
+	align-items: center;
+}
+
+.input-container label {
+	width: 120px;
+}
+
+.input-container input, .input-container select {
+	flex: 1;
+	padding: 5px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
+
+.error-message {
+	color: red;
+	margin-top: 5px;
+}
+
+.save-button {
+	margin-top: 10px;
+}
+</style>
+</h:head>
 <body>
 
-<h:outputLink value="#{request.contextPath}/index.xhtml">
-        <h:outputText value="Volver" />
-    </h:outputLink>
+	<h:outputLink value="#{request.contextPath}/index.xhtml">
+		<h:outputText value="Volver" />
+	</h:outputLink>
 
-    <h2>Ingreso de Usuario</h2>
+	<h2>Ingreso de Usuario</h2>
 
-    <h:messages id="messages" showDetail="true" globalOnly="true"
-        closable="true" />
-	
-    <h:form id="idDatosParticipantes">
-        <h:panelGrid columns="3">
-            <h:outputLabel value="Nombre" />
-            <h:inputText id="nombre"
-                value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
-            <h:message for="nombre" style="color:red" />
+	<h:messages id="messages" showDetail="true" globalOnly="true"
+		closable="true" />
 
-            <h:outputLabel value="Apellido" />
-            <h:inputText id="apellido"
-                value="#{gestionUsuario.usuarioSeleccionado.apellido}" />
-            <h:message for="apellido" style="color:red" />
+	<h:form id="idDatosParticipantes">
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Nombre" />
+			<p:inputText id="nombre"
+				value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
+			<h:message for="nombre" style="color:red" />
 
-            <h:outputLabel value="Fecha de Nacimiento" />
-            <h:inputText id="fechaNac"
-                value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
-            <h:message for="fechaNac" style="color:red" />
+			<h:outputLabel value="Apellido" />
+			<p:inputText id="apellido"
+				value="#{gestionUsuario.usuarioSeleccionado.apellido}" />
+			<h:message for="apellido" style="color:red" />
 
-            <h:outputLabel value="Rol" />
-            <h:inputText id="rol"
-                value="#{gestionUsuario.usuarioSeleccionado.alumno}" />
-            <h:message for="rol" style="color:red" />
+			<h:outputLabel value="Fecha de Nacimiento" />
+			<p:calendar id="fechaNac"
+				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
+			<h:message for="fechaNac" style="color:red" />
 
-            <h:outputLabel value="Dirección" />
-            <h:inputText id="direccion"
-                value="#{gestionUsuario.usuarioSeleccionado.direccion}" />
-            <h:message for="direccion" style="color:red" />
-            
+
+			<h:outputLabel value="Dirección" />
+			<p:inputText id="direccion"
+				value="#{gestionUsuario.usuarioSeleccionado.direccion}" />
+			<h:message for="direccion" style="color:red" />
+
 			<h:outputLabel value="Mail" />
-            <h:inputText id="mail"
-                value="#{gestionUsuario.usuarioSeleccionado.mail}" />
-            <h:message for="mail" style="color:red" />
+			<p:inputText id="mail"
+				value="#{gestionUsuario.usuarioSeleccionado.mail}" />
+			<h:message for="mail" style="color:red" />
 
-            <h:outputLabel value="Activo" />
-            <h:inputText id="activo"
-                value="#{gestionUsuario.usuarioSeleccionado.activo}" />
-            <h:message for="activo" style="color:red" />
+			<h:panelGroup
+				rendered="#{gestionUsuario.usuarioLogueado.alumno eq 0}">
+				<h:outputLabel value="Activo" />
+				<p:selectOneRadio id="activo"
+					value="#{gestionUsuario.usuarioSeleccionado.activo}">
+					<f:selectItem itemLabel="Si" itemValue="1" />
+					<f:selectItem itemLabel="No" itemValue="0" />
+				</p:selectOneRadio>
+				<h:message for="activo" style="color:red" />
+			</h:panelGroup>
 
-            <h:outputLabel value="Carrera o Especialidad" />
-            <h:inputText id="carreraOEspecialidad"
-                value="#{gestionUsuario.usuarioSeleccionado.carreraOEspecialidad}" />
-            <h:message for="carreraOEspecialidad" style="color:red" />
+			<h:panelGroup
+				rendered="#{gestionUsuario.usuarioSeleccionado.alumno eq '1'}" >
+				<h:outputLabel value="Carrera o Especialidad" />
+				<p:inputText id="carreraOEspecialidad"
+					value="#{gestionUsuario.usuarioSeleccionado.carreraOEspecialidad}" />
+				<h:message for="carreraOEspecialidad" style="color:red" />
+			</h:panelGroup>
 
-            <h:outputLabel value="Número de Estudiante" />
-            <h:inputText id="numeroEstudiante"
-                value="#{gestionUsuario.usuarioSeleccionado.numeroalumno}" />
-            <h:message for="numeroEstudiante" style="color:red" />
+			<h:panelGroup
+				rendered="#{gestionUsuario.usuarioSeleccionado.alumno eq '1'}" >
+				<h:outputLabel value="Número de Estudiante" />
 
-        </h:panelGrid>
-            <h:commandButton value="Guardar cambios"
-        action="#{gestionUsuario.salvarCambios()}" />
-    </h:form>
+				<p:inputNumber id="numeroEstudiante"
+					value="#{gestionUsuario.usuarioSeleccionado.numeroalumno}"
+					minFractionDigits="0" />
+				<h:message for="numeroEstudiante" style="color:red" />
+			</h:panelGroup>
 
-
+		</h:panelGrid>
+		<h:commandButton value="Guardar cambios"
+			action="#{gestionUsuario.salvarCambios()}" />
+	</h:form>
 </body>
 </html>

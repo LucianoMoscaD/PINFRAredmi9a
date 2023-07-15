@@ -2,33 +2,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
 
 <h:head>
-<style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style></h:head>
-<h:body>
-	<h1>Usuarios:</h1>
-	<h:outputText value="#{gestionUsuario.mostrarUsuarios()}" />
+    <title>Listado de usuarios</title>
+	<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
 
-<br/>
-	<h:outputLink value="#{request.contextPath}/index.xhtml">
-		<h:outputText value="Volver" />
-	</h:outputLink>
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<table>
+			<tr>
+				<td colspan="2">
+					<h1>
+						<img src="utec.jpg" alt="Logo UTEC" width="200px"
+							height="auto" />Datos de los Usuarios
+					</h1>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<hr color="skyblue" size="5px" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<h2>Datos de los Usuarios</h2>
+				</td>
+			</tr>
+			<tr>
+    <td colspan="2">
+        <h:outputText value="#{gestionUsuario.mostrarUsuarios()}" />
+    </td>
+</tr>
+
+
+			<tr>
+				<h:outputLink value="#{request.contextPath}/index.xhtml">
+					<h:outputText value="Volver" />
+				</h:outputLink>
+			</tr>
+
+		</table>
+	</h:form>
 </h:body>
 </html>

@@ -9,12 +9,25 @@
 </head>
 
 <h:body>
-	<h1>Bienvenide, ${gestionUsuario.usuarioSeleccionado.nombre}</h1>
-    <p>Has iniciado sesión correctamente.</p>
+	
+	<h:form>
+		<h:commandButton value="Alta alumno" action="altaAlumno">
+			<f:setPropertyActionListener
+				target="#{gestionUsuario.usuarioSeleccionado.alumno}" value="1" />
+				<f:setPropertyActionListener
+				target="#{gestionUsuario.usuarioSeleccionado.activo}" value="0" />
+		</h:commandButton>
+		<br />
 
-	<h:outputLink value="#{request.contextPath}/index.xhtml">
-		<h:outputText value="Volver" />
-	</h:outputLink>
+		<h:commandButton value="Alta funcionario" action="altaFuncionario">
+			<f:setPropertyActionListener
+				target="#{gestionUsuario.usuarioSeleccionado.alumno}" value="0" />
+		</h:commandButton>
+			<br />
+		
+		<h:commandButton value="Listar usuarios" action="listarUsuarios"/>
+			
+	</h:form>
 </h:body>
 
 </html>

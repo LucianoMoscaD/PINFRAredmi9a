@@ -29,7 +29,7 @@ public class UsuarioDTO {
 	private String apellido;
 
 	@Column(nullable = false, length = 50)
-	private String fechaNac;
+	private Date fechaNac;
 
 	@Column(nullable = false)
 	private int alumno;
@@ -40,14 +40,14 @@ public class UsuarioDTO {
 	@Column(nullable = false, length = 50)
 	private String mail;
 
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	private String activo;
 	
 	@Column(nullable = true, length = 100)
 	private String carreraOEspecialidad;
 	
 	@Column(nullable = true)
-	private String numeroEstudiante;
+	private String numeroAlumno;
 	
 	
 	
@@ -56,7 +56,7 @@ public class UsuarioDTO {
 	}
 
 
-	public UsuarioDTO(long id, String nombre, String apellido, String fechaNac, int alumno, String direccion, String mail,
+	public UsuarioDTO(long id, String nombre, String apellido, Date fechaNac, int alumno, String direccion, String mail,
 			String activo, String carreraOEspecialidad, String numeroEstudiante) {
 		super();
 		this.id = id;
@@ -68,7 +68,7 @@ public class UsuarioDTO {
 		this.mail = mail;
 		this.activo = activo;
 		this.carreraOEspecialidad = carreraOEspecialidad;
-		this.numeroEstudiante = numeroEstudiante;
+		this.numeroAlumno = numeroEstudiante;
 	}
 
 
@@ -109,13 +109,13 @@ public class UsuarioDTO {
 
 
 
-	public String getFechaNac() {
+	public Date getFechaNac() {
 		return fechaNac;
 	}
 
 
 
-	public void setFechaNac(String fechaNac) {
+	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
@@ -170,13 +170,13 @@ public class UsuarioDTO {
 
 
 	public String getNumeroEstudiante() {
-		return numeroEstudiante;
+		return numeroAlumno;
 	}
 
 
 
-	public void setNumeroEstudiante(String numeroEstudiante) {
-		this.numeroEstudiante = numeroEstudiante;
+	public void setNumeroEstudiante(String numeroAlumno) {
+		this.numeroAlumno = numeroAlumno;
 	}
 
 	public int getAlumno() {
@@ -195,7 +195,7 @@ public class UsuarioDTO {
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
 				+ ", alumno=" + alumno + ", direccion=" + direccion + ", mail=" + mail + ", activo=" + activo
-				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroEstudiante=" + numeroEstudiante + "]";
+				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroEstudiante=" + numeroAlumno + "]";
 	}
 
 }

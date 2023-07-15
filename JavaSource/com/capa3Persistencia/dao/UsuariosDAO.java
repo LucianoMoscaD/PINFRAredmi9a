@@ -81,8 +81,8 @@ public class UsuariosDAO {
 	        UsuarioDTO usuario = usuarios.get(i);
 	        jsonBuilder.append("{");
 	        jsonBuilder.append("\"id\": \"").append(usuario.getId()).append("\",");
-	        jsonBuilder.append("\"nombre1\": \"").append(usuario.getNombre()).append("\",");
-	        jsonBuilder.append("\"apellido1\": \"").append(usuario.getApellido()).append("\",");
+	        jsonBuilder.append("\"nombre\": \"").append(usuario.getNombre()).append("\",");
+	        jsonBuilder.append("\"apellido\": \"").append(usuario.getApellido()).append("\",");
 	        jsonBuilder.append("\"activo\": \"").append(usuario.getActivo()).append("\",");
 	        jsonBuilder.append("\"fechaNacimiento\": \"").append(usuario.getFechaNac()).append("\",");
 	        jsonBuilder.append("\"mail\": \"").append(usuario.getMail()).append("\",");
