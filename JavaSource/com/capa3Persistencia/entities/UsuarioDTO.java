@@ -49,6 +49,12 @@ public class UsuarioDTO {
 	@Column(nullable = true)
 	private String numeroAlumno;
 	
+	@Column(nullable = false)
+	private String usuario;
+	
+	@Column(nullable = false)
+	private String password;
+	
 	
 	
 	public UsuarioDTO() {
@@ -189,13 +195,32 @@ public class UsuarioDTO {
 		this.alumno = alumno;
 	}
 
+	public String getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
+		return "UsuarioDTO [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
 				+ ", alumno=" + alumno + ", direccion=" + direccion + ", mail=" + mail + ", activo=" + activo
-				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroEstudiante=" + numeroAlumno + "]";
+				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroAlumno=" + numeroAlumno + ", usuario="
+				+ usuario + ", password=" + password + "]";
 	}
 
 }

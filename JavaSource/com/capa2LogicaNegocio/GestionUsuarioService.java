@@ -37,6 +37,9 @@ public class GestionUsuarioService implements Serializable {
 		usuario.setActivo(e.getActivo());
 		usuario.setCarreraOEspecialidad(e.getCarreraOEspecialidad());
 		usuario.setMail(e.getMail());
+		usuario.setUsuario(e.getUsuario());
+		usuario.setPassword(e.getPassword());
+		usuario.setAlumno(e.getAlumno());
 
 		return usuario;
 	}
@@ -54,10 +57,21 @@ public class GestionUsuarioService implements Serializable {
 		usuario.setActivo(e.getActivo());
 		usuario.setCarreraOEspecialidad(e.getCarreraOEspecialidad());
 		usuario.setMail(e.getMail());
+		usuario.setUsuario(e.getUsuario());
+		usuario.setPassword(e.getPassword());
+		usuario.setAlumno(e.getAlumno());
 
 
 		return usuario;
 	}
+	
+    public Usuario obtenerUsuarioPorId(Long id) throws PersistenciaException {
+        try {
+            return fromUsuarioDTO(usuariosPersistenciaDAO.buscarUsuario(id));
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener el usuario por ID", e);
+        }
+    }
 
 	// servicios para capa de Presentacion
 	public List<Usuario> seleccionarUsuarios() throws PersistenciaException {
@@ -93,10 +107,36 @@ public class GestionUsuarioService implements Serializable {
 		}
 		return e;
 	}
+	
+	public List<UsuarioDTO> buscarAlumnos() {
+		List<UsuarioDTO> e = null;
+		try {
+			e = usuariosPersistenciaDAO.buscarAlumnos();
+		} catch (PersistenciaException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return e;
+	}
 
 	public void modificarUsuario(Usuario usuarioExistente) throws PersistenciaException {
 		UsuarioDTO u = usuariosPersistenciaDAO.modificarUsuario(toUsuarioDTO(usuarioExistente));
 	}
+	
+	public UsuarioDTO login(final String usuario, final String password) throws PersistenciaException {
+		UsuarioDTO usuarioDTO = usuariosPersistenciaDAO.checkCredenciales(usuario, password);
+		return usuarioDTO;
+	}
 
+	public List<UsuarioDTO> buscarFuncionarios() {
+		List<UsuarioDTO> e = null;
+		try {
+			e = usuariosPersistenciaDAO.buscarFuncionarios();
+		} catch (PersistenciaException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return e;
+	}
 }
 

@@ -1,0 +1,84 @@
+<!-- no_alumno.xhtml -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Alta de usuarios</title>    <style>
+		html {
+		font-family: Gill Sans Extrabold, sans-serif;
+		}
+		img{
+			margin: 40px;
+		}
+		form {
+			padding: 20px;
+			background-color: lightgray;
+			margin:15px;
+			border-radius: 4px;
+		}
+		h2 {
+		margin: 15px;
+		}		
+    </style>
+</h:head>
+<body>
+
+        <h1>
+            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+        </h1>
+        <hr color="skyblue" size="5px" />
+	<h:outputLink value="#{request.contextPath}/index.xhtml">
+		<h:outputText value="Volver" />
+	</h:outputLink>
+
+	<h2>Ingreso de Usuario - No Alumno</h2>
+
+	<h:messages id="messages" showDetail="true" globalOnly="true"
+		closable="true" />
+
+	<h:form id="idDatosParticipantes">
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Usuario" />
+			<p:inputText id="usuario"
+				value="#{gestionUsuario.usuarioSeleccionado.usuario}" />
+			<h:message for="usuario" style="color:red" />
+
+			<h:outputLabel value="Password" />
+			<p:inputText id="password"
+				value="#{gestionUsuario.usuarioSeleccionado.password}" />
+			<h:message for="password" style="color:red" />
+
+			<h:outputLabel value="Nombre" />
+			<p:inputText id="nombre"
+				value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
+			<h:message for="nombre" style="color:red" />
+
+			<h:outputLabel value="Apellido" />
+			<p:inputText id="apellido"
+				value="#{gestionUsuario.usuarioSeleccionado.apellido}" />
+			<h:message for="apellido" style="color:red" />
+
+			<h:outputLabel value="Fecha de Nacimiento" />
+			<p:calendar id="fechaNac"
+				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
+			<h:message for="fechaNac" style="color:red" />
+
+			<h:outputLabel value="Dirección" />
+			<p:inputText id="direccion"
+				value="#{gestionUsuario.usuarioSeleccionado.direccion}" />
+			<h:message for="direccion" style="color:red" />
+
+			<h:outputLabel value="Mail" />
+			<p:inputText id="mail"
+				value="#{gestionUsuario.usuarioSeleccionado.mail}" />
+			<h:message for="mail" style="color:red" />
+
+		</h:panelGrid>
+	<h:commandButton value="Guardar cambios"
+			action="#{gestionUsuario.salvarCambios()}" />
+	</h:form>
+</body>
+</html>

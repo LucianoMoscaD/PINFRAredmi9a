@@ -6,7 +6,10 @@
 
 <h:head></h:head>
 <body>
-
+        <h1>
+            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+        </h1>
+        <hr color="skyblue" size="5px" />
 	<h2>Login</h2>
 
 	<h:form id="Login">
@@ -14,7 +17,7 @@
 		<h:form>
 			<h:outputLabel for="username" value="Nombre " />
 			<h:inputText id="username"
-				value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
+				value="#{gestionUsuario.usuarioSeleccionado.usuario}" />
 
 			<br />
 
@@ -24,9 +27,7 @@
 
 			<br />
 
-			<h:commandButton value="Login"
-				action="#{gestionUsuario.checkCredenciales}" />
-
+			<h:commandButton value="Login" action="#{loginBean.login()}" />
 			<h:messages style="color: red;" />
 
 		</h:form>

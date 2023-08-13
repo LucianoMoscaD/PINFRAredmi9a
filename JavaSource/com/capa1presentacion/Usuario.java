@@ -222,15 +222,6 @@ public class Usuario {
 		this.numeroAlumno = numeroalumno;
 	}
 
-	public int getalumno() {
-		return alumno;
-	}
-
-
-
-	public void setalumno(int alumno) {
-		this.alumno = alumno;
-	}
 
 
 

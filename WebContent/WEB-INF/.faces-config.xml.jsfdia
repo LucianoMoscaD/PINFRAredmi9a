@@ -1,22 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#AltaUsuario.xhtml" PATH="/AltaUsuario.xhtml"
-  SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#ListaUsuarios.xhtml"
-  PATH="/ListaUsuarios.xhtml" SHAPE="272,209,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
-  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
-   PATH="/index.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="altaAlumno::#AltaUsuario.xhtml"
-    NAME="output" PATH="/AltaUsuario.xhtml"
-    TARGET="rules:#AltaUsuario.xhtml" TITLE="altaAlumno" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="altaFuncionario::#AltaUsuario.xhtml"
-    NAME="output1" PATH="/AltaUsuario.xhtml"
-    TARGET="rules:#AltaUsuario.xhtml" TITLE="altaFuncionario" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="listarUsuarios::#ListaUsuarios.xhtml"
-    NAME="output2" PATH="/ListaUsuarios.xhtml"
-    TARGET="rules:#ListaUsuarios.xhtml" TITLE="listarUsuarios" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
-</PROCESS>
+<PROCESS model-entity="JSFProcess"/>

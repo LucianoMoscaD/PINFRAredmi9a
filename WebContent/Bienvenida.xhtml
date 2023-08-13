@@ -5,28 +5,39 @@
       xmlns:h="http://java.sun.com/jsf/html"> 
 
 <head>
-    <title>Página de inicio</title>
+    <title>Página de inicio</title>    <style>
+		html {
+		font-family: Gill Sans Extrabold, sans-serif;
+		}
+		img{
+			margin: 40px;
+		}
+		form {
+			padding: 20px;
+			background-color: lightgray;
+			margin:15px;
+			border-radius: 4px;
+		}
+		h2 {
+		margin: 15px;
+		}		
+    </style>
 </head>
 
 <h:body>
+        <h1>
+            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+        </h1>
+        <hr color="skyblue" size="5px" />
 	
 	<h:form>
-		<h:commandButton value="Alta alumno" action="altaAlumno">
-			<f:setPropertyActionListener
-				target="#{gestionUsuario.usuarioSeleccionado.alumno}" value="1" />
-				<f:setPropertyActionListener
-				target="#{gestionUsuario.usuarioSeleccionado.activo}" value="0" />
-		</h:commandButton>
-		<br />
-
-		<h:commandButton value="Alta funcionario" action="altaFuncionario">
-			<f:setPropertyActionListener
-				target="#{gestionUsuario.usuarioSeleccionado.alumno}" value="0" />
-		</h:commandButton>
-			<br />
+		<h:commandButton value="Listar usuarios" action="#{navigationBean.goToListarUsuarios}" rendered="#{not sesionBean.alumno}"/>
+		<h:commandButton value="Modificar usuarios" action="#{navigationBean.goToModificarUsuarios}" rendered="#{not sesionBean.alumno}"/>
 		
-		<h:commandButton value="Listar usuarios" action="listarUsuarios"/>
-			
+		<h:commandButton value="Modificar usuario" action="#{navigationBean.goToModificarDatosPropios}" rendered="#{sesionBean.alumno}"/>
+		
+		<h:commandButton value="Cerrar sesión" action="#{loginBean.logoff()}" />
+		
 	</h:form>
 </h:body>
 

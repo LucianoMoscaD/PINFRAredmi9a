@@ -2,35 +2,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui">
+	
+<head>
+<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
 
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+
+.button-container {
+	text-align: center;
+	margin-top: 20px; /* Add margin for spacing */
+}
+</style>
+</head>
 
 <body>
 
-	<h:form>
-		<h:commandButton value="Alta alumno" action="altaAlumno">
-			<f:setPropertyActionListener
-				target="#{gestionUsuario.usuarioSeleccionado.alumno}" value="1" />
-				<f:setPropertyActionListener
-				target="#{gestionUsuario.usuarioSeleccionado.activo}" value="0" />
-		</h:commandButton>
-		<br />
+	<h1>
+		<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+	</h1>
+	<hr color="skyblue" size="5px" />
 
-		<h:commandButton value="Alta funcionario" action="altaFuncionario">
-			<f:setPropertyActionListener
-				target="#{gestionUsuario.usuarioSeleccionado.alumno}" value="0" />
-		</h:commandButton>
-			<br />
-		
-		<h:commandButton value="Listar usuarios" action="listarUsuarios"/>
-			
-	</h:form>
+	<div class="button-container">
+		<h:form rendered="#{!sesionBean.logueado}">
+			<p:commandButton value="Registro"
+				action="#{navigationBean.goToRegistro}" />
+			<p:commandButton value="Login" action="#{navigationBean.goToLogin}" />
+		</h:form>
 
-	
-	<br />
-	<h:outputLink value="#{request.contextPath}/Login.xhtml">
-		<h:outputText value="Login" />
-	</h:outputLink>
+	</div>
+
 </body>
 
 </html>

@@ -1,69 +1,66 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Listado de usuarios</title>
-	<style>
-html {
-	font-family: Gill Sans Extrabold, sans-serif;
-}
-
-img {
-	margin: 40px;
-}
-
-form {
-	padding: 20px;
-	background-color: lightgray;
-	margin: 15px;
-	border-radius: 4px;
-}
-
-h2 {
-	margin: 15px;
-}
-</style>
+    <style>
+    </style>
 </h:head>
 <h:body>
-	<h:form>
-		<table>
-			<tr>
-				<td colspan="2">
-					<h1>
-						<img src="utec.jpg" alt="Logo UTEC" width="200px"
-							height="auto" />Datos de los Usuarios
-					</h1>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<hr color="skyblue" size="5px" />
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<h2>Datos de los Usuarios</h2>
-				</td>
-			</tr>
-			<tr>
-    <td colspan="2">
-        <h:outputText value="#{gestionUsuario.mostrarUsuarios()}" />
-    </td>
-</tr>
+    <h:form>
+        <h1>
+            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+        </h1>
+        <hr color="skyblue" size="5px" />
+        <h2>Datos de los Usuarios</h2>
 
+        <p:commandButton value="Mostrar alumnos" 
+                         actionListener="#{gestionUsuario.mostrarAlumnos}" 
+                         update="usuariosTable"/>
 
-			<tr>
-				<h:outputLink value="#{request.contextPath}/index.xhtml">
-					<h:outputText value="Volver" />
-				</h:outputLink>
-			</tr>
+        <p:commandButton value="Mostrar funcionarios" 
+                         actionListener="#{gestionUsuario.mostrarFuncionarios}" 
+                         update="usuariosTable"/>
 
-		</table>
-	</h:form>
+        <p:dataTable id="usuariosTable" value="#{gestionUsuario.usuarios}" var="usuario"
+                     emptyMessage="No hay usuarios disponibles" 
+                     sortMode="multiple">
+
+            <p:column headerText="ID">
+                #{usuario.id}
+            </p:column>
+            <p:column headerText="Nombre">
+                #{usuario.nombre}
+            </p:column>
+            <p:column headerText="Apellido">
+                #{usuario.apellido}
+            </p:column>
+            <p:column headerText="Fecha Nacimiento">
+                #{usuario.fechaNac}
+            </p:column>
+            <p:column headerText="Dirección">
+                #{usuario.direccion}
+            </p:column>
+            <p:column headerText="Mail">
+                #{usuario.mail}
+            </p:column>
+            <p:column headerText="Activo">
+                #{usuario.activo}
+            </p:column>
+            <p:column headerText="Carrera o Especialidad">
+                #{usuario.carreraOEspecialidad}
+            </p:column>
+            <p:column headerText="Número de Alumno">
+                #{usuario.numeroEstudiante}
+            </p:column>
+        </p:dataTable>
+
+        <h:commandButton value="Volver"
+                         action="#{navigationBean.goToBienvenida}" />
+    </h:form>
 </h:body>
 </html>
