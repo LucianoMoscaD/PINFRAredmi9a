@@ -33,12 +33,11 @@ public class UsuariosDAO {
 
 	public UsuarioDTO agregarUsuario(UsuarioDTO usuario) throws PersistenciaException {
 		try {		
-			System.out.println("Log en persistencia usuario ---- " + usuario);
 			UsuarioDTO UsuarioDTO = em.merge(usuario);
 			em.flush();
 			return UsuarioDTO;
 		} catch (PersistenceException e) {
-			throw new PersistenciaException("No se pudo agregar el usuario." + e.getMessage(), e);
+			throw new PersistenciaException("No se pudo agregar el usuario. " + e.getMessage(), e);
 		} finally {
 
 		}

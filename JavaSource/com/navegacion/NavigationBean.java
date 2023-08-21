@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.capa1presentacion.GestionUsuario;
-import com.capa1presentacion.LoginBean;
+import com.capa1presentacion.Usuario;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -40,11 +40,13 @@ public class NavigationBean implements Serializable {
     
     public void goToRegistroEstudiante()  throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        gestionUsuarios.setUsuarioSeleccionado(new Usuario());
         externalContext.redirect(externalContext.getRequestContextPath() + "/AltaEstudiante.xhtml");
     }
     
     public void goToRegistroFuncionario()  throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        gestionUsuarios.setUsuarioSeleccionado(new Usuario());
         externalContext.redirect(externalContext.getRequestContextPath() + "/AltaFuncionario.xhtml");
     }
     

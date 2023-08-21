@@ -1,13 +1,14 @@
-package com.capa1presentacion;
+package com.navegacion;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.capa1presentacion.GestionUsuario;
+import com.capa1presentacion.Usuario;
 import com.capa3Persistencia.entities.UsuarioDTO;
 import com.capa3Persistencia.exception.PersistenciaException;
-import com.navegacion.SesionBean;
 
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -23,9 +24,11 @@ public class LoginBean implements Serializable {
 
     @Inject
     SesionBean sesionBean;
-    
+        
     private UsuarioDTO usuarioLogueado;
 
+    
+    
     public String login() throws PersistenciaException {
     	setUsuarioLogueado(gestionUsuarioBean.login());
         if (getUsuarioLogueado() != null) {
@@ -37,7 +40,7 @@ public class LoginBean implements Serializable {
             };
             return "Bienvenida.xhtml?faces-redirect=true";
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid credentials", null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales invalidas", null));
             return null;
         }
     }
@@ -45,9 +48,8 @@ public class LoginBean implements Serializable {
     public String logoff() throws PersistenciaException {
         sesionBean.setLogueado(false);
         sesionBean.setAlumno(false);
-        
-        System.out.println(sesionBean.isLogueado());
-        System.out.println(sesionBean.getAlumno());
+        gestionUsuarioBean.setUsuarioSeleccionado(new Usuario());
+       
         return "index.xhtml?faces-redirect=true";
     }
 
@@ -58,6 +60,5 @@ public class LoginBean implements Serializable {
 
 	public void setUsuarioLogueado(UsuarioDTO usuarioLogueado) {
 		this.usuarioLogueado = usuarioLogueado;
-		
 	}
 }

@@ -105,8 +105,10 @@ public class GestionUsuario implements Serializable {
 			usuarioSeleccionado.setAlumno(0);
 			usuarioSeleccionado.setActivo("0");
 			usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
+			
 			// actualizamos id
 			Long nuevoId = usuarioNuevo.getId();
+			
 			// vaciamos empleadoSeleccionado como para ingresar uno nuevo
 			usuarioSeleccionado = new Usuario();
 
@@ -140,7 +142,6 @@ public class GestionUsuario implements Serializable {
 	public void cargarUsuarioAModificar() {
 		try {
 
-			System.out.println("cargar usuarios pre if");
 			usuarioAModificar = persistenciaBean.obtenerUsuarioPorId(selectedUserId);
 			selectedUserId = null;
 
@@ -233,8 +234,7 @@ public class GestionUsuario implements Serializable {
 	}
 
 	public UsuarioDTO login() throws PersistenciaException {
-		UsuarioDTO usuario = persistenciaBean.login(usuarioSeleccionado.getUsuario(),
-				usuarioSeleccionado.getPassword());
+		UsuarioDTO usuario = persistenciaBean.login(usuarioSeleccionado.getUsuario(),usuarioSeleccionado.getPassword());
 		return usuario;
 	}
 

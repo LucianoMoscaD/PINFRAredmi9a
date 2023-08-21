@@ -15,7 +15,6 @@ import com.capa3Persistencia.exception.PersistenciaException;
 
 @Stateless
 @LocalBean
-
 public class GestionUsuarioService implements Serializable {
 
 	/**
@@ -45,7 +44,6 @@ public class GestionUsuarioService implements Serializable {
 	}
 
 	public UsuarioDTO toUsuarioDTO(Usuario e) {
-
 		UsuarioDTO usuario = new UsuarioDTO();
 
 		usuario.setId(e.getId());
@@ -60,7 +58,6 @@ public class GestionUsuarioService implements Serializable {
 		usuario.setUsuario(e.getUsuario());
 		usuario.setPassword(e.getPassword());
 		usuario.setAlumno(e.getAlumno());
-
 
 		return usuario;
 	}
