@@ -1,4 +1,3 @@
-<!-- alumno.xhtml -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -6,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Alta de usuarios</title>
+	<title>Registro nuevo usuario</title>
 	
 	    <style>
 		html {
@@ -28,7 +27,7 @@
 </h:head>
 <body>
         <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" /> Sistema de Gestión de Alumnos
         </h1>
         <hr color="skyblue" size="5px" />
 
@@ -36,61 +35,94 @@
 		<h:outputText value="Volver" />
 	</h:outputLink>
 
-	<h2>Ingreso de Usuario - Alumno</h2>
+	<h2>Ingrese sus datos</h2>
 
 	<h:messages id="messages" showDetail="true" globalOnly="true"
 		closable="true" />
 
 	<h:form id="idDatosParticipantes">
 		<h:panelGrid columns="3">
-			<h:outputLabel value="Usuario" />
-			<p:inputText id="usuario"
-				value="#{gestionUsuario.usuarioSeleccionado.usuario}" />
-			<h:message for="usuario" style="color:red" />
+			<h:outputLabel value="Primer Nombre*" />
+			<p:inputText id="nombre1"
+				value="#{gestionUsuario.usuarioSeleccionado.nombre1}" />
+			<h:message for="nombre1" style="color:red" />
 
-			<h:outputLabel value="Password" />
+			<h:outputLabel value="Segundo Nombre" />
+			<p:inputText id="nombre2"
+				value="#{gestionUsuario.usuarioSeleccionado.nombre2}" />
+			<h:message for="nombre2" style="color:red" />
+
+			<h:outputLabel value="Primer Apellido*" />
+			<p:inputText id="apellido1"
+				value="#{gestionUsuario.usuarioSeleccionado.apellido1}" />
+			<h:message for="apellido1" style="color:red" />
+
+			<h:outputLabel value="Segundo Apellido" />
+			<p:inputText id="apellido2"
+				value="#{gestionUsuario.usuarioSeleccionado.apellido2}" />
+			<h:message for="apellido2" style="color:red" />
+			
+			<h:outputLabel value="Documento*" />
+			<p:inputText id="documento"
+				value="#{gestionUsuario.usuarioSeleccionado.documento}" />
+			<h:message for="documento" style="color:red" />
+
+			<h:outputLabel value="Fecha de Nacimiento*" />
+			<p:calendar id="fechaNac"
+				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
+			<h:message for="fechaNac" style="color:red" />
+			
+			<h:outputLabel value="Email Personal*" />
+			<p:inputText id="emailPersonal"
+				value="#{gestionUsuario.usuarioSeleccionado.emailPersonal}" />
+			<h:message for="emailPersonal" style="color:red" />
+			
+			<h:outputLabel value="Telefono*" />
+			<p:inputText id="telefono"
+				value="#{gestionUsuario.usuarioSeleccionado.telefono}" />
+			<h:message for="telefono" style="color:red" />
+
+			<h:outputLabel value="Localidad*" />
+			<p:inputText id="localidad"
+				value="#{gestionUsuario.usuarioSeleccionado.localidad}" />
+			<h:message for="localidad" style="color:red" />
+			
+			<h:outputLabel value="Departamento*" />
+			<p:inputText id="departamento"
+				value="#{gestionUsuario.usuarioSeleccionado.departamento}" />
+			<h:message for="departamento" style="color:red" />
+			
+			<h:outputLabel value="Nombre de Usuario*" />
+			<p:inputText id="nombreDeUsuario"
+				value="#{gestionUsuario.usuarioSeleccionado.nombreDeUsuario}" />
+			<h:message for="nombreDeUsuario" style="color:red" />
+
+			<h:outputLabel value="Email Institucional*" />
+			<p:inputText id="emailInstitucional"
+				value="#{gestionUsuario.usuarioSeleccionado.emailInstitucional}" />
+			<h:message for="emailInstitucional" style="color:red" />
+
+			<h:outputLabel value="Contrasena*" />
 			<p:inputText id="password"
 				value="#{gestionUsuario.usuarioSeleccionado.password}" />
 			<h:message for="password" style="color:red" />
 
-			<h:outputLabel value="Nombre" />
-			<p:inputText id="nombre"
-				value="#{gestionUsuario.usuarioSeleccionado.nombre}" />
-			<h:message for="nombre" style="color:red" />
-
-			<h:outputLabel value="Apellido" />
-			<p:inputText id="apellido"
-				value="#{gestionUsuario.usuarioSeleccionado.apellido}" />
-			<h:message for="apellido" style="color:red" />
-
-			<h:outputLabel value="Fecha de Nacimiento" />
-			<p:calendar id="fechaNac"
-				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
-			<h:message for="fechaNac" style="color:red" />
-
-			<h:outputLabel value="Dirección" />
-			<p:inputText id="direccion"
-				value="#{gestionUsuario.usuarioSeleccionado.direccion}" />
-			<h:message for="direccion" style="color:red" />
-
-			<h:outputLabel value="Mail" />
-			<p:inputText id="mail"
-				value="#{gestionUsuario.usuarioSeleccionado.mail}" />
-			<h:message for="mail" style="color:red" />
-
-			<h:outputLabel value="Carrera o Especialidad" />
-			<p:inputText id="carreraOEspecialidad"
-				value="#{gestionUsuario.usuarioSeleccionado.carreraOEspecialidad}" />
-			<h:message for="carreraOEspecialidad" style="color:red" />
-
-			<h:outputLabel value="Número de Estudiante" />
-			<p:inputNumber id="numeroEstudiante"
-				value="#{gestionUsuario.usuarioSeleccionado.numeroalumno}"
-				minFractionDigits="0" />
-			<h:message for="numeroEstudiante" style="color:red" />
+			<h:outputLabel value="ITR a asistir" />
+			<p:selectOneMenu id="itr" value="#{gestionUsuario.usuarioSeleccionado.itr}">
+            <f:selectItem itemValue="" itemLabel="Seleccione uno" />
+            <f:selectItem itemValue="Centro Sur" itemLabel="Centro Sur" />
+            <f:selectItem itemValue="Suroeste" itemLabel="Suroeste" />
+            <f:selectItem itemValue="Norte" itemLabel="Norte" />
+        </p:selectOneMenu>
+			<h:message for="itr" style="color:red" />
+			
+			<h:outputLabel value="Año de ingreso a la carrera*" />
+			<p:inputText id="anoIngreso"
+				value="#{gestionUsuario.usuarioSeleccionado.anoIngreso}" />
+			<h:message for="anoIngreso" style="color:red" />
 
 		</h:panelGrid>
-		<h:commandButton value="Guardar cambios"
+		<h:commandButton value="Registrarme"
 			action="#{gestionUsuario.persistirAlumno()}" />
 	</h:form>
 </body>

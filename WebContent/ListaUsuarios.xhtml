@@ -33,30 +33,65 @@
             <p:column headerText="ID">
                 #{usuario.id}
             </p:column>
-            <p:column headerText="Nombre">
-                #{usuario.nombre}
+            <p:column headerText="Primer Nombre">
+                #{usuario.nombre1}
             </p:column>
-            <p:column headerText="Apellido">
-                #{usuario.apellido}
+            <p:column headerText="Segundo Nombre">
+                #{usuario.nombre2}
+            </p:column>
+            <p:column headerText="Primer Apellido">
+                #{usuario.apellido1}
+            </p:column>
+            <p:column headerText="Segundo Apellido">
+                #{usuario.apellido2}
+            </p:column>
+            <p:column headerText="Documento">
+                #{usuario.documento}
             </p:column>
             <p:column headerText="Fecha Nacimiento">
                 #{usuario.fechaNac}
             </p:column>
-            <p:column headerText="Dirección">
-                #{usuario.direccion}
+            <p:column headerText="Email Personal">
+                #{usuario.emailPersonal}
             </p:column>
-            <p:column headerText="Mail">
-                #{usuario.mail}
+            <p:column headerText="Telefono">
+                #{usuario.telefono}
+            </p:column>
+            <p:column headerText="Localidad">
+                #{usuario.localidad}
+            </p:column>
+            <p:column headerText="Departamento">
+                #{usuario.departamento}
+            </p:column>
+            <p:column headerText="Nombre de Usuario">
+                #{usuario.nombreDeUsuario}
+            </p:column>
+            <p:column headerText="Email Institucional">
+                #{usuario.emailInstitucional}
+            </p:column>
+            <p:column headerText="ITR">
+                #{usuario.itr}
             </p:column>
             <p:column headerText="Activo">
                 #{usuario.activo}
             </p:column>
-            <p:column headerText="Carrera o Especialidad">
-                #{usuario.carreraOEspecialidad}
-            </p:column>
-            <p:column headerText="Número de Alumno">
-                #{usuario.numeroEstudiante}
-            </p:column>
+
+<!--SI ES ESTUDIANTE 
+	 * <p:column headerText="Año de ingreso">
+                #{usuario.anoIngreso}
+            </p:column>;
+	
+	SI ES TUTOR 
+	  <p:column headerText="Area del Tutor">
+                #{usuario.areaTutor}
+            </p:column>;
+		
+		<p:column headerText="Rol del Tutor">
+                #{usuario.rolTutor}
+            </p:column>;
+	 -->
+
+
         </p:dataTable>
 
         <h:commandButton value="Volver"
