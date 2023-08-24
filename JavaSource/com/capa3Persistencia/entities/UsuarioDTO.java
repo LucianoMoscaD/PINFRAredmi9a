@@ -1,21 +1,16 @@
 package com.capa3Persistencia.entities;
 
+
+import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 
 @Entity
 @Table(name = "USUARIOS")
-public class UsuarioDTO {
-	
-	private static final long serialVersionUID = 1L;
+public class UsuarioDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@SequenceGenerator(name = "SEQ_USUARIO", initialValue = 1, allocationSize = 1)
@@ -23,204 +18,228 @@ public class UsuarioDTO {
 	private long id;
 
 	@Column(nullable = false, length = 50)
-	private String nombre;
+	private String nombre1;
+
+	@Column(nullable = true, length = 50)
+	private String nombre2;
 
 	@Column(nullable = false, length = 50)
-	private String apellido;
+	private String apellido1;
+
+	@Column(nullable = true, length = 50)
+	private String apellido2;
+
+	@Column(nullable = false, length = 50)
+	private String documento;
 
 	@Column(nullable = false, length = 50)
 	private Date fechaNac;
 
-	@Column(nullable = false)
-	private int alumno;
+	@Column(nullable = false, length = 50)
+	private String emailPersonal;
 
 	@Column(nullable = false, length = 50)
-	private String direccion;
+	private String telefono;
 
 	@Column(nullable = false, length = 50)
-	private String mail;
+	private String localidad;
 
-	@Column(nullable = true, length = 50)
-	private String activo;
-	
-	@Column(nullable = true, length = 100)
-	private String carreraOEspecialidad;
-	
-	@Column(nullable = true)
-	private String numeroAlumno;
-	
-	@Column(nullable = false)
-	private String usuario;
-	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 50)
+	private String departamento;
+
+	@Column(nullable = false, length = 50)
+	private String nombreDeUsuario; // REVISAR
+
+	@Column(nullable = false, length = 50)
+	private String emailInstitucional;
+
+	@Column(nullable = false, length = 50)
 	private String password;
+
+	@Column(nullable = false, length = 50)
+	private String itr;
+
+	@Column(nullable = true, length = 4)
+	private String anioIngreso;
 	
-	
-	
-	public UsuarioDTO() {
-		super();
+	@Column(nullable = false)
+	private int tipo;
+
+	@Column(nullable = false)
+	private int activo;
+
+    public String getAnioIngreso() {
+		return anioIngreso;
 	}
 
-
-	public UsuarioDTO(long id, String nombre, String apellido, Date fechaNac, int alumno, String direccion, String mail,
-			String activo, String carreraOEspecialidad, String numeroEstudiante) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.fechaNac = fechaNac;
-		this.alumno = alumno;
-		this.direccion = direccion;
-		this.mail = mail;
-		this.activo = activo;
-		this.carreraOEspecialidad = carreraOEspecialidad;
-		this.numeroAlumno = numeroEstudiante;
+	public void setAnioIngreso(String anioIngreso) {
+		this.anioIngreso = anioIngreso;
 	}
-
-
 
 	public long getId() {
 		return id;
 	}
 
-
-
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
-
-	public String getNombre() {
-		return nombre;
+	public String getNombre1() {
+		return nombre1;
 	}
 
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre1(String nombre1) {
+		this.nombre1 = nombre1;
 	}
 
-
-
-	public String getApellido() {
-		return apellido;
+	public String getNombre2() {
+		return nombre2;
 	}
 
-
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setNombre2(String nombre2) {
+		this.nombre2 = nombre2;
 	}
 
+	public String getApellido1() {
+		return apellido1;
+	}
 
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
 
 	public Date getFechaNac() {
 		return fechaNac;
 	}
 
-
-
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
-
-
-	public String getDireccion() {
-		return direccion;
+	public String getEmailPersonal() {
+		return emailPersonal;
 	}
 
-
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setEmailPersonal(String emailPersonal) {
+		this.emailPersonal = emailPersonal;
 	}
 
-
-
-	public String getMail() {
-		return mail;
+	public String getTelefono() {
+		return telefono;
 	}
 
-
-
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
-
-
-	public String getActivo() {
-		return activo;
+	public String getLocalidad() {
+		return localidad;
 	}
 
-
-
-	public void setActivo(String activo) {
-		this.activo = activo;
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
 	}
 
-
-
-	public String getCarreraOEspecialidad() {
-		return carreraOEspecialidad;
+	public String getDepartamento() {
+		return departamento;
 	}
 
-
-
-	public void setCarreraOEspecialidad(String carreraOEspecialidad) {
-		this.carreraOEspecialidad = carreraOEspecialidad;
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
-
-
-	public String getNumeroEstudiante() {
-		return numeroAlumno;
+	public String getNombreDeUsuario() {
+		return nombreDeUsuario;
 	}
 
-
-
-	public void setNumeroEstudiante(String numeroAlumno) {
-		this.numeroAlumno = numeroAlumno;
+	public void setNombreDeUsuario(String nombreDeUsuario) {
+		this.nombreDeUsuario = nombreDeUsuario;
 	}
 
-	public int getAlumno() {
-		return alumno;
+	public String getEmailInstitucional() {
+		return emailInstitucional;
 	}
 
-
-
-	public void setAlumno(int alumno) {
-		this.alumno = alumno;
+	public void setEmailInstitucional(String emailInstitucional) {
+		this.emailInstitucional = emailInstitucional;
 	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	public String getItr() {
+		return itr;
+	}
+
+	public void setItr(String itr) {
+		this.itr = itr;
+	}
+
+	public UsuarioDTO() {
+        super();
+    }
+
+    public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
+	public UsuarioDTO(long id, String nombre1, String nombre2, String apellido1, String apellido2, String documento,
+			Date fechaNac, String emailPersonal, String telefono, String localidad, String departamento,
+			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo ) {
+		super();
+		this.id = id;
+		this.nombre1 = nombre1;
+		this.nombre2 = nombre2;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.documento = documento;
+		this.fechaNac = fechaNac;
+		this.emailPersonal = emailPersonal;
+		this.telefono = telefono;
+		this.localidad = localidad;
+		this.departamento = departamento;
+		this.nombreDeUsuario = nombreDeUsuario;
+		this.emailInstitucional = emailInstitucional;
+		this.password = password;
+		this.itr = itr;
+		this.anioIngreso = anioIngreso;
+		this.tipo = tipo;
+		this.activo = 0;
+    }
 
 	@Override
 	public String toString() {
-		return "UsuarioDTO [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
-				+ ", alumno=" + alumno + ", direccion=" + direccion + ", mail=" + mail + ", activo=" + activo
-				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroAlumno=" + numeroAlumno + ", usuario="
-				+ usuario + ", password=" + password + "]";
+		return "UsuarioDTO [id=" + id + ", nombre1=" + nombre1 + ", nombre2=" + nombre2 + ", apellido1=" + apellido1
+				+ ", apellido2=" + apellido2 + ", documento=" + documento + ", fechaNac=" + fechaNac
+				+ ", emailPersonal=" + emailPersonal + ", telefono=" + telefono + ", localidad=" + localidad
+				+ ", departamento=" + departamento + ", nombreDeUsuario=" + nombreDeUsuario + ", emailInstitucional="
+				+ emailInstitucional + ", password=" + password + ", itr=" + itr + ", anioIngreso=" + anioIngreso
+				+ ", tipo=" + tipo + "]";
 	}
 
 }

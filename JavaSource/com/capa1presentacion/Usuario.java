@@ -14,75 +14,59 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 public class Usuario {
-	
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name = "SEQ_USUARIO", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
 	private long id;
 
-	@Column(nullable = false, length = 50)
 	private String nombre1;
-	
-	@Column(nullable = true, length = 50)
+
 	private String nombre2;
 
-	@Column(nullable = false, length = 50)
 	private String apellido1;
-	
-	@Column(nullable = true, length = 50)
+
 	private String apellido2;
-	
-	@Column(nullable = false, length = 50)
+
 	private String documento;
-	
-	@Column(nullable = false, length = 50)
+
 	private Date fechaNac;
 
-	@Column(nullable = false, length = 50)
 	private String emailPersonal;
-	
-	@Column(nullable = false, length = 50)
+
 	private String telefono;
-	
-	@Column(nullable = false, length = 50)
+
 	private String localidad;
-	
-	@Column(nullable = false, length = 50)
+
 	private String departamento;
-	
-	@Column(nullable = false, length = 50)
-	private String nombreDeUsuario; //REVISAR 
-	
-	@Column(nullable = false, length = 50)
+
+	private String nombreDeUsuario; 
+
 	private String emailInstitucional;
-	
-	@Column(nullable = false, length = 50)
+
 	private String password;
-	
-	@Column(nullable = false, length = 50)
+
 	private String itr;
+
+	private String anioIngreso;
+
+	private int tipo;
 	
-	/* SI ES ESTUDIANTE 
-	 * @Column(nullable = false, length = 50)
-		private String anoIngreso;
-	 */
-	/* SI ES TUTOR 
-	 * @Column(nullable = false, length = 50)
-		private String areaTutor;
-		
-		@Column(nullable = false, length = 50)
-		private String rolTutor;
-	 */
-	
+	private int activo;
+
+    public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
 	public Usuario() {
 		super();
 	}
 
 	public Usuario(long id, String nombre1, String nombre2, String apellido1, String apellido2, String documento,
 			Date fechaNac, String emailPersonal, String telefono, String localidad, String departamento,
-			String nombreDeUsuario, String emailInstitucional, String password, String itr) {
+			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo ) {
 		super();
 		this.id = id;
 		this.nombre1 = nombre1;
@@ -99,6 +83,25 @@ public class Usuario {
 		this.emailInstitucional = emailInstitucional;
 		this.password = password;
 		this.itr = itr;
+		this.anioIngreso = anioIngreso;
+		this.tipo = tipo;
+		this.activo = 0;
+	}
+
+	public int getActivo() {
+		return activo;
+	}
+
+	public void setActivo(int activo) {
+		this.activo = activo;
+	}
+
+	public String getAnioIngreso() {
+		return anioIngreso;
+	}
+
+	public void setAnioIngreso(String anioIngreso) {
+		this.anioIngreso = anioIngreso;
 	}
 
 	public long getId() {
@@ -231,9 +234,11 @@ public class Usuario {
 				+ ", apellido2=" + apellido2 + ", documento=" + documento + ", fechaNac=" + fechaNac
 				+ ", emailPersonal=" + emailPersonal + ", telefono=" + telefono + ", localidad=" + localidad
 				+ ", departamento=" + departamento + ", nombreDeUsuario=" + nombreDeUsuario + ", emailInstitucional="
-				+ emailInstitucional + ", password=" + password + ", itr=" + itr + "]";
+				+ emailInstitucional + ", password=" + password + ", itr=" + itr + ", anioIngreso=" + anioIngreso
+				+ ", tipo=" + tipo + ", activo=" + activo + "]";
 	}
 
-	
-	
+
+
+
 }
