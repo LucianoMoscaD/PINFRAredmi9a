@@ -7,17 +7,17 @@
 <h:head></h:head>
 <body>
         <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" /> Sistema de Gestión de Alumnos
         </h1>
         <hr color="skyblue" size="5px" />
-	<h2>Login</h2>
+	<h2>Logueate para poder ingresar al sistema</h2>
 
 	<h:form id="Login">
 
 		<h:form>
-			<h:outputLabel for="username" value="Nombre " />
-			<h:inputText id="username"
-				value="#{gestionUsuario.usuarioSeleccionado.usuario}" />
+			<h:outputLabel for="nombreDeUsuario" value="Nombre de Usuario:" />
+			<h:inputText id="nombreDeUsuario"
+				value="#{gestionUsuario.usuarioSeleccionado.nombreDeUsuario}" />
 
 			<br />
 
@@ -27,7 +27,7 @@
 
 			<br />
 
-			<h:commandButton value="Login" action="#{loginBean.login()}" />
+			<h:commandButton value="Ingresar" action="#{loginBean.login()}" />
 			<h:messages style="color: red;" />
 
 		</h:form>
