@@ -2,17 +2,6 @@ package com.capa1presentacion;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
-
 public class Usuario {
 
 	private static final long serialVersionUID = 1L;
@@ -52,6 +41,10 @@ public class Usuario {
 	private int tipo;
 	
 	private int activo;
+	
+	private String areaTutor;
+	
+	private String rolTutor;
 
     public int getTipo() {
 		return tipo;
@@ -85,7 +78,7 @@ public class Usuario {
 		this.itr = itr;
 		this.anioIngreso = anioIngreso;
 		this.tipo = tipo;
-		this.activo = 0;
+		this.activo = activo;
 	}
 
 	public int getActivo() {
@@ -236,6 +229,26 @@ public class Usuario {
 				+ ", departamento=" + departamento + ", nombreDeUsuario=" + nombreDeUsuario + ", emailInstitucional="
 				+ emailInstitucional + ", password=" + password + ", itr=" + itr + ", anioIngreso=" + anioIngreso
 				+ ", tipo=" + tipo + ", activo=" + activo + "]";
+	}
+
+	public String getAreaTutor() {
+		return areaTutor;
+		
+	}
+
+	public void setAreaTutor(String areaTutor) {
+		this.areaTutor = areaTutor;
+		
+	}
+
+	public String getRolTutor() {
+		return rolTutor;
+		
+	}
+
+	public void setRolTutor(String rolTutor) {
+		this.rolTutor = rolTutor;
+		
 	}
 
 

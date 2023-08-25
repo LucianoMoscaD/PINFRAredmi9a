@@ -112,11 +112,16 @@ h2 {
 			</p:selectOneMenu>
 			<h:message for="itr" style="color:red" />
 
-			<h:outputLabel value="Año de ingreso a la carrera*" rendered="#{gestionUsuario.usuarioAModificar.tipo ne 1}" />
+			<h:outputLabel value="Año de ingreso a la carrera*" rendered="#{gestionUsuario.usuarioAModificar.tipo eq 2}" />
 			<p:inputText id="anioIngreso"
-				value="#{gestionUsuario.usuarioAModificar.anioIngreso}" rendered="#{gestionUsuario.usuarioAModificar.tipo ne 1}" />
+				value="#{gestionUsuario.usuarioAModificar.anioIngreso}" rendered="#{gestionUsuario.usuarioAModificar.tipo eq 2}" />
 			<h:message for="anioIngreso" style="color:red" />
 
+			<h:outputLabel value="Activo" rendered="#{sesionBean.tipo eq 1}"/>
+			<p:selectOneRadio value="#{gestionUsuario.usuarioAModificar.activo}" rendered="#{sesionBean.tipo eq 1}">
+				<f:selectItem itemValue="1" itemLabel="Si" />
+				<f:selectItem itemValue="0" itemLabel="No" />
+			</p:selectOneRadio>
 			<h:commandButton value="Guardar Cambios"
 				action="#{gestionUsuario.actualizarUsuario}" />
 

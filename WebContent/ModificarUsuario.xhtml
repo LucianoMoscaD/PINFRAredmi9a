@@ -9,44 +9,40 @@
 
 <h:head>
 	<title>Modificar Usuario</title>
-	    <style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style>
+	<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
+
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+</style>
 </h:head>
-        <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
-        </h1>
-        <hr color="skyblue" size="5px" />
+<h1>
+	<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+</h1>
+<hr color="skyblue" size="5px" />
 <h:body>
 	<h:form>
-		<p:outputLabel value="Seleccionar Usuario:"/>
-		
-		<!--
-		<h:selectOneMenu value="#{gestionUsuario.selectedUserId}">
-			<f:selectItems value="#{gestionUsuario.usuarios}" var="usuario"
-				itemValue="#{usuario.id}" itemLabel="#{usuario.id}" />
-		</h:selectOneMenu>
-		-->
-		
-		<p:inputText value="#{gestionUsuario.selectedUserId}"/>
-		
+		<p:outputLabel value="Seleccionar Usuario:" />
+
+		<p:inputText value="#{gestionUsuario.selectedUserCedula}" />
+
 		<p:commandButton value="Cargar datos"
 			action="#{navigationBean.goToModificacion}" />
-	
+
 		<p:commandButton value="Volver"
 			action="#{navigationBean.goToBienvenida}" />
 	</h:form>

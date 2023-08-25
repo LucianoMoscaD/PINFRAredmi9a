@@ -50,6 +50,12 @@ public class NavigationBean implements Serializable {
         externalContext.redirect(externalContext.getRequestContextPath() + "/AltaFuncionario.xhtml");
     }
     
+    public void goToRegistroTutor()  throws IOException {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        gestionUsuarios.setUsuarioSeleccionado(new Usuario());
+        externalContext.redirect(externalContext.getRequestContextPath() + "/AltaTutor.xhtml");
+    }
+    
     public void goToBienvenida()  throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/Bienvenida.xhtml");
@@ -61,24 +67,28 @@ public class NavigationBean implements Serializable {
     }
     
     public void goToModificarUsuarios() throws IOException {
-    	gestionUsuarios.actualizarListaUsuarios();
+    	System.out.println("en ModificarUsuarios --> " + gestionUsuarios.getUsuarioAModificar() );
+
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/ModificarUsuario.xhtml");
     }
     
     public void goToListarUsuarios()  throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        gestionUsuarios.mostrarUsuarios();
         externalContext.redirect(externalContext.getRequestContextPath() + "/ListaUsuarios.xhtml");
     }
     
     public void goToModificacion() throws IOException {
     	gestionUsuarios.cargarUsuarioAModificar();
+    	System.out.println("en modificacion --> " + gestionUsuarios.getUsuarioAModificar() );
+
     	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/Modificacion.xhtml");
     }
     
     public void goToModificarDatosPropios() throws IOException {
-    	gestionUsuarios.setSelectedUserId(loginBean.getUsuarioLogueado().getId());
+    	gestionUsuarios.setSelectedUserCedula(loginBean.getUsuarioLogueado().getDocumento());
     	gestionUsuarios.cargarUsuarioAModificar();
     	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/Modificacion.xhtml");

@@ -1,43 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <head>
-    <title>Página de inicio</title>    <style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style>
+<title>Página de inicio</title>
+<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
+
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+</style>
 </head>
 
 <h:body>
-        <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
-        </h1>
-        <hr color="skyblue" size="5px" />
-	
+	<h1>
+		<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+	</h1>
+	<hr color="skyblue" size="5px" />
+
 	<h:form>
-		<h:commandButton value="Listar usuarios" action="#{navigationBean.goToListarUsuarios}" rendered="#{not sesionBean.alumno}"/>
-		<h:commandButton value="Modificar usuarios" action="#{navigationBean.goToModificarUsuarios}" rendered="#{not sesionBean.alumno}"/>
-		
-		<h:commandButton value="Modificar usuario" action="#{navigationBean.goToModificarDatosPropios}" rendered="#{sesionBean.alumno}"/>
-		
+		<h:commandButton value="Listar usuarios"
+			action="#{navigationBean.goToListarUsuarios}"
+			rendered="#{sesionBean.tipo ne 2}" />
+		<h:commandButton value="Modificar usuarios"
+			action="#{navigationBean.goToModificarUsuarios}"
+			rendered="#{sesionBean.tipo eq 1}" />
+		<h:commandButton value="Modificar usuario"
+			action="#{navigationBean.goToModificarDatosPropios}"
+			rendered="#{sesionBean.tipo ne 1}" />
 		<h:commandButton value="Cerrar sesión" action="#{loginBean.logoff()}" />
-		
+
+
 	</h:form>
 </h:body>
 

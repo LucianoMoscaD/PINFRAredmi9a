@@ -7,30 +7,34 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Registro nuevo usuario</title>
-	
-	    <style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style>
+
+	<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
+
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+</style>
 </h:head>
 <body>
-        <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" /> Sistema de Gestión de Alumnos
-        </h1>
-        <hr color="skyblue" size="5px" />
+	<h1>
+		<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+		Sistema de Gestión de Alumnos
+	</h1>
+	<hr color="skyblue" size="5px" />
 
 	<h:outputLink value="#{request.contextPath}/index.xhtml">
 		<h:outputText value="Volver" />
@@ -62,7 +66,7 @@
 			<p:inputText id="apellido2"
 				value="#{gestionUsuario.usuarioSeleccionado.apellido2}" />
 			<h:message for="apellido2" style="color:red" />
-			
+
 			<h:outputLabel value="Documento*" />
 			<p:inputText id="documento"
 				value="#{gestionUsuario.usuarioSeleccionado.documento}" />
@@ -72,13 +76,13 @@
 			<p:calendar id="fechaNac"
 				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
 			<h:message for="fechaNac" style="color:red" />
-			
+
 			<h:outputLabel value="Email Personal*" />
 			<p:inputText id="emailPersonal"
 				value="#{gestionUsuario.usuarioSeleccionado.emailPersonal}" />
 			<h:message for="emailPersonal" style="color:red" />
-			
-			<h:outputLabel value="Telefono*" />
+
+			<h:outputLabel value="Teléfono*" />
 			<p:inputText id="telefono"
 				value="#{gestionUsuario.usuarioSeleccionado.telefono}" />
 			<h:message for="telefono" style="color:red" />
@@ -87,12 +91,12 @@
 			<p:inputText id="localidad"
 				value="#{gestionUsuario.usuarioSeleccionado.localidad}" />
 			<h:message for="localidad" style="color:red" />
-			
+
 			<h:outputLabel value="Departamento*" />
 			<p:inputText id="departamento"
 				value="#{gestionUsuario.usuarioSeleccionado.departamento}" />
 			<h:message for="departamento" style="color:red" />
-			
+
 			<h:outputLabel value="Nombre de Usuario*" />
 			<p:inputText id="nombreDeUsuario"
 				value="#{gestionUsuario.usuarioSeleccionado.nombreDeUsuario}" />
@@ -103,23 +107,43 @@
 				value="#{gestionUsuario.usuarioSeleccionado.emailInstitucional}" />
 			<h:message for="emailInstitucional" style="color:red" />
 
-			<h:outputLabel value="Contrasena*" />
+			<h:outputLabel value="Contraseña*" />
 			<p:inputText id="password"
 				value="#{gestionUsuario.usuarioSeleccionado.password}" />
 			<h:message for="password" style="color:red" />
 
 			<h:outputLabel value="ITR a asistir" />
-			<p:selectOneMenu id="itr" value="#{gestionUsuario.usuarioSeleccionado.itr}">
-            <f:selectItem itemValue="" itemLabel="Seleccione uno" />
-            <f:selectItem itemValue="Centro Sur" itemLabel="Centro Sur" />
-            <f:selectItem itemValue="Suroeste" itemLabel="Suroeste" />
-            <f:selectItem itemValue="Norte" itemLabel="Norte" />
-        </p:selectOneMenu>
+			<p:selectOneMenu id="itr"
+				value="#{gestionUsuario.usuarioSeleccionado.itr}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="Centro Sur" itemLabel="Centro Sur" />
+				<f:selectItem itemValue="Suroeste" itemLabel="Suroeste" />
+				<f:selectItem itemValue="Norte" itemLabel="Norte" />
+			</p:selectOneMenu>
 			<h:message for="itr" style="color:red" />
 
+			<h:outputLabel value="Área a la que pertenece como Tutor" />
+			<p:selectOneMenu id="areaTutor"
+				value="#{gestionUsuario.usuarioSeleccionado.areaTutor}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="Testing" itemLabel="Testing" />
+				<f:selectItem itemValue="Programación" itemLabel="Programación" />
+				<f:selectItem itemValue="Infraestructura" itemLabel="Infraestructura" />
+				<f:selectItem itemValue="Base de datos" itemLabel=" Base de datos" />
+			</p:selectOneMenu>
+			<h:message for="areaTutor" style="color:red" />
+
+			<h:outputLabel value="Rol como Tutor" />
+			<p:selectOneMenu id="rolTutor"
+				value="#{gestionUsuario.usuarioSeleccionado.rolTutor}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="Encargado" itemLabel="Encargado" />
+				<f:selectItem itemValue="Tutor" itemLabel="Tutor" />
+			</p:selectOneMenu>
+			<h:message for="rolTutor" style="color:red" />
 		</h:panelGrid>
 		<h:commandButton value="Registrarme"
-			action="#{gestionUsuario.crearAnalista()}" />
+			action="#{gestionUsuario.crearTutor()}" />
 	</h:form>
 </body>
 </html>
