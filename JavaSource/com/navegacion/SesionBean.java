@@ -13,7 +13,7 @@ public class SesionBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -5106208709104578853L;
 
-	protected boolean alumno;
+	protected int tipo;
 	
 	protected boolean logueado;
 
@@ -26,12 +26,12 @@ public class SesionBean implements Serializable {
 		this.logueado = logueado;
 	}
 
-	public boolean getAlumno() {
-		return alumno;
+	public int getTipo() {
+		return tipo;
 	}
 
-	public void setAlumno(boolean alumno) {
-		this.alumno = alumno;
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
 	}
 	
 	

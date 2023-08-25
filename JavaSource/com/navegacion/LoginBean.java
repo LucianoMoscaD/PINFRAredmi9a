@@ -33,11 +33,8 @@ public class LoginBean implements Serializable {
     	setUsuarioLogueado(gestionUsuarioBean.login());
         if (getUsuarioLogueado() != null) {
             sesionBean.setLogueado(true); 
-            if(2 == getUsuarioLogueado().getTipo()) {
-            	sesionBean.setAlumno(true);
-            } else {
-                sesionBean.setAlumno(false);
-            };
+            sesionBean.setTipo(getUsuarioLogueado().getTipo());
+            
             return "Bienvenida.xhtml?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales invalidas", null));
@@ -47,9 +44,9 @@ public class LoginBean implements Serializable {
 
     public String logoff() throws PersistenciaException {
         sesionBean.setLogueado(false);
-        sesionBean.setAlumno(false);
+        sesionBean.setTipo(0);
         gestionUsuarioBean.setUsuarioSeleccionado(new Usuario());
-       
+        gestionUsuarioBean.setUsuarioAModificar(new Usuario());
         return "index.xhtml?faces-redirect=true";
     }
 

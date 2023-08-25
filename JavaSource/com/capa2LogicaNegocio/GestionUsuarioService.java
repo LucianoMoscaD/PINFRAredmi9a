@@ -44,6 +44,7 @@ public class GestionUsuarioService implements Serializable {
 	    usuario.setItr(e.getItr());
 	    usuario.setAnioIngreso(e.getAnioIngreso());
 	    usuario.setTipo(e.getTipo());
+	    usuario.setActivo(e.getActivo());
 
 	    return usuario;
 	}
@@ -68,6 +69,7 @@ public class GestionUsuarioService implements Serializable {
 	    usuario.setItr(e.getItr());
 	    usuario.setAnioIngreso(e.getAnioIngreso());
 	    usuario.setTipo(e.getTipo());
+	    usuario.setActivo(e.getActivo());
 
 	    return usuario;
 	}
@@ -96,6 +98,9 @@ public class GestionUsuarioService implements Serializable {
 
 	public Usuario agregarUsuario(Usuario usuarioSeleccionado) throws PersistenciaException {
 		UsuarioDTO u = usuariosPersistenciaDAO.agregarUsuario(toUsuarioDTO(usuarioSeleccionado));
+		
+		System.out.println("en agregarUsuario --> "+ u.getActivo());
+
 		return fromUsuarioDTO(u);
 	}
 
@@ -125,6 +130,17 @@ public class GestionUsuarioService implements Serializable {
 		}
 		return e;
 	}
+	
+	public List<UsuarioDTO> buscarTutores() {
+		List<UsuarioDTO> e = null;
+		try {
+			e = usuariosPersistenciaDAO.buscarTutores();
+		} catch (PersistenciaException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return e;
+	}
 
 	public void modificarUsuario(Usuario usuarioExistente) throws PersistenciaException {
 		UsuarioDTO u = usuariosPersistenciaDAO.modificarUsuario(toUsuarioDTO(usuarioExistente));
@@ -144,6 +160,14 @@ public class GestionUsuarioService implements Serializable {
 			e1.printStackTrace();
 		}
 		return e;
+	}
+
+	public Usuario obtenerUsuarioPorCedula(String cedula) throws PersistenciaException {
+		UsuarioDTO e = usuariosPersistenciaDAO.buscarUsuario(cedula);
+		
+    	System.out.println("activo en obtenerUsuarioPorCedula --> " + e.getActivo() );
+
+		return fromUsuarioDTO(e);
 	}
 }
 

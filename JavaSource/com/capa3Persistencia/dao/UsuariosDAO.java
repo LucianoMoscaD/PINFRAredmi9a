@@ -31,7 +31,7 @@ public class UsuariosDAO {
 	}
 
 	public UsuarioDTO agregarUsuario(UsuarioDTO usuario) throws PersistenciaException {
-		try {		
+		try {
 			UsuarioDTO UsuarioDTO = em.merge(usuario);
 			em.flush();
 			return UsuarioDTO;
@@ -41,7 +41,7 @@ public class UsuariosDAO {
 
 		}
 	}
-	
+
 	public UsuarioDTO modificarUsuario(UsuarioDTO usuario) throws PersistenciaException {
 
 		try {
@@ -59,9 +59,8 @@ public class UsuariosDAO {
 		try {
 
 			String query = "Select u from UsuarioDTO u";
-			List<UsuarioDTO> resultList = (List<UsuarioDTO>) em
-					.createQuery(query, UsuarioDTO.class).getResultList();
-			
+			List<UsuarioDTO> resultList = (List<UsuarioDTO>) em.createQuery(query, UsuarioDTO.class).getResultList();
+
 			return resultList;
 		} catch (PersistenceException e) {
 			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
@@ -72,24 +71,60 @@ public class UsuariosDAO {
 		UsuarioDTO UsuarioDTO = em.find(UsuarioDTO.class, id);
 		return UsuarioDTO;
 	}
-	
-	public List<UsuarioDTO> buscarAlumnos() throws PersistenciaException {
-	    try {
-	        String query = "SELECT u FROM UsuarioDTO u WHERE u.alumno = :alumnoValue";
-	        TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
-	        typedQuery.setParameter("alumnoValue", 1); // 
-	        List<UsuarioDTO> resultList = typedQuery.getResultList();
-	        return resultList;
-	    } catch (PersistenceException e) {
-	        throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
-	    }
+
+	public UsuarioDTO buscarUsuario(String cedula) throws PersistenciaException {
+		try {
+			String query = "SELECT u FROM UsuarioDTO u WHERE u.documento = :cedula";
+			TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
+			typedQuery.setParameter("cedula", cedula); //
+			UsuarioDTO result = typedQuery.getSingleResult();
+			return result;
+		} catch (PersistenceException e) {
+			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
+		}
 	}
-	
+
+	public List<UsuarioDTO> buscarAlumnos() throws PersistenciaException {
+		try {
+			String query = "SELECT u FROM UsuarioDTO u WHERE u.tipo = :alumnoValue";
+			TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
+			typedQuery.setParameter("alumnoValue", 2); //
+			List<UsuarioDTO> resultList = typedQuery.getResultList();
+			return resultList;
+		} catch (PersistenceException e) {
+			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
+		}
+	}
+
+	public List<UsuarioDTO> buscarTutores() throws PersistenciaException {
+		try {
+			String query = "SELECT u FROM UsuarioDTO u WHERE u.tipo = :alumnoValue";
+			TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
+			typedQuery.setParameter("alumnoValue", 3); //
+			List<UsuarioDTO> resultList = typedQuery.getResultList();
+			return resultList;
+		} catch (PersistenceException e) {
+			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
+		}
+	}
+
+	public List<UsuarioDTO> buscarFuncionarios() throws PersistenciaException {
+		try {
+			String query = "SELECT u FROM UsuarioDTO u WHERE u.tipo = :alumnoValue";
+			TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
+			typedQuery.setParameter("alumnoValue", 1); //
+			List<UsuarioDTO> resultList = typedQuery.getResultList();
+			return resultList;
+		} catch (PersistenceException e) {
+			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
+		}
+	}
+
 	public UsuarioDTO checkCredenciales(final String usuario, final String password) throws PersistenciaException {
 		List<UsuarioDTO> usuarios = buscarUsuarios();
 		UsuarioDTO usuarioDTO = null;
-		for(UsuarioDTO u : usuarios) {
-			if(u.getNombreDeUsuario().equals(usuario) && u.getPassword().equals(password) && u.getActivo() == 1) {
+		for (UsuarioDTO u : usuarios) {
+			if (u.getNombreDeUsuario().equals(usuario) && u.getPassword().equals(password) && u.getActivo() == 1) {
 				usuarioDTO = u;
 			}
 		}
@@ -121,7 +156,6 @@ public class UsuariosDAO {
 //	    return jsonBuilder.toString();
 //	}
 
-
 	public List<UsuarioDTO> seleccionarEmpleados(String criterioNombre, String criterioPassword)
 			throws PersistenciaException {
 		try {
@@ -139,24 +173,11 @@ public class UsuariosDAO {
 			if (!queryCriterio.contentEquals("")) {
 				query += " where " + queryCriterio;
 			}
-			List<UsuarioDTO> resultList = (List<UsuarioDTO>) em
-					.createQuery(query, UsuarioDTO.class).getResultList();
+			List<UsuarioDTO> resultList = (List<UsuarioDTO>) em.createQuery(query, UsuarioDTO.class).getResultList();
 			return resultList;
 		} catch (PersistenceException e) {
 			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
 		}
-	}
-
-	public List<UsuarioDTO> buscarFuncionarios() throws PersistenciaException {
-	    try {
-	        String query = "SELECT u FROM UsuarioDTO u WHERE u.alumno = :alumnoValue";
-	        TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
-	        typedQuery.setParameter("alumnoValue", 0); // 
-	        List<UsuarioDTO> resultList = typedQuery.getResultList();
-	        return resultList;
-	    } catch (PersistenceException e) {
-	        throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
-	    }
 	}
 
 }

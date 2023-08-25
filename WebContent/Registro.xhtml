@@ -4,35 +4,42 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head>    <style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style></h:head>
+<h:head>
+	<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
+
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+</style>
+</h:head>
 <body>
-        <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
-        </h1>
-        <hr color="skyblue" size="5px" />
+	<h1>
+		<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+	</h1>
+	<hr color="skyblue" size="5px" />
 	<h:form>
 		<h:commandButton value="Alta estudiante"
 			action="#{navigationBean.goToRegistroEstudiante}" />
 		<br />
+		<h:commandButton value="Alta tutor"
+			action="#{navigationBean.goToRegistroTutor}" />
+		<br />
 		<h:commandButton value="Alta funcionario"
 			action="#{navigationBean.goToRegistroFuncionario}" />
 	</h:form>
-
 </body>
 </html>

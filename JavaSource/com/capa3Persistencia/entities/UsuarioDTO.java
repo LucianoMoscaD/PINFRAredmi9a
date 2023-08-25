@@ -67,6 +67,12 @@ public class UsuarioDTO implements Serializable {
 
 	@Column(nullable = false)
 	private int activo;
+	
+	@Column(nullable = true)
+	private String areaTutor;
+	
+	@Column(nullable = true)
+	private String rolTutor;
 
     public String getAnioIngreso() {
 		return anioIngreso;
@@ -237,7 +243,7 @@ public class UsuarioDTO implements Serializable {
 		this.itr = itr;
 		this.anioIngreso = anioIngreso;
 		this.tipo = tipo;
-		this.activo = 0;
+		this.activo = activo;
     }
 
 	@Override

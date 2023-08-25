@@ -44,7 +44,7 @@ public class GestionUsuario implements Serializable {
 	@Inject
 	NavigationBean navegacion;
 
-	private Long selectedUserId;
+	private String selectedUserCedula;
 
 	private Usuario usuarioSeleccionado;
 
@@ -67,37 +67,8 @@ public class GestionUsuario implements Serializable {
 	public GestionUsuario() {
 		super();
 	}
-
-	public void persistirAlumno() {
-		Usuario usuarioNuevo;
-		try {
-			usuarioSeleccionado.setTipo(2);
-			usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
-			// actualizamos id
-			Long nuevoId = usuarioNuevo.getId();
-			// vaciamos empleadoSeleccionado como para ingresar uno nuevo
-			usuarioSeleccionado = new Usuario();
-
-			// mensaje de actualizacion correcta
-			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se ha agregado un nuevo Usuario con id:" + nuevoId.toString(), "");
-			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-		} catch (PersistenciaException e) {
-
-			Throwable rootException = ExceptionsTools.getCause(e);
-			String msg1 = e.getMessage();
-			String msg2 = ExceptionsTools.formatedMsg(rootException);
-			// mensaje de actualizacion correcta
-			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, msg2);
-			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-
-			e.printStackTrace();
-		} finally {
-
-		}
-	}
-
-	public void crearUsuario() {
+	
+	public void crearAnalista() {
 
 		Usuario usuarioNuevo;
 		try {
@@ -112,7 +83,7 @@ public class GestionUsuario implements Serializable {
 
 			// mensaje de actualizacion correcta
 			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se ha agregado un nuevo Usuario con id:" + nuevoId.toString(), "");
+					"Se ha agregado un nuevo Analista con id:" + nuevoId.toString(), "");
 			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 		} catch (PersistenciaException e) {
 
@@ -129,10 +100,72 @@ public class GestionUsuario implements Serializable {
 		}
 	}
 
+	public void crearAlumno() {
+		Usuario usuarioNuevo;
+		try {
+			usuarioSeleccionado.setTipo(2);
+			usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
+			// actualizamos id
+			Long nuevoId = usuarioNuevo.getId();
+			// vaciamos empleadoSeleccionado como para ingresar uno nuevo
+			usuarioSeleccionado = new Usuario();
+
+			// mensaje de actualizacion correcta
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Se ha agregado un nuevo Alumno con id:" + nuevoId.toString(), "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		} catch (PersistenciaException e) {
+
+			Throwable rootException = ExceptionsTools.getCause(e);
+			String msg1 = e.getMessage();
+			String msg2 = ExceptionsTools.formatedMsg(rootException);
+			// mensaje de actualizacion correcta
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, msg2);
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+
+			e.printStackTrace();
+		} finally {
+
+		}
+	}
+	public void crearTutor() {
+		Usuario usuarioNuevo;
+		try {
+			usuarioSeleccionado.setTipo(3);
+			usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
+			// actualizamos id
+			Long nuevoId = usuarioNuevo.getId();
+			// vaciamos empleadoSeleccionado como para ingresar uno nuevo
+			usuarioSeleccionado = new Usuario();
+
+			// mensaje de actualizacion correcta
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Se ha agregado un nuevo Tutor con id:" + nuevoId.toString(), "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+		} catch (PersistenciaException e) {
+
+			Throwable rootException = ExceptionsTools.getCause(e);
+			String msg1 = e.getMessage();
+			String msg2 = ExceptionsTools.formatedMsg(rootException);
+			// mensaje de actualizacion correcta
+			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg1, msg2);
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+
+			e.printStackTrace();
+		} finally {
+
+		}
+	}
+
+
 	public void actualizarUsuario() throws PersistenciaException, IOException {
 		if (usuarioAModificar != null) {
-			navegacion.goToBienvenida();
+			System.out.println("en actualizarUsuario --> "+ usuarioAModificar.toString());
 			persistenciaBean.agregarUsuario(usuarioAModificar);
+			
+			System.out.println("en actualizarUsuario post persistencia --> "+ usuarioAModificar.toString());
+
+			navegacion.goToBienvenida();
 			usuarioAModificar = null;
 		}
 	}
@@ -140,8 +173,10 @@ public class GestionUsuario implements Serializable {
 	public void cargarUsuarioAModificar() {
 		try {
 
-			usuarioAModificar = persistenciaBean.obtenerUsuarioPorId(selectedUserId);
-			selectedUserId = null;
+			usuarioAModificar = persistenciaBean.obtenerUsuarioPorCedula(selectedUserCedula);
+	    	System.out.println("activo en cargarUsuarioAModificar --> " + usuarioAModificar.getActivo() );
+
+			selectedUserCedula = null;
 
 		} catch (PersistenciaException e) {
 			String errorMessage = "Error al cargar los datos del usuario";
@@ -159,12 +194,12 @@ public class GestionUsuario implements Serializable {
 		this.usuarioDAO = usuarioDAO;
 	}
 
-	public Long getSelectedUserId() {
-		return selectedUserId;
+	public String getSelectedUserCedula() {
+		return selectedUserCedula;
 	}
 
-	public void setSelectedUserId(Long selectedUserId) {
-		this.selectedUserId = selectedUserId;
+	public void setSelectedUserCedula(String selectedUserId) {
+		this.selectedUserCedula = selectedUserId;
 	}
 
 	public boolean isLogueado() {
@@ -212,7 +247,13 @@ public class GestionUsuario implements Serializable {
 		List<UsuarioDTO> listaUsuarios = persistenciaBean.buscarUsuarios();
 		return listaUsuarios;
 	}
+	
+	public List<UsuarioDTO> mostrarTutores() {
+		List<UsuarioDTO> listaUsuarios = persistenciaBean.buscarTutores();
+		return listaUsuarios;
+	}
 
+	
 	public List<UsuarioDTO> buscarAlumnos() {
 		List<UsuarioDTO> listaUsuarios = persistenciaBean.buscarAlumnos();
 		return listaUsuarios;
