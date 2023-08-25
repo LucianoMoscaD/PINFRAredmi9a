@@ -116,28 +116,10 @@
             <f:selectItem itemValue="Norte" itemLabel="Norte" />
         </p:selectOneMenu>
 			<h:message for="itr" style="color:red" />
-			
-			<h:outputLabel value="Área a la que pertenece como Tutor" />
-			<p:selectOneMenu id="areaTutor" value="#{gestionUsuario.usuarioSeleccionado.areaTutor}">
-            <f:selectItem itemValue="" itemLabel="Seleccione uno" />
-            <f:selectItem itemValue="Testing" itemLabel="Testing" />
-            <f:selectItem itemValue="Programación" itemLabel="Programación" />
-            <f:selectItem itemValue="Infraestructura" itemLabel="Infraestructura" />
-            <f:selectItem itemValue="Base de datos" itemLabel=" Base de datos" />
-        </p:selectOneMenu>
-			<h:message for="areaTutor" style="color:red" />
-			
-			<h:outputLabel value="Rol como Tutor" />
-			<p:selectOneMenu id="rolTutor" value="#{gestionUsuario.usuarioSeleccionado.rolTutor}">
-            <f:selectItem itemValue="" itemLabel="Seleccione uno" />
-            <f:selectItem itemValue="Encargado" itemLabel="Encargado" />
-            <f:selectItem itemValue="Tutor" itemLabel="Tutor" />
-        </p:selectOneMenu>
-			<h:message for="rolTutor" style="color:red" />
 
 		</h:panelGrid>
 		<h:commandButton value="Registrarme"
-			action="#{gestionUsuario.salvarCambios()}" />
+			action="#{gestionUsuario.crearUsuario()}" />
 	</h:form>
 </body>
 </html>

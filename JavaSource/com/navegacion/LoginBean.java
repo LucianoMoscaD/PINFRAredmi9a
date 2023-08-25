@@ -33,7 +33,7 @@ public class LoginBean implements Serializable {
     	setUsuarioLogueado(gestionUsuarioBean.login());
         if (getUsuarioLogueado() != null) {
             sesionBean.setLogueado(true); 
-            if(1 == getUsuarioLogueado().getAlumno()) {
+            if(2 == getUsuarioLogueado().getTipo()) {
             	sesionBean.setAlumno(true);
             } else {
                 sesionBean.setAlumno(false);

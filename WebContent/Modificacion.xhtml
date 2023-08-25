@@ -6,91 +6,126 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<h:head>    <style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style></h:head>
+<h:head>
+	<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
+
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+</style>
+</h:head>
 <body>
-        <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
-        </h1>
-        <hr color="skyblue" size="5px" />
+	<h1>
+		<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+	</h1>
+	<hr color="skyblue" size="5px" />
 	<h:form>
 
 		<h:panelGrid id="usuarioForm" columns="3"
 			rendered="#{not empty gestionUsuario.usuarioAModificar}">
-			<h:outputLabel value="Usuario" />
-			<p:inputText id="usuario"
-				value="#{gestionUsuario.usuarioAModificar.usuario}" />
-			<h:message for="usuario" style="color:red" />
+			<h:outputLabel value="Primer Nombre*" />
+			<p:inputText id="nombre1"
+				value="#{gestionUsuario.usuarioAModificar.nombre1}" />
+			<h:message for="nombre1" style="color:red" />
 
-			<h:outputLabel value="Password" />
-			<p:inputText id="password"
-				value="#{gestionUsuario.usuarioAModificar.password}" />
-			<h:message for="password" style="color:red" />
+			<h:outputLabel value="Segundo Nombre" />
+			<p:inputText id="nombre2"
+				value="#{gestionUsuario.usuarioAModificar.nombre2}" />
+			<h:message for="nombre2" style="color:red" />
 
-			<h:outputLabel value="Nombre" />
-			<p:inputText id="nombre"
-				value="#{gestionUsuario.usuarioAModificar.nombre}" />
-			<h:message for="nombre" style="color:red" />
+			<h:outputLabel value="Primer Apellido*" />
+			<p:inputText id="apellido1"
+				value="#{gestionUsuario.usuarioAModificar.apellido1}" />
+			<h:message for="apellido1" style="color:red" />
 
-			<h:outputLabel value="Apellido" />
-			<p:inputText id="apellido"
-				value="#{gestionUsuario.usuarioAModificar.apellido}" />
-			<h:message for="apellido" style="color:red" />
+			<h:outputLabel value="Segundo Apellido" />
+			<p:inputText id="apellido2"
+				value="#{gestionUsuario.usuarioAModificar.apellido2}" />
+			<h:message for="apellido2" style="color:red" />
 
-			<h:outputLabel value="Fecha de Nacimiento" />
+			<h:outputLabel value="Documento*" />
+			<p:inputText id="documento"
+				value="#{gestionUsuario.usuarioAModificar.documento}" />
+			<h:message for="documento" style="color:red" />
+
+			<h:outputLabel value="Fecha de Nacimiento*" />
 			<p:calendar id="fechaNac"
 				value="#{gestionUsuario.usuarioAModificar.fechaNac}" />
 			<h:message for="fechaNac" style="color:red" />
 
-			<h:outputLabel value="Dirección" />
-			<p:inputText id="direccion"
-				value="#{gestionUsuario.usuarioAModificar.direccion}" />
-			<h:message for="direccion" style="color:red" />
+			<h:outputLabel value="Email Personal*" />
+			<p:inputText id="emailPersonal"
+				value="#{gestionUsuario.usuarioAModificar.emailPersonal}" />
+			<h:message for="emailPersonal" style="color:red" />
 
-			<h:outputLabel value="Mail" />
-			<p:inputText id="mail"
-				value="#{gestionUsuario.usuarioAModificar.mail}" />
-			<h:message for="mail" style="color:red" />
+			<h:outputLabel value="Telefono*" />
+			<p:inputText id="telefono"
+				value="#{gestionUsuario.usuarioAModificar.telefono}" />
+			<h:message for="telefono" style="color:red" />
 
-			<h:outputLabel value="Carrera o Especialidad" />
-			<p:inputText id="carreraOEspecialidad"
-				value="#{gestionUsuario.usuarioAModificar.carreraOEspecialidad}" />
-			<h:message for="carreraOEspecialidad" style="color:red" />
+			<h:outputLabel value="Localidad*" />
+			<p:inputText id="localidad"
+				value="#{gestionUsuario.usuarioAModificar.localidad}" />
+			<h:message for="localidad" style="color:red" />
 
-			<h:outputLabel value="Número de Estudiante" />
-			<p:inputNumber id="numeroEstudiante"
-				value="#{gestionUsuario.usuarioAModificar.numeroAlumno}"
-				minFractionDigits="0" />
-			<h:message for="numeroEstudiante" style="color:red" />
+			<h:outputLabel value="Departamento*" />
+			<p:inputText id="departamento"
+				value="#{gestionUsuario.usuarioAModificar.departamento}" />
+			<h:message for="departamento" style="color:red" />
 
-			<h:outputLabel value="Activo" rendered="#{not sesionBean.alumno}"/>
-			<p:selectOneRadio value="#{gestionUsuario.usuarioAModificar.activo}" rendered="#{not sesionBean.alumno}">
-				<f:selectItem itemValue="1" itemLabel="Si" />
-				<f:selectItem itemValue="0" itemLabel="No" />
-			</p:selectOneRadio>
+			<h:outputLabel value="Nombre de Usuario*" />
+			<p:inputText id="nombreDeUsuario"
+				value="#{gestionUsuario.usuarioAModificar.nombreDeUsuario}" />
+			<h:message for="nombreDeUsuario" style="color:red" />
+
+			<h:outputLabel value="Email Institucional*" />
+			<p:inputText id="emailInstitucional"
+				value="#{gestionUsuario.usuarioAModificar.emailInstitucional}" />
+			<h:message for="emailInstitucional" style="color:red" />
+
+			<h:outputLabel value="Contrasena*" />
+			<p:inputText id="password"
+				value="#{gestionUsuario.usuarioAModificar.password}" />
+			<h:message for="password" style="color:red" />
+
+			<h:outputLabel value="ITR a asistir" />
+			<p:selectOneMenu id="itr"
+				value="#{gestionUsuario.usuarioAModificar.itr}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="Centro Sur" itemLabel="Centro Sur" />
+				<f:selectItem itemValue="Suroeste" itemLabel="Suroeste" />
+				<f:selectItem itemValue="Norte" itemLabel="Norte" />
+			</p:selectOneMenu>
+			<h:message for="itr" style="color:red" />
+
+			<h:outputLabel value="Año de ingreso a la carrera*" rendered="#{gestionUsuario.usuarioAModificar.tipo ne 1}" />
+			<p:inputText id="anioIngreso"
+				value="#{gestionUsuario.usuarioAModificar.anioIngreso}" rendered="#{gestionUsuario.usuarioAModificar.tipo ne 1}" />
+			<h:message for="anioIngreso" style="color:red" />
+
+			<h:commandButton value="Guardar Cambios"
+				action="#{gestionUsuario.actualizarUsuario}" />
+
+			<h:commandButton value="Volver"
+				action="#{navigationBean.goToBienvenida}" />
+
 		</h:panelGrid>
-		<h:commandButton value="Guardar Cambios"
-					action="#{gestionUsuario.actualizarUsuario}" />
-		
-		<h:commandButton value="Volver"
-			action="#{navigationBean.goToBienvenida}" />
-	</h:form>
 
+	</h:form>
 
 </body>
 </html>

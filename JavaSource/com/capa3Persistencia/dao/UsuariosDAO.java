@@ -89,37 +89,37 @@ public class UsuariosDAO {
 		List<UsuarioDTO> usuarios = buscarUsuarios();
 		UsuarioDTO usuarioDTO = null;
 		for(UsuarioDTO u : usuarios) {
-			if(u.getUsuario().equals(usuario) && u.getPassword().equals(password) && u.getActivo().equals("1")) {
+			if(u.getNombreDeUsuario().equals(usuario) && u.getPassword().equals(password) && u.getActivo() == 1) {
 				usuarioDTO = u;
 			}
 		}
 		return usuarioDTO;
 	}
 
-	public static String convertirListaAJson(List<UsuarioDTO> usuarios) {
-	    StringBuilder jsonBuilder = new StringBuilder();
-	    jsonBuilder.append("[");
-
-	    for (int i = 0; i < usuarios.size(); i++) {
-	        UsuarioDTO usuario = usuarios.get(i);
-	        jsonBuilder.append("{");
-	        jsonBuilder.append("\"id\": \"").append(usuario.getId()).append("\",");
-	        jsonBuilder.append("\"nombre\": \"").append(usuario.getNombre()).append("\",");
-	        jsonBuilder.append("\"apellido\": \"").append(usuario.getApellido()).append("\",");
-	        jsonBuilder.append("\"activo\": \"").append(usuario.getActivo()).append("\",");
-	        jsonBuilder.append("\"fechaNacimiento\": \"").append(usuario.getFechaNac()).append("\",");
-	        jsonBuilder.append("\"mail\": \"").append(usuario.getMail()).append("\",");
-	        jsonBuilder.append("\"rol\": \"").append(usuario.getAlumno()).append("\",");
-	        jsonBuilder.append("}");
-
-	        if (i < usuarios.size() - 1) {
-	            jsonBuilder.append(",");
-	        }
-	    }
-
-	    jsonBuilder.append("]");
-	    return jsonBuilder.toString();
-	}
+//	public static String convertirListaAJson(List<UsuarioDTO> usuarios) {
+//	    StringBuilder jsonBuilder = new StringBuilder();
+//	    jsonBuilder.append("[");
+//
+//	    for (int i = 0; i < usuarios.size(); i++) {
+//	        UsuarioDTO usuario = usuarios.get(i);
+//	        jsonBuilder.append("{");
+//	        jsonBuilder.append("\"id\": \"").append(usuario.getId()).append("\",");
+//	        jsonBuilder.append("\"nombre\": \"").append(usuario.getNombre()).append("\",");
+//	        jsonBuilder.append("\"apellido\": \"").append(usuario.getApellido()).append("\",");
+//	        jsonBuilder.append("\"activo\": \"").append(usuario.getActivo()).append("\",");
+//	        jsonBuilder.append("\"fechaNacimiento\": \"").append(usuario.getFechaNac()).append("\",");
+//	        jsonBuilder.append("\"mail\": \"").append(usuario.getMail()).append("\",");
+//	        jsonBuilder.append("\"rol\": \"").append(usuario.getAlumno()).append("\",");
+//	        jsonBuilder.append("}");
+//
+//	        if (i < usuarios.size() - 1) {
+//	            jsonBuilder.append(",");
+//	        }
+//	    }
+//
+//	    jsonBuilder.append("]");
+//	    return jsonBuilder.toString();
+//	}
 
 
 	public List<UsuarioDTO> seleccionarEmpleados(String criterioNombre, String criterioPassword)

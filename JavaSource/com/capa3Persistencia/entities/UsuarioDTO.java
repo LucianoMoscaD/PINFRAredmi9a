@@ -76,6 +76,14 @@ public class UsuarioDTO implements Serializable {
 		this.anioIngreso = anioIngreso;
 	}
 
+	public int getActivo() {
+		return activo;
+	}
+
+	public void setActivo(int activo) {
+		this.activo = activo;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -1,82 +1,70 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <title>Listado de usuarios</title>
-    <style>
-    </style>
+	<title>Listado de usuarios</title>
+	<style>
+</style>
 </h:head>
 <h:body>
-    <h:form>
-        <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
-        </h1>
-        <hr color="skyblue" size="5px" />
-        <h2>Datos de los Usuarios</h2>
+	<h:form>
+		<h1>
+			<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+		</h1>
+		<hr color="skyblue" size="5px" />
+		<h2>Datos de los Usuarios</h2>
 
-        <p:commandButton value="Mostrar alumnos" 
-                         actionListener="#{gestionUsuario.mostrarAlumnos}" 
-                         update="usuariosTable"/>
+		<p:commandButton value="Mostrar alumnos"
+			actionListener="#{gestionUsuario.mostrarAlumnos}"
+			update="usuariosTable" />
 
-        <p:commandButton value="Mostrar funcionarios" 
-                         actionListener="#{gestionUsuario.mostrarFuncionarios}" 
-                         update="usuariosTable"/>
+		<p:commandButton value="Mostrar funcionarios"
+			actionListener="#{gestionUsuario.mostrarFuncionarios}"
+			update="usuariosTable" />
 
-        <p:dataTable id="usuariosTable" value="#{gestionUsuario.usuarios}" var="usuario"
-                     emptyMessage="No hay usuarios disponibles" 
-                     sortMode="multiple">
+		<p:dataTable id="usuariosTable" value="#{gestionUsuario.usuarios}"
+			var="usuario" emptyMessage="No hay usuarios disponibles"
+			sortMode="multiple">
 
-            <p:column headerText="ID">
-                #{usuario.id}
-            </p:column>
-            <p:column headerText="Primer Nombre">
+			<p:column headerText="Primer Nombre">
                 #{usuario.nombre1}
             </p:column>
-            <p:column headerText="Segundo Nombre">
-                #{usuario.nombre2}
-            </p:column>
-            <p:column headerText="Primer Apellido">
+			<p:column headerText="Primer Apellido">
                 #{usuario.apellido1}
             </p:column>
-            <p:column headerText="Segundo Apellido">
-                #{usuario.apellido2}
-            </p:column>
-            <p:column headerText="Documento">
+			<p:column headerText="Documento">
                 #{usuario.documento}
             </p:column>
-            <p:column headerText="Fecha Nacimiento">
+			<p:column headerText="Fecha Nacimiento">
                 #{usuario.fechaNac}
             </p:column>
-            <p:column headerText="Email Personal">
+			<p:column headerText="Email Personal">
                 #{usuario.emailPersonal}
             </p:column>
-            <p:column headerText="Telefono">
+			<p:column headerText="Telefono">
                 #{usuario.telefono}
             </p:column>
-            <p:column headerText="Localidad">
-                #{usuario.localidad}
-            </p:column>
-            <p:column headerText="Departamento">
+			<p:column headerText="Departamento">
                 #{usuario.departamento}
             </p:column>
-            <p:column headerText="Nombre de Usuario">
+			<p:column headerText="Nombre de Usuario">
                 #{usuario.nombreDeUsuario}
             </p:column>
-            <p:column headerText="Email Institucional">
+			<p:column headerText="Email Institucional">
                 #{usuario.emailInstitucional}
             </p:column>
-            <p:column headerText="ITR">
+			<p:column headerText="ITR">
                 #{usuario.itr}
             </p:column>
-            <p:column headerText="Activo">
+			<p:column headerText="Activo">
                 #{usuario.activo}
             </p:column>
 
-<!--SI ES ESTUDIANTE 
+			<!--SI ES ESTUDIANTE 
 	 * <p:column headerText="Año de ingreso">
                 #{usuario.anoIngreso}
             </p:column>;
@@ -92,10 +80,10 @@
 	 -->
 
 
-        </p:dataTable>
+		</p:dataTable>
 
-        <h:commandButton value="Volver"
-                         action="#{navigationBean.goToBienvenida}" />
-    </h:form>
+		<h:commandButton value="Volver"
+			action="#{navigationBean.goToBienvenida}" />
+	</h:form>
 </h:body>
 </html>
