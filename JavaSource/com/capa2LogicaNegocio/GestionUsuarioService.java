@@ -26,40 +26,50 @@ public class GestionUsuarioService implements Serializable {
 	UsuariosDAO usuariosPersistenciaDAO;
 
 	public Usuario fromUsuarioDTO(UsuarioDTO e) {
-		Usuario usuario = new Usuario();
-		usuario.setId(e.getId());
-		usuario.setApellido(e.getApellido());
-		usuario.setNombre(e.getNombre());
-		usuario.setFechaNac(e.getFechaNac());
-		usuario.setDireccion(e.getDireccion());
-		usuario.setNumeroalumno(e.getNumeroEstudiante());
-		usuario.setActivo(e.getActivo());
-		usuario.setCarreraOEspecialidad(e.getCarreraOEspecialidad());
-		usuario.setMail(e.getMail());
-		usuario.setUsuario(e.getUsuario());
-		usuario.setPassword(e.getPassword());
-		usuario.setAlumno(e.getAlumno());
+	    Usuario usuario = new Usuario();
+	    usuario.setId(e.getId());
+	    usuario.setNombre1(e.getNombre1());
+	    usuario.setNombre2(e.getNombre2());
+	    usuario.setApellido1(e.getApellido1());
+	    usuario.setApellido2(e.getApellido2());
+	    usuario.setDocumento(e.getDocumento());
+	    usuario.setFechaNac(e.getFechaNac());
+	    usuario.setEmailPersonal(e.getEmailPersonal());
+	    usuario.setTelefono(e.getTelefono());
+	    usuario.setLocalidad(e.getLocalidad());
+	    usuario.setDepartamento(e.getDepartamento());
+	    usuario.setNombreDeUsuario(e.getNombreDeUsuario());
+	    usuario.setEmailInstitucional(e.getEmailInstitucional());
+	    usuario.setPassword(e.getPassword());
+	    usuario.setItr(e.getItr());
+	    usuario.setAnioIngreso(e.getAnioIngreso());
+	    usuario.setTipo(e.getTipo());
 
-		return usuario;
+	    return usuario;
 	}
 
 	public UsuarioDTO toUsuarioDTO(Usuario e) {
-		UsuarioDTO usuario = new UsuarioDTO();
+	    UsuarioDTO usuario = new UsuarioDTO();
 
-		usuario.setId(e.getId());
-		usuario.setApellido(e.getApellido());
-		usuario.setNombre(e.getNombre());
-		usuario.setFechaNac(e.getFechaNac());
-		usuario.setDireccion(e.getDireccion());
-		usuario.setNumeroEstudiante(e.getNumeroalumno());
-		usuario.setActivo(e.getActivo());
-		usuario.setCarreraOEspecialidad(e.getCarreraOEspecialidad());
-		usuario.setMail(e.getMail());
-		usuario.setUsuario(e.getUsuario());
-		usuario.setPassword(e.getPassword());
-		usuario.setAlumno(e.getAlumno());
+	    usuario.setId(e.getId());
+	    usuario.setNombre1(e.getNombre1());
+	    usuario.setNombre2(e.getNombre2());
+	    usuario.setApellido1(e.getApellido1());
+	    usuario.setApellido2(e.getApellido2());
+	    usuario.setDocumento(e.getDocumento());
+	    usuario.setFechaNac(e.getFechaNac());
+	    usuario.setEmailPersonal(e.getEmailPersonal());
+	    usuario.setTelefono(e.getTelefono());
+	    usuario.setLocalidad(e.getLocalidad());
+	    usuario.setDepartamento(e.getDepartamento());
+	    usuario.setNombreDeUsuario(e.getNombreDeUsuario());
+	    usuario.setEmailInstitucional(e.getEmailInstitucional());
+	    usuario.setPassword(e.getPassword());
+	    usuario.setItr(e.getItr());
+	    usuario.setAnioIngreso(e.getAnioIngreso());
+	    usuario.setTipo(e.getTipo());
 
-		return usuario;
+	    return usuario;
 	}
 	
     public Usuario obtenerUsuarioPorId(Long id) throws PersistenciaException {

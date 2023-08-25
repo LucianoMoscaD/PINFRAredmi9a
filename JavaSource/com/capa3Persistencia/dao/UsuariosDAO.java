@@ -18,7 +18,6 @@ import com.capa3Persistencia.exception.PersistenciaException;
  */
 @Stateless
 @LocalBean
-
 public class UsuariosDAO {
 
 	@PersistenceContext

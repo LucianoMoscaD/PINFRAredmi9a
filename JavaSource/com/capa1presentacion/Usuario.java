@@ -14,222 +14,231 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 public class Usuario {
-	
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name = "SEQ_USUARIO", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
 	private long id;
 
-	@Column(nullable = false, length = 50)
-	private String nombre;
+	private String nombre1;
 
-	@Column(nullable = false, length = 50)
-	private String apellido;
+	private String nombre2;
 
-	@Column(nullable = false, length = 50)
+	private String apellido1;
+
+	private String apellido2;
+
+	private String documento;
+
 	private Date fechaNac;
 
-	@Column(nullable = false)
-	private int alumno;
+	private String emailPersonal;
 
-	@Column(nullable = false, length = 50)
-	private String direccion;
+	private String telefono;
 
-	@Column(nullable = false, length = 50)
-	private String mail;
+	private String localidad;
 
-	@Column(nullable = true, length = 50)
-	private String activo;
-	
-	@Column(nullable = true, length = 100)
-	private String carreraOEspecialidad;
-	
-	@Column(nullable = true)
-	private String numeroAlumno;
-	
-	@Column(nullable = true)
-	private String usuario;
-	
-	@Column(nullable = true)
+	private String departamento;
+
+	private String nombreDeUsuario; 
+
+	private String emailInstitucional;
+
 	private String password;
+
+	private String itr;
+
+	private String anioIngreso;
+
+	private int tipo;
 	
+	private int activo;
+
+    public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
 	public Usuario() {
 		super();
 	}
 
-
-	public Usuario(long id, String nombre, String apellido, Date fechaNac, int alumno, String direccion, String mail,
-			String activo, String carreraOEspecialidad, String numeroalumno) {
+	public Usuario(long id, String nombre1, String nombre2, String apellido1, String apellido2, String documento,
+			Date fechaNac, String emailPersonal, String telefono, String localidad, String departamento,
+			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo ) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
+		this.nombre1 = nombre1;
+		this.nombre2 = nombre2;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
+		this.documento = documento;
 		this.fechaNac = fechaNac;
-		this.alumno = alumno;
-		this.direccion = direccion;
-		this.mail = mail;
-		this.activo = activo;
-		this.carreraOEspecialidad = carreraOEspecialidad;
-		this.numeroAlumno = numeroalumno;
+		this.emailPersonal = emailPersonal;
+		this.telefono = telefono;
+		this.localidad = localidad;
+		this.departamento = departamento;
+		this.nombreDeUsuario = nombreDeUsuario;
+		this.emailInstitucional = emailInstitucional;
+		this.password = password;
+		this.itr = itr;
+		this.anioIngreso = anioIngreso;
+		this.tipo = tipo;
+		this.activo = 0;
 	}
 
+	public int getActivo() {
+		return activo;
+	}
 
+	public void setActivo(int activo) {
+		this.activo = activo;
+	}
+
+	public String getAnioIngreso() {
+		return anioIngreso;
+	}
+
+	public void setAnioIngreso(String anioIngreso) {
+		this.anioIngreso = anioIngreso;
+	}
 
 	public long getId() {
 		return id;
 	}
 
-
-
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
-
-	public String getNombre() {
-		return nombre;
+	public String getNombre1() {
+		return nombre1;
 	}
 
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre1(String nombre1) {
+		this.nombre1 = nombre1;
 	}
 
-	
-	public int getAlumno() {
-		return alumno;
+	public String getNombre2() {
+		return nombre2;
 	}
 
-
-	public void setAlumno(int alumno) {
-		this.alumno = alumno;
+	public void setNombre2(String nombre2) {
+		this.nombre2 = nombre2;
 	}
 
-
-	public String getNumeroAlumno() {
-		return numeroAlumno;
+	public String getApellido1() {
+		return apellido1;
 	}
 
-
-	public void setNumeroAlumno(String numeroAlumno) {
-		this.numeroAlumno = numeroAlumno;
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
 	}
 
-
-	public String getUsuario() {
-		return usuario;
+	public String getApellido2() {
+		return apellido2;
 	}
 
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
 	}
 
-
-	public String getPassword() {
-		return password;
+	public String getDocumento() {
+		return documento;
 	}
 
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
-
-
-	public String getApellido() {
-		return apellido;
-	}
-
-
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-
 
 	public Date getFechaNac() {
 		return fechaNac;
 	}
 
-
-
 	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
-
-
-	public String getDireccion() {
-		return direccion;
+	public String getEmailPersonal() {
+		return emailPersonal;
 	}
 
-
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setEmailPersonal(String emailPersonal) {
+		this.emailPersonal = emailPersonal;
 	}
 
-
-
-	public String getMail() {
-		return mail;
+	public String getTelefono() {
+		return telefono;
 	}
 
-
-
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
-
-
-	public String getActivo() {
-		return activo;
+	public String getLocalidad() {
+		return localidad;
 	}
 
-
-
-	public void setActivo(String activo) {
-		this.activo = activo;
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
 	}
 
-
-
-	public String getCarreraOEspecialidad() {
-		return carreraOEspecialidad;
+	public String getDepartamento() {
+		return departamento;
 	}
 
-
-
-	public void setCarreraOEspecialidad(String carreraOEspecialidad) {
-		this.carreraOEspecialidad = carreraOEspecialidad;
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
-
-
-	public String getNumeroalumno() {
-		return numeroAlumno;
+	public String getNombreDeUsuario() {
+		return nombreDeUsuario;
 	}
 
-
-
-	public void setNumeroalumno(String numeroalumno) {
-		this.numeroAlumno = numeroalumno;
+	public void setNombreDeUsuario(String nombreDeUsuario) {
+		this.nombreDeUsuario = nombreDeUsuario;
 	}
 
+	public String getEmailInstitucional() {
+		return emailInstitucional;
+	}
 
+	public void setEmailInstitucional(String emailInstitucional) {
+		this.emailInstitucional = emailInstitucional;
+	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getItr() {
+		return itr;
+	}
+
+	public void setItr(String itr) {
+		this.itr = itr;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
-				+ ", alumno=" + alumno + ", direccion=" + direccion + ", mail=" + mail + ", activo=" + activo
-				+ ", carreraOEspecialidad=" + carreraOEspecialidad + ", numeroalumno=" + numeroAlumno + "]";
+		return "Usuario [id=" + id + ", nombre1=" + nombre1 + ", nombre2=" + nombre2 + ", apellido1=" + apellido1
+				+ ", apellido2=" + apellido2 + ", documento=" + documento + ", fechaNac=" + fechaNac
+				+ ", emailPersonal=" + emailPersonal + ", telefono=" + telefono + ", localidad=" + localidad
+				+ ", departamento=" + departamento + ", nombreDeUsuario=" + nombreDeUsuario + ", emailInstitucional="
+				+ emailInstitucional + ", password=" + password + ", itr=" + itr + ", anioIngreso=" + anioIngreso
+				+ ", tipo=" + tipo + ", activo=" + activo + "]";
 	}
+
+
+
 
 }
