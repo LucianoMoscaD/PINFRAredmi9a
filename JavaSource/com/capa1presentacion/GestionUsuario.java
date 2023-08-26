@@ -243,12 +243,12 @@ public class GestionUsuario implements Serializable {
 		this.usuarioSeleccionado = usuarioSeleccionado;
 	}
 
-	public List<UsuarioDTO> mostrarUsuarios() {
+	public List<UsuarioDTO> buscarUsuarios() {
 		List<UsuarioDTO> listaUsuarios = persistenciaBean.buscarUsuarios();
 		return listaUsuarios;
 	}
 	
-	public List<UsuarioDTO> mostrarTutores() {
+	public List<UsuarioDTO> buscarTutores() {
 		List<UsuarioDTO> listaUsuarios = persistenciaBean.buscarTutores();
 		return listaUsuarios;
 	}
@@ -268,10 +268,17 @@ public class GestionUsuario implements Serializable {
 		usuarios = buscarAlumnos();
 	}
 
-	public void mostrarFuncionarios() throws PersistenciaException {
+	public void mostrarAnalistas() throws PersistenciaException {
 		usuarios = buscarFuncionarios();
 	}
 
+	public void mostrarTutores() throws PersistenciaException {
+		usuarios = buscarTutores();
+	}
+	
+	public void mostrarUsuarios() throws PersistenciaException {
+		usuarios = buscarUsuarios();
+	}
 	public UsuarioDTO login() throws PersistenciaException {
 		UsuarioDTO usuario = persistenciaBean.login(usuarioSeleccionado.getNombreDeUsuario(),usuarioSeleccionado.getPassword());
 		return usuario;

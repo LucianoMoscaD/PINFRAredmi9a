@@ -27,7 +27,7 @@
 			update="usuariosTable" />
 
 		<p:commandButton value="Mostrar funcionarios"
-			actionListener="#{gestionUsuario.mostrarFuncionarios}"
+			actionListener="#{gestionUsuario.mostrarAnalistas}"
 			update="usuariosTable" />
 
 		<p:dataTable id="usuariosTable" value="#{gestionUsuario.usuarios}"
@@ -54,9 +54,6 @@
             </p:column>
 			<p:column headerText="Departamento">
                 #{usuario.departamento}
-            </p:column>
-			<p:column headerText="Nombre de Usuario">
-                #{usuario.nombreDeUsuario}
             </p:column>
 			<p:column headerText="Email Institucional">
                 #{usuario.emailInstitucional}

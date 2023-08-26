@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import com.capa1presentacion.GestionUsuario;
 import com.capa1presentacion.Usuario;
+import com.capa3Persistencia.exception.PersistenciaException;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -67,22 +68,18 @@ public class NavigationBean implements Serializable {
     }
     
     public void goToModificarUsuarios() throws IOException {
-    	System.out.println("en ModificarUsuarios --> " + gestionUsuarios.getUsuarioAModificar() );
-
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/ModificarUsuario.xhtml");
     }
     
-    public void goToListarUsuarios()  throws IOException {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+    public void goToListarUsuarios()  throws IOException, PersistenciaException {
         gestionUsuarios.mostrarUsuarios();
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/ListaUsuarios.xhtml");
     }
     
     public void goToModificacion() throws IOException {
     	gestionUsuarios.cargarUsuarioAModificar();
-    	System.out.println("en modificacion --> " + gestionUsuarios.getUsuarioAModificar() );
-
     	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/Modificacion.xhtml");
     }
