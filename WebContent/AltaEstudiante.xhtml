@@ -77,7 +77,7 @@
 				value="#{gestionUsuario.usuarioSeleccionado.emailPersonal}" />
 			<h:message for="emailPersonal" style="color:red" />
 			
-			<h:outputLabel value="Telefono*" />
+			<h:outputLabel value="Teléfono*" />
 			<p:inputText id="telefono"
 				value="#{gestionUsuario.usuarioSeleccionado.telefono}" />
 			<h:message for="telefono" style="color:red" />
@@ -102,12 +102,12 @@
 				value="#{gestionUsuario.usuarioSeleccionado.emailInstitucional}" />
 			<h:message for="emailInstitucional" style="color:red" />
 
-			<h:outputLabel value="Contrasena*" />
+			<h:outputLabel value="Contraseña*" />
 			<p:inputText id="password"
 				value="#{gestionUsuario.usuarioSeleccionado.password}" />
 			<h:message for="password" style="color:red" />
 
-			<h:outputLabel value="ITR a asistir" />
+			<h:outputLabel value="ITR a asistir*" />
 			<p:selectOneMenu id="itr" value="#{gestionUsuario.usuarioSeleccionado.itr}">
             <f:selectItem itemValue="" itemLabel="Seleccione uno" />
             <f:selectItem itemValue="Centro Sur" itemLabel="Centro Sur" />
