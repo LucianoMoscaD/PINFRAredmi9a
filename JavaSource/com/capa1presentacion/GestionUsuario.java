@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -54,16 +56,15 @@ public class GestionUsuario implements Serializable {
 	boolean logueado;
 
 	private List<UsuarioDTO> usuarios;
-	
-	private List<UsuarioDTO> usuariosDescartados;
 
+	private List<UsuarioDTO> usuariosDescartados;
 
 	private Usuario usuarioAModificar;
 
 	private boolean fromAlumnoPage;
 
 	private String estadoFiltro = "Todos";
-	
+
 	private String confirmacionContraseña;
 
 	@PostConstruct
@@ -315,57 +316,56 @@ public class GestionUsuario implements Serializable {
 		usuariosDescartados = new ArrayList<>();
 		estadoFiltro = "Todos";
 	}
-	
+
 	public void filtrar() {
 		List<UsuarioDTO> usuariosFiltrados = new ArrayList<>();
 		usuarios.addAll(usuariosDescartados);
-		
+
 		for (UsuarioDTO descartado : usuariosDescartados) {
-		    boolean idExists = false;
-		    
-		    for (UsuarioDTO usuario : usuarios) {
-		        if (usuario.getId() == descartado.getId()) {
-		            idExists = true;
-		            break;
-		        }
-		    }
-		    
-		    if (!idExists) {
-		        usuarios.add(descartado);
-		    }
+			boolean idExists = false;
+
+			for (UsuarioDTO usuario : usuarios) {
+				if (usuario.getId() == descartado.getId()) {
+					idExists = true;
+					break;
+				}
+			}
+
+			if (!idExists) {
+				usuarios.add(descartado);
+			}
 		}
-		
-		
+
 		if (estadoFiltro.equals("Activo")) {
 			for (UsuarioDTO usuario : usuarios) {
-		        if (usuario.getActivo() == 1) {
-		            usuariosFiltrados.add(usuario);
-		        }else {
-		        	usuariosDescartados.add(usuario);
-		        }
-		    }
+				if (usuario.getActivo() == 1) {
+					usuariosFiltrados.add(usuario);
+				} else {
+					usuariosDescartados.add(usuario);
+				}
+			}
 			System.out.println("usuarios filtrados en Activo --> " + usuariosFiltrados);
 		}
 		if (estadoFiltro.equals("Inactivo")) {
-			
+
 			for (UsuarioDTO usuario : usuarios) {
-		        if (usuario.getActivo() == 0) {
-		            usuariosFiltrados.add(usuario);
-		        }else {
-		        	usuariosDescartados.add(usuario);
-		        }
-		    }
+				if (usuario.getActivo() == 0) {
+					usuariosFiltrados.add(usuario);
+				} else {
+					usuariosDescartados.add(usuario);
+				}
+			}
 			System.out.println("usuarios filtrados en Inactivo --> " + usuariosFiltrados);
 
 		}
 		if (estadoFiltro.equals("Todos")) {
-			if(!usuariosDescartados.isEmpty()) {
+			if (!usuariosDescartados.isEmpty()) {
 				usuariosFiltrados.addAll(usuariosDescartados);
-			}else {
+			} else {
 				usuariosFiltrados = usuarios;
 			}
 		}
-	    usuarios = usuariosFiltrados;
+		usuarios = usuariosFiltrados;
 
 	}
 
@@ -410,6 +410,7 @@ public class GestionUsuario implements Serializable {
 	public void setFromAlumnoPage(boolean fromAlumnoPage) {
 		this.fromAlumnoPage = fromAlumnoPage;
 	}
+
 	public String getEstadoFiltro() {
 		return estadoFiltro;
 	}
@@ -418,112 +419,137 @@ public class GestionUsuario implements Serializable {
 		this.estadoFiltro = estadoFiltro;
 	}
 
-	private List<String> validarDatosBasicosUsuario(Usuario usuarioSeleccionado2){
+	private List<String> validarDatosBasicosUsuario(Usuario usuarioSeleccionado2) {
 		List<String> errores = new ArrayList<>();
 
-			if (usuarioSeleccionado.getNombre1() == null || usuarioSeleccionado.getNombre1().length() < 3
-					|| usuarioSeleccionado.getNombre1().length() > 30
-					|| usuarioSeleccionado.getNombre1().matches(".*\\d.*")) {
-				errores.add("Debe completar el campo “Primer nombre” con de 2 a 30 caracteres alfabéticos");
-			}
-			if (usuarioSeleccionado.getNombre2().matches(".*\\d.*")) {
-				errores.add("Debe completar el campo “Segundo nombre” con caracteres alfabéticos");
-			}
-			if (usuarioSeleccionado.getApellido1() == null || usuarioSeleccionado.getApellido1().length() < 3
-					|| usuarioSeleccionado.getApellido1().length() > 30
-					|| usuarioSeleccionado.getApellido1().matches(".*\\d.*")) {
-				errores.add("Debe completar el campo “Primer apellido” con de 2 a 30 caracteres alfabéticos");
-			}
-			if (usuarioSeleccionado.getApellido2().matches(".*\\d.*")) {
-				errores.add("Debe completar el campo “Segundo apellido” con caracteres alfabéticos");
-			}
+		if (usuarioSeleccionado.getNombre1() == null || usuarioSeleccionado.getNombre1().length() < 3
+				|| usuarioSeleccionado.getNombre1().length() > 30
+				|| usuarioSeleccionado.getNombre1().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo “Primer nombre” con de 2 a 30 caracteres alfabéticos");
+		}
+		if (usuarioSeleccionado.getNombre2().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo “Segundo nombre” con caracteres alfabéticos");
+		}
+		if (usuarioSeleccionado.getApellido1() == null || usuarioSeleccionado.getApellido1().length() < 3
+				|| usuarioSeleccionado.getApellido1().length() > 30
+				|| usuarioSeleccionado.getApellido1().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo “Primer apellido” con de 2 a 30 caracteres alfabéticos");
+		}
+		if (usuarioSeleccionado.getApellido2().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo “Segundo apellido” con caracteres alfabéticos");
+		}
 
-			if (usuarioSeleccionado.getDocumento() == null || usuarioSeleccionado.getDocumento().length() < 8
-					|| usuarioSeleccionado.getDocumento().length() > 8
-					|| !usuarioSeleccionado.getDocumento().matches("^\\d+$")) {
-				errores.add("Debe completar el campo “Documento” con 8 caracteres numéricos, sin guiones o puntos");
-			} 
+		if (usuarioSeleccionado.getDocumento() == null || usuarioSeleccionado.getDocumento().length() < 8
+				|| usuarioSeleccionado.getDocumento().length() > 8
+				|| !usuarioSeleccionado.getDocumento().matches("^\\d+$")) {
+			errores.add("Debe completar el campo “Documento” con 8 caracteres numéricos, sin guiones o puntos");
+		}
 
-			// FECHA DE NACIMIENTO
-			if (usuarioSeleccionado.getFechaNac() == null) {
-				errores.add("Debe completar el campo “Fecha de nacimiento” ");
-			}
+		// FECHA DE NACIMIENTO
+		if (usuarioSeleccionado.getFechaNac() == null) {
+			errores.add("Debe completar el campo “Fecha de nacimiento” ");
+		} else {
+			    Calendar calendar = Calendar.getInstance();
+			    calendar.setTime(usuarioSeleccionado.getFechaNac());
+			    int birthYear = calendar.get(Calendar.YEAR);
+			    
+			    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+			    
+			    int age = currentYear - birthYear;
+			    
+			    if (age < 18) {
+			        errores.add("Los usuarios deben tener al menos 18 años de edad");
+			    }
+			
+		}
 
-			if (usuarioSeleccionado.getEmailPersonal() == null || !usuarioSeleccionado.getEmailPersonal()
-					.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-				errores.add("Debe completar el campo “Email Personal” con un mail valido");
-			}
+		if (usuarioSeleccionado.getEmailPersonal() == null || !usuarioSeleccionado.getEmailPersonal()
+				.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+			errores.add("Debe completar el campo “Email Personal” con un mail valido");
+		}
 
-			if (usuarioSeleccionado.getTelefono() == null || usuarioSeleccionado.getTelefono().length() < 4
-					|| usuarioSeleccionado.getTelefono().length() > 9
-					|| !usuarioSeleccionado.getTelefono().matches("^\\d+$")) {
-				errores.add(
-						"Debe completar el campo “Teléfono” con de 4 a 9 caracteres numéricos, sin guiones o puntos");
-			}
+		if (usuarioSeleccionado.getTelefono() == null || usuarioSeleccionado.getTelefono().length() < 4
+				|| usuarioSeleccionado.getTelefono().length() > 9
+				|| !usuarioSeleccionado.getTelefono().matches("^\\d+$")) {
+			errores.add("Debe completar el campo “Teléfono” con de 4 a 9 caracteres numéricos, sin guiones o puntos");
+		}
 
-			if (usuarioSeleccionado.getLocalidad() == null || usuarioSeleccionado.getLocalidad().length() < 3
-					|| usuarioSeleccionado.getLocalidad().length() > 30
-					|| usuarioSeleccionado.getLocalidad().matches(".*\\d.*")) {
-				errores.add("Debe completar el campo “Localidad” con de 2 a 30 caracteres alfabéticos");
-			}
+		if (usuarioSeleccionado.getLocalidad() == null || usuarioSeleccionado.getLocalidad().length() < 3
+				|| usuarioSeleccionado.getLocalidad().length() > 30
+				|| usuarioSeleccionado.getLocalidad().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo “Localidad” con de 2 a 30 caracteres alfabéticos");
+		}
 
-			if (usuarioSeleccionado.getDepartamento() == null || usuarioSeleccionado.getDepartamento().length() < 3
-					|| usuarioSeleccionado.getDepartamento().length() > 30
-					|| usuarioSeleccionado.getDepartamento().matches(".*\\d.*")) {
-				errores.add("Debe completar el campo “Departamento” con de 2 a 30 caracteres alfabéticos");
-			}
+		if (usuarioSeleccionado.getDepartamento() == null || usuarioSeleccionado.getDepartamento().length() < 3
+				|| usuarioSeleccionado.getDepartamento().length() > 30
+				|| usuarioSeleccionado.getDepartamento().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo “Departamento” con de 2 a 30 caracteres alfabéticos");
+		}
 
-			if (usuarioSeleccionado.getEmailInstitucional() == null || !usuarioSeleccionado.getEmailInstitucional()
-					.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-				errores.add("Debe completar el campo “Email Institucional” con un mail valido");
-			}
+		if (usuarioSeleccionado.getEmailInstitucional() == null || !usuarioSeleccionado.getEmailInstitucional()
+				.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+			errores.add("Debe completar el campo “Email Institucional” con un mail valido");
+		}
 
-			if (usuarioSeleccionado.getPassword() == null
-					|| !usuarioSeleccionado.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,20}$")) {
-				errores.add(
-						"Debe completar el campo “Contraseña” con 6 a 20 caracteres que contengan al menos una minúscula, una mayúscula y un número");
-			} else if(!(usuarioSeleccionado.getPassword().equals(confirmacionContraseña))) {
-				errores.add("No concuerdan las contraseñas ingresadas");
-			}
+		if (usuarioSeleccionado.getPassword() == null
+				|| !usuarioSeleccionado.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,20}$")) {
+			errores.add(
+					"Debe completar el campo “Contraseña” con 6 a 20 caracteres que contengan al menos una minúscula, una mayúscula y un número");
+		} else if (!(usuarioSeleccionado.getPassword().equals(confirmacionContraseña))) {
+			errores.add("No concuerdan las contraseñas ingresadas");
+		}
 		return errores;
 	}
-	
+
 	private List<String> validarDatosUsuarioTutor(Usuario usuario) {
 		List<String> errores = validarDatosBasicosUsuario(usuario);
-		
-		
-		if(usuario.getAreaTutor() == null || usuario.getAreaTutor().length() < 2) {
+
+		if (usuario.getAreaTutor() == null || usuario.getAreaTutor().length() < 2) {
 			errores.add("Debe completar el campo “Área a la que pertenece como Tutor”");
 		}
-		
-		if(usuario.getRolTutor() == null || usuario.getRolTutor().length() < 2) {
+
+		if (usuario.getRolTutor() == null || usuario.getRolTutor().length() < 2) {
 			errores.add("Debe completar el campo “Rol como Tutor”");
 		}
-		
+
 		return errores;
 	}
-	
+
 	private List<String> validarDatosUsuarioAlumno(Usuario usuario) {
 		List<String> errores = validarDatosBasicosUsuario(usuario);
 
-		if(usuario.getAnioIngreso() == null || usuario.getAnioIngreso().length() < 2) {
+		if (usuario.getAnioIngreso() == null || usuario.getAnioIngreso().length() < 2) {
 			errores.add("Debe completar el campo “Año de ingreso a la carrera”");
 		}
+		int anioIngreso = Integer.parseInt(usuario.getAnioIngreso());
+	    
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(usuario.getFechaNac());
+	    int nacimiento = calendar.get(Calendar.YEAR);
+	    
+	    int ageAtIngreso = anioIngreso - nacimiento;
+	    
+	    if (ageAtIngreso < 18) {
+	        errores.add("Los estudiantes deben tener al menos 18 años al momento de ingresar a la carrera");
+	    }
 		return errores;
 	}
+
 	
-	private List<String> validarDatos(Usuario usuario) throws Exception{
+
+	private List<String> validarDatos(Usuario usuario) throws Exception {
 		List<String> errores = new ArrayList<>();
-		
-		if(usuario!=null) {
-			if(usuario.getTipo() == 1) {
+
+		if (usuario != null) {
+			if (usuario.getTipo() == 1) {
 				errores = validarDatosBasicosUsuario(usuario);
 				try {
-					
-					if(persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null && persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo()== 1) { 
+
+					if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
+							&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 1) {
 						errores.add("El documento ingresado ya está siendo utilizado por otro analista");
 					}
-					if(persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 1) != null) { 
+					if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 1) != null) {
 						errores.add("El documento ingresado ya está siendo utilizado por otro analista");
 					}
 				} catch (PersistenciaException e) {
@@ -531,24 +557,26 @@ public class GestionUsuario implements Serializable {
 					e.printStackTrace();
 				}
 			}
-			
-			if(usuario.getTipo() == 2) {
+
+			if (usuario.getTipo() == 2) {
 				errores = validarDatosUsuarioAlumno(usuario);
-				
-					if(persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null && persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo()== 2) {
-						errores.add("El documento ingresado ya está siendo utilizado por otro alumno");
-					}
-					if(persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 2) != null) { 
-						errores.add("El email personal ingresado ya está siendo utilizado por otro alumno");
-					}
+
+				if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
+						&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 2) {
+					errores.add("El documento ingresado ya está siendo utilizado por otro alumno");
+				}
+				if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 2) != null) {
+					errores.add("El email personal ingresado ya está siendo utilizado por otro alumno");
+				}
 			}
-			if(usuario.getTipo() == 3) {
+			if (usuario.getTipo() == 3) {
 				errores = validarDatosUsuarioTutor(usuario);
 				try {
-					if(persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null && persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo()== 3) {
+					if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
+							&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 3) {
 						errores.add("El documento ingresado ya está siendo utilizado por otro tutor");
 					}
-					if(persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 3) != null) { 
+					if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 3) != null) {
 						errores.add("El email personal ingresado ya está siendo utilizado por otro tutor");
 					}
 				} catch (PersistenciaException e) {
@@ -556,20 +584,19 @@ public class GestionUsuario implements Serializable {
 					e.printStackTrace();
 				}
 			}
-			
-			
+
 		}
 		return errores;
 	}
 
 	public String getConfirmacionContraseña() {
 		return confirmacionContraseña;
-		
+
 	}
 
 	public void setConfirmacionContraseña(String confirmacionContraseña) {
 		this.confirmacionContraseña = confirmacionContraseña;
-		
+
 	}
-	
+
 }
