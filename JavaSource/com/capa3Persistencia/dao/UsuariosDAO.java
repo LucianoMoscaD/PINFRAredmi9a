@@ -6,8 +6,10 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.capa3Persistencia.entities.UsuarioDTO;
@@ -72,16 +74,17 @@ public class UsuariosDAO {
 		return UsuarioDTO;
 	}
 
-	public UsuarioDTO buscarUsuario(String cedula) throws PersistenciaException {
+	public UsuarioDTO buscarUsuario(String cedula) {
+		String query = "SELECT u FROM UsuarioDTO u WHERE u.documento = :cedula";
+		TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
+		typedQuery.setParameter("cedula", cedula);
+
+		UsuarioDTO result = null;
 		try {
-			String query = "SELECT u FROM UsuarioDTO u WHERE u.documento = :cedula";
-			TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
-			typedQuery.setParameter("cedula", cedula); //
-			UsuarioDTO result = typedQuery.getSingleResult();
-			return result;
-		} catch (PersistenceException e) {
-			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
+		    result = typedQuery.getSingleResult();
+		} catch (NoResultException e) {
 		}
+		return result;
 	}
 
 	public List<UsuarioDTO> buscarAlumnos() throws PersistenciaException {
@@ -179,5 +182,20 @@ public class UsuariosDAO {
 			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
 		}
 	}
+
+//	public UsuarioDTO buscarUsuarioPorMail(String mail) throws PersistenciaException {
+//		System.out.println("Mail en buscarUsuarioPorMail DAO -->"+ mail);
+//
+//		try {
+//			Query query = em.createQuery("SELECT u FROM UsuarioDTO u WHERE u.emailPersonal = :email")
+//					.setParameter("email", "diegote@gmail.com");
+//
+//			System.out.println("esta es la query --> " + query.toString());
+//			return (UsuarioDTO) query.getSingleResult();
+//
+//		} catch (PersistenceException e) {
+//			throw new PersistenciaException("No se pudo hacer la consulta." + e.getMessage(), e);
+//		}
+//	}
 
 }
