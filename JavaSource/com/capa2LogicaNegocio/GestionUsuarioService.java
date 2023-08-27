@@ -164,10 +164,42 @@ public class GestionUsuarioService implements Serializable {
 
 	public Usuario obtenerUsuarioPorCedula(String cedula) throws PersistenciaException {
 		UsuarioDTO e = usuariosPersistenciaDAO.buscarUsuario(cedula);
-		
-    	System.out.println("activo en obtenerUsuarioPorCedula --> " + e.getActivo() );
+		if(e!=null) {
+			return fromUsuarioDTO(e);
+		}
+		return null;
+	}
+	
+	public Usuario obtenerUsuarioPorMail(String mail, int tipo) throws PersistenciaException {
+		List<UsuarioDTO> usuarios;
+		UsuarioDTO usuario = new UsuarioDTO();
 
-		return fromUsuarioDTO(e);
+		if(tipo == 1) {
+			usuarios = usuariosPersistenciaDAO.buscarFuncionarios();
+			for (UsuarioDTO u : usuarios) {
+				if(u.getEmailPersonal().equals(mail)) {
+				}
+			}
+		}
+		if(tipo == 2) {
+			usuarios = usuariosPersistenciaDAO.buscarAlumnos();
+			for (UsuarioDTO u : usuarios) {
+				if(u.getEmailPersonal().equals(mail)) {
+					return fromUsuarioDTO(u);
+
+				}
+			}
+		}
+		if(tipo == 3) {
+			usuarios = usuariosPersistenciaDAO.buscarTutores();
+			for (UsuarioDTO u : usuarios) {
+				if(u.getEmailPersonal().equals(mail)) {
+					return fromUsuarioDTO(u);
+				}
+			}
+		}
+	
+		return null;
 	}
 }
 
