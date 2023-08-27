@@ -74,7 +74,10 @@ h2 {
 
 			<h:outputLabel value="Fecha de Nacimiento*" />
 			<p:calendar id="fechaNac"
-				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
+				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" 
+				pattern="dd-MM-yyyy"
+				mindate="01-01-1900"
+				maxdate="31-12-2004"/>
 			<h:message for="fechaNac" style="color:red" />
 
 			<h:outputLabel value="Email Personal*" />
