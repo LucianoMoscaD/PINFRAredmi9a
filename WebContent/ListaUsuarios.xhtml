@@ -20,14 +20,24 @@
 
 		<p:commandButton value="Mostrar alumnos"
 			actionListener="#{gestionUsuario.mostrarAlumnos}"
-			update="usuariosTable" />
+			update="usuariosTable estadoFiltroMenu" />
 
 		<p:commandButton value="Mostrar tutores"
 			actionListener="#{gestionUsuario.mostrarTutores}"
-			update="usuariosTable" />
+			update="usuariosTable estadoFiltroMenu" />
 
 		<p:commandButton value="Mostrar funcionarios"
 			actionListener="#{gestionUsuario.mostrarAnalistas}"
+			update="usuariosTable estadoFiltroMenu" />
+
+		<h:outputLabel value="Filtrar por estado:" />
+		<p:selectOneMenu id="estadoFiltroMenu" value="#{gestionUsuario.estadoFiltro}">
+			<f:selectItem itemValue="Todos" itemLabel="Todos" />
+			<f:selectItem itemValue="Activo" itemLabel="Activo" />
+			<f:selectItem itemValue="Inactivo" itemLabel="Inactivo" />
+		</p:selectOneMenu>
+		<p:commandButton value="Aplicar"
+			actionListener="#{gestionUsuario.filtrar}"
 			update="usuariosTable" />
 
 		<p:dataTable id="usuariosTable" value="#{gestionUsuario.usuarios}"
