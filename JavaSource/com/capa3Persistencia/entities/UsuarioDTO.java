@@ -2,6 +2,8 @@ package com.capa3Persistencia.entities;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -140,6 +142,10 @@ public class UsuarioDTO implements Serializable {
 
 	public Date getFechaNac() {
 		return fechaNac;
+	}
+	
+	public LocalDate getFechaNacLocal() {
+		return fechaNac.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
 	public void setFechaNac(Date fechaNac) {
