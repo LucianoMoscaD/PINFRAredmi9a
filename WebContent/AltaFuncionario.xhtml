@@ -92,9 +92,29 @@
 			<h:message for="localidad" style="color:red" />
 			
 			<h:outputLabel value="Departamento*" />
-			<p:inputText id="departamento"
-				value="#{gestionUsuario.usuarioSeleccionado.departamento}" />
-			<h:message for="departamento" style="color:red" />
+			<p:selectOneMenu id="departamento"
+				value="#{gestionUsuario.usuarioSeleccionado.departamento}">
+				<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+				<f:selectItem itemLabel="Artigas" itemValue="Artigas" />
+				<f:selectItem itemLabel="Canelones" itemValue="Canelones" />
+				<f:selectItem itemLabel="Cerro Largo" itemValue="Cerro Largo" />
+				<f:selectItem itemLabel="Colonia" itemValue="Colonia" />
+				<f:selectItem itemLabel="Durazno" itemValue="Durazno" />
+				<f:selectItem itemLabel="Flores" itemValue="Flores" />
+				<f:selectItem itemLabel="Florida" itemValue="Florida" />
+				<f:selectItem itemLabel="Lavalleja" itemValue="Lavalleja" />
+				<f:selectItem itemLabel="Maldonado" itemValue="Maldonado" />
+				<f:selectItem itemLabel="Montevideo" itemValue="Montevideo" />
+				<f:selectItem itemLabel="Paysandú" itemValue="Paysandú" />
+				<f:selectItem itemLabel="Río Negro" itemValue="Río Negro" />
+				<f:selectItem itemLabel="Rivera" itemValue="Rivera" />
+				<f:selectItem itemLabel="Rocha" itemValue="Rocha" />
+				<f:selectItem itemLabel="Salto" itemValue="Salto" />
+				<f:selectItem itemLabel="San José" itemValue="San José" />
+				<f:selectItem itemLabel="Soriano" itemValue="Soriano" />
+				<f:selectItem itemLabel="Tacuarembó" itemValue="Tacuarembó" />
+			</p:selectOneMenu>
+			<h:message for="emailInstitucional" style="color:red" />
 			
 			<h:outputLabel value="Email Institucional*" />
 			<p:inputText id="emailInstitucional"
