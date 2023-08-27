@@ -103,8 +103,13 @@
 			<h:message for="emailInstitucional" style="color:red" />
 
 			<h:outputLabel value="Contraseña*" />
-			<p:inputText id="password"
+			<p:password id="password"
 				value="#{gestionUsuario.usuarioSeleccionado.password}" />
+			<h:message for="password" style="color:red" />
+			
+			<h:outputLabel value="Confirmar contraseña*" />
+			<p:password id="confirmarPassword"
+				value="#{gestionUsuario.confirmacionContraseña}" />
 			<h:message for="password" style="color:red" />
 
 			<h:outputLabel value="ITR a asistir*" />
