@@ -63,6 +63,8 @@ public class GestionUsuario implements Serializable {
 	private boolean fromAlumnoPage;
 
 	private String estadoFiltro = "Todos";
+	
+	private String confirmacionContraseña;
 
 	@PostConstruct
 	public void init() {
@@ -480,6 +482,8 @@ public class GestionUsuario implements Serializable {
 					|| !usuarioSeleccionado.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,20}$")) {
 				errores.add(
 						"Debe completar el campo “Contraseña” con 6 a 20 caracteres que contengan al menos una minúscula, una mayúscula y un número");
+			} else if(!(usuarioSeleccionado.getPassword().equals(confirmacionContraseña))) {
+				errores.add("No concuerdan las contraseñas ingresadas");
 			}
 		return errores;
 	}
@@ -556,6 +560,16 @@ public class GestionUsuario implements Serializable {
 			
 		}
 		return errores;
+	}
+
+	public String getConfirmacionContraseña() {
+		return confirmacionContraseña;
+		
+	}
+
+	public void setConfirmacionContraseña(String confirmacionContraseña) {
+		this.confirmacionContraseña = confirmacionContraseña;
+		
 	}
 	
 }

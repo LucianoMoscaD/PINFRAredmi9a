@@ -27,7 +27,18 @@ form {
 h2 {
 	margin: 15px;
 }
-</style>
+
+<
+style>.input-secret {
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	width: 200px;
+}
+
+
+	</style>
 </h:head>
 <body>
 	<h1>
@@ -108,8 +119,13 @@ h2 {
 			<h:message for="emailInstitucional" style="color:red" />
 
 			<h:outputLabel value="Contraseña*" />
-			<p:inputText id="password"
+			<p:password id="password"
 				value="#{gestionUsuario.usuarioSeleccionado.password}" />
+			<h:message for="password" style="color:red" />
+			
+			<h:outputLabel value="Confirmar contraseña*" />
+			<p:password id="confirmarPassword"
+				value="#{gestionUsuario.confirmacionContraseña}" />
 			<h:message for="password" style="color:red" />
 
 			<h:outputLabel value="ITR a asistir*" />
@@ -128,7 +144,8 @@ h2 {
 				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
 				<f:selectItem itemValue="Testing" itemLabel="Testing" />
 				<f:selectItem itemValue="Programación" itemLabel="Programación" />
-				<f:selectItem itemValue="Infraestructura" itemLabel="Infraestructura" />
+				<f:selectItem itemValue="Infraestructura"
+					itemLabel="Infraestructura" />
 				<f:selectItem itemValue="Base de datos" itemLabel=" Base de datos" />
 			</p:selectOneMenu>
 			<h:message for="areaTutor" style="color:red" />
