@@ -6,30 +6,34 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Registro nuevo usuario</title>
-	
-	    <style>
-		html {
-		font-family: Gill Sans Extrabold, sans-serif;
-		}
-		img{
-			margin: 40px;
-		}
-		form {
-			padding: 20px;
-			background-color: lightgray;
-			margin:15px;
-			border-radius: 4px;
-		}
-		h2 {
-		margin: 15px;
-		}		
-    </style>
+
+	<style>
+html {
+	font-family: Gill Sans Extrabold, sans-serif;
+}
+
+img {
+	margin: 40px;
+}
+
+form {
+	padding: 20px;
+	background-color: lightgray;
+	margin: 15px;
+	border-radius: 4px;
+}
+
+h2 {
+	margin: 15px;
+}
+</style>
 </h:head>
 <body>
-        <h1>
-            <img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" /> Sistema de Gestión de Alumnos
-        </h1>
-        <hr color="skyblue" size="5px" />
+	<h1>
+		<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
+		Sistema de Gestión de Alumnos
+	</h1>
+	<hr color="skyblue" size="5px" />
 
 	<h:outputLink value="#{request.contextPath}/index.xhtml">
 		<h:outputText value="Volver" />
@@ -61,7 +65,7 @@
 			<p:inputText id="apellido2"
 				value="#{gestionUsuario.usuarioSeleccionado.apellido2}" />
 			<h:message for="apellido2" style="color:red" />
-			
+
 			<h:outputLabel value="Documento*" />
 			<p:inputText id="documento"
 				value="#{gestionUsuario.usuarioSeleccionado.documento}" />
@@ -71,12 +75,12 @@
 			<p:calendar id="fechaNac"
 				value="#{gestionUsuario.usuarioSeleccionado.fechaNac}" />
 			<h:message for="fechaNac" style="color:red" />
-			
+
 			<h:outputLabel value="Email Personal*" />
 			<p:inputText id="emailPersonal"
 				value="#{gestionUsuario.usuarioSeleccionado.emailPersonal}" />
 			<h:message for="emailPersonal" style="color:red" />
-			
+
 			<h:outputLabel value="Teléfono*" />
 			<p:inputText id="telefono"
 				value="#{gestionUsuario.usuarioSeleccionado.telefono}" />
@@ -86,12 +90,12 @@
 			<p:inputText id="localidad"
 				value="#{gestionUsuario.usuarioSeleccionado.localidad}" />
 			<h:message for="localidad" style="color:red" />
-			
+
 			<h:outputLabel value="Departamento*" />
 			<p:inputText id="departamento"
 				value="#{gestionUsuario.usuarioSeleccionado.departamento}" />
 			<h:message for="departamento" style="color:red" />
-			
+
 			<h:outputLabel value="Nombre de Usuario*" />
 			<p:inputText id="nombreDeUsuario"
 				value="#{gestionUsuario.usuarioSeleccionado.nombreDeUsuario}" />
@@ -106,24 +110,38 @@
 			<p:password id="password"
 				value="#{gestionUsuario.usuarioSeleccionado.password}" />
 			<h:message for="password" style="color:red" />
-			
+
 			<h:outputLabel value="Confirmar contraseña*" />
 			<p:password id="confirmarPassword"
 				value="#{gestionUsuario.confirmacionContraseña}" />
 			<h:message for="password" style="color:red" />
 
 			<h:outputLabel value="ITR a asistir*" />
-			<p:selectOneMenu id="itr" value="#{gestionUsuario.usuarioSeleccionado.itr}">
-            <f:selectItem itemValue="" itemLabel="Seleccione uno" />
-            <f:selectItem itemValue="Centro Sur" itemLabel="Centro Sur" />
-            <f:selectItem itemValue="Suroeste" itemLabel="Suroeste" />
-            <f:selectItem itemValue="Norte" itemLabel="Norte" />
-        </p:selectOneMenu>
+			<p:selectOneMenu id="itr"
+				value="#{gestionUsuario.usuarioSeleccionado.itr}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="Centro Sur" itemLabel="Centro Sur" />
+				<f:selectItem itemValue="Suroeste" itemLabel="Suroeste" />
+				<f:selectItem itemValue="Norte" itemLabel="Norte" />
+			</p:selectOneMenu>
 			<h:message for="itr" style="color:red" />
-			
+
 			<h:outputLabel value="Año de ingreso a la carrera*" />
-			<p:inputText id="anoIngreso"
-				value="#{gestionUsuario.usuarioSeleccionado.anioIngreso}" />
+			<p:selectOneMenu id="anoIngreso"
+				value="#{gestionUsuario.usuarioSeleccionado.anioIngreso}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="2013" itemLabel="2013" />
+				<f:selectItem itemValue="2014" itemLabel="2014" />
+				<f:selectItem itemValue="2015" itemLabel="2015" />
+				<f:selectItem itemValue="2016" itemLabel="2016" />
+				<f:selectItem itemValue="2017" itemLabel="2017" />
+				<f:selectItem itemValue="2018" itemLabel="2018" />
+				<f:selectItem itemValue="2019" itemLabel="2019" />
+				<f:selectItem itemValue="2020" itemLabel="2020" />
+				<f:selectItem itemValue="2021" itemLabel="2021" />
+				<f:selectItem itemValue="2022" itemLabel="2022" />
+				<f:selectItem itemValue="2023" itemLabel="2023" />
+			</p:selectOneMenu>
 			<h:message for="anoIngreso" style="color:red" />
 
 		</h:panelGrid>
