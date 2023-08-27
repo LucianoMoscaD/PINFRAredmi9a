@@ -64,7 +64,8 @@ h2 {
 
 			<h:outputLabel value="Fecha de Nacimiento*" />
 			<p:calendar id="fechaNac"
-				value="#{gestionUsuario.usuarioAModificar.fechaNac}" />
+				value="#{gestionUsuario.usuarioAModificar.fechaNac}"
+				pattern="dd-MM-yyyy" mindate="01-01-1900" maxdate="31-12-2004" />
 			<h:message for="fechaNac" style="color:red" />
 
 			<h:outputLabel value="Email Personal*" />
@@ -87,22 +88,27 @@ h2 {
 				value="#{gestionUsuario.usuarioAModificar.departamento}" />
 			<h:message for="departamento" style="color:red" />
 
-			<h:outputLabel value="Nombre de Usuario*" />
-			<p:inputText id="nombreDeUsuario"
-				value="#{gestionUsuario.usuarioAModificar.nombreDeUsuario}" />
-			<h:message for="nombreDeUsuario" style="color:red" />
-
 			<h:outputLabel value="Email Institucional*" />
 			<p:inputText id="emailInstitucional"
-				value="#{gestionUsuario.usuarioAModificar.emailInstitucional}" />
+				value="#{gestionUsuario.usuarioAModificar.nombreDeUsuario}" />
+			<h:outputLabel value="@estudiantes.utec.edu.uy" />
 			<h:message for="emailInstitucional" style="color:red" />
+		</h:panelGrid>
+		<h:panelGrid columns="3">
 
-			<h:outputLabel value="Contraseña*" />
-			<p:inputText id="password"
+			<h:outputLabel
+				value="Contraseña#{loginBean.usuarioLogueado.tipo ne gestionUsuario.usuarioAModificar.id ? '' : '*'}" />
+			<p:password id="password"
 				value="#{gestionUsuario.usuarioAModificar.password}" />
 			<h:message for="password" style="color:red" />
 
+			<h:outputLabel
+				value="Confirmar contraseña#{loginBean.usuarioLogueado.tipo ne gestionUsuario.usuarioAModificar.id ? '' : '*'}" />
+			<p:password id="confirmarPassword"
+				value="#{gestionUsuario.confirmacionContraseña}" />
+			<h:message for="password" style="color:red" />
 			<h:outputLabel value="ITR a asistir*" />
+
 			<p:selectOneMenu id="itr"
 				value="#{gestionUsuario.usuarioAModificar.itr}">
 				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
@@ -112,16 +118,62 @@ h2 {
 			</p:selectOneMenu>
 			<h:message for="itr" style="color:red" />
 
-			<h:outputLabel value="Año de ingreso a la carrera*" rendered="#{gestionUsuario.usuarioAModificar.tipo eq 2}" />
-			<p:inputText id="anioIngreso"
-				value="#{gestionUsuario.usuarioAModificar.anioIngreso}" rendered="#{gestionUsuario.usuarioAModificar.tipo eq 2}" />
+			<h:outputLabel value="Año de ingreso a la carrera*"
+				rendered="#{gestionUsuario.usuarioAModificar.tipo eq 2}" />
+			<p:selectOneMenu id="anioIngreso"
+				value="#{gestionUsuario.usuarioAModificar.anioIngreso}"
+				rendered="#{gestionUsuario.usuarioAModificar.tipo eq 2}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="2013" itemLabel="2013" />
+				<f:selectItem itemValue="2014" itemLabel="2014" />
+				<f:selectItem itemValue="2015" itemLabel="2015" />
+				<f:selectItem itemValue="2016" itemLabel="2016" />
+				<f:selectItem itemValue="2017" itemLabel="2017" />
+				<f:selectItem itemValue="2018" itemLabel="2018" />
+				<f:selectItem itemValue="2019" itemLabel="2019" />
+				<f:selectItem itemValue="2020" itemLabel="2020" />
+				<f:selectItem itemValue="2021" itemLabel="2021" />
+				<f:selectItem itemValue="2022" itemLabel="2022" />
+				<f:selectItem itemValue="2023" itemLabel="2023" />
+			</p:selectOneMenu>
 			<h:message for="anioIngreso" style="color:red" />
 
-			<h:outputLabel value="Activo" rendered="#{sesionBean.tipo eq 1}"/>
-			<p:selectOneRadio value="#{gestionUsuario.usuarioAModificar.activo}" rendered="#{sesionBean.tipo eq 1}">
+
+			<h:outputLabel value="Área a la que pertenece como Tutor*"
+				rendered="#{sesionBean.tipo eq 3}" />
+			<p:selectOneMenu id="areaTutor"
+				value="#{gestionUsuario.usuarioAModificar.areaTutor}"
+				rendered="#{sesionBean.tipo eq 3}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="Testing" itemLabel="Testing" />
+				<f:selectItem itemValue="Programación" itemLabel="Programación" />
+				<f:selectItem itemValue="Infraestructura"
+					itemLabel="Infraestructura" />
+				<f:selectItem itemValue="Base de datos" itemLabel=" Base de datos" />
+			</p:selectOneMenu>
+			<h:message for="areaTutor" style="color:red" />
+
+			<h:outputLabel value="Rol como Tutor*"
+				rendered="#{sesionBean.tipo eq 3}" />
+			<p:selectOneMenu id="rolTutor"
+				value="#{gestionUsuario.usuarioAModificar.rolTutor}"
+				rendered="#{sesionBean.tipo eq 3}">
+				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
+				<f:selectItem itemValue="Encargado" itemLabel="Encargado" />
+				<f:selectItem itemValue="Tutor" itemLabel="Tutor" />
+			</p:selectOneMenu>
+			<h:message for="rolTutor" style="color:red" />
+
+		</h:panelGrid>
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Activo" rendered="#{sesionBean.tipo eq 1}" />
+			<p:selectOneRadio value="#{gestionUsuario.usuarioAModificar.activo}"
+				rendered="#{sesionBean.tipo eq 1}">
 				<f:selectItem itemValue="1" itemLabel="Si" />
 				<f:selectItem itemValue="0" itemLabel="No" />
 			</p:selectOneRadio>
+		</h:panelGrid>
+		<h:panelGrid columns="3">
 			<h:commandButton value="Guardar Cambios"
 				action="#{gestionUsuario.actualizarUsuario}" />
 
