@@ -26,6 +26,7 @@ import com.capa2LogicaNegocio.GestionUsuarioService;
 import com.capa3Persistencia.dao.UsuariosDAO;
 import com.capa3Persistencia.entities.UsuarioDTO;
 import com.capa3Persistencia.exception.PersistenciaException;
+import com.navegacion.LoginBean;
 import com.navegacion.NavigationBean;
 import com.utils.ExceptionsTools;
 
@@ -46,6 +47,9 @@ public class GestionUsuario implements Serializable {
 
 	@Inject
 	NavigationBean navegacion;
+	
+	@Inject
+	LoginBean loginBean;
 
 	private String selectedUserCedula;
 
@@ -65,7 +69,7 @@ public class GestionUsuario implements Serializable {
 
 	private String estadoFiltro = "Todos";
 
-	private String confirmacionContraseña;
+	private String confirmacionPassword;
 
 	@PostConstruct
 	public void init() {
@@ -81,6 +85,7 @@ public class GestionUsuario implements Serializable {
 
 		Usuario usuarioNuevo;
 		try {
+			usuarioSeleccionado.setEmailInstitucional(usuarioSeleccionado.getNombreDeUsuario() + "@utec.edu.uy");
 			usuarioSeleccionado.setTipo(1);
 			if (validarDatos(usuarioSeleccionado).isEmpty()) {
 				usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
@@ -123,6 +128,8 @@ public class GestionUsuario implements Serializable {
 	public void crearAlumno() throws Exception {
 		Usuario usuarioNuevo;
 		try {
+			usuarioSeleccionado
+					.setEmailInstitucional(usuarioSeleccionado.getNombreDeUsuario() + "@estudiantes.utec.edu.uy");
 			usuarioSeleccionado.setTipo(2);
 			if (validarDatos(usuarioSeleccionado).isEmpty()) {
 				usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
@@ -160,6 +167,7 @@ public class GestionUsuario implements Serializable {
 	public void crearTutor() throws Exception {
 		Usuario usuarioNuevo;
 		try {
+			usuarioSeleccionado.setEmailInstitucional(usuarioSeleccionado.getNombreDeUsuario() + "@utec.edu.uy");
 			usuarioSeleccionado.setTipo(3);
 			if (validarDatos(usuarioSeleccionado).isEmpty()) {
 				usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
@@ -195,9 +203,27 @@ public class GestionUsuario implements Serializable {
 
 	public void actualizarUsuario() throws PersistenciaException, IOException {
 		if (usuarioAModificar != null) {
-			persistenciaBean.agregarUsuario(usuarioAModificar);
-			navegacion.goToBienvenida();
-			usuarioAModificar = null;
+			if(loginBean.getUsuarioLogueado().getId()!=usuarioAModificar.getId() && usuarioAModificar.getPassword().isBlank()) {
+				usuarioAModificar.setPassword(loginBean.getUsuarioLogueado().getPassword());
+				confirmacionPassword = loginBean.getUsuarioLogueado().getPassword();
+			}
+			try {
+				//if (validarDatos(usuarioAModificar).isEmpty()) {
+					persistenciaBean.agregarUsuario(usuarioAModificar);
+					navegacion.goToBienvenida();
+					usuarioAModificar = null;
+					confirmacionPassword = null;
+//				} else {
+//					for (String error : validarDatos(usuarioAModificar)) {
+//						FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", error);
+//						FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+//					}
+//				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 
@@ -427,7 +453,7 @@ public class GestionUsuario implements Serializable {
 				|| usuarioSeleccionado.getNombre1().matches(".*\\d.*")) {
 			errores.add("Debe completar el campo “Primer nombre” con de 2 a 30 caracteres alfabéticos");
 		}
-		if (usuarioSeleccionado.getNombre2().matches(".*\\d.*")) {
+		if (usuarioSeleccionado.getNombre2() != null && usuarioSeleccionado.getNombre2().matches(".*\\d.*")) {
 			errores.add("Debe completar el campo “Segundo nombre” con caracteres alfabéticos");
 		}
 		if (usuarioSeleccionado.getApellido1() == null || usuarioSeleccionado.getApellido1().length() < 3
@@ -435,7 +461,7 @@ public class GestionUsuario implements Serializable {
 				|| usuarioSeleccionado.getApellido1().matches(".*\\d.*")) {
 			errores.add("Debe completar el campo “Primer apellido” con de 2 a 30 caracteres alfabéticos");
 		}
-		if (usuarioSeleccionado.getApellido2().matches(".*\\d.*")) {
+		if (usuarioSeleccionado.getApellido2() != null && usuarioSeleccionado.getApellido2().matches(".*\\d.*")) {
 			errores.add("Debe completar el campo “Segundo apellido” con caracteres alfabéticos");
 		}
 
@@ -449,18 +475,18 @@ public class GestionUsuario implements Serializable {
 		if (usuarioSeleccionado.getFechaNac() == null) {
 			errores.add("Debe completar el campo “Fecha de nacimiento” ");
 		} else {
-			    Calendar calendar = Calendar.getInstance();
-			    calendar.setTime(usuarioSeleccionado.getFechaNac());
-			    int birthYear = calendar.get(Calendar.YEAR);
-			    
-			    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-			    
-			    int age = currentYear - birthYear;
-			    
-			    if (age < 18) {
-			        errores.add("Los usuarios deben tener al menos 18 años de edad");
-			    }
-			
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(usuarioSeleccionado.getFechaNac());
+			int birthYear = calendar.get(Calendar.YEAR);
+
+			int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+			int age = currentYear - birthYear;
+
+			if (age < 18) {
+				errores.add("Los usuarios deben tener al menos 18 años de edad");
+			}
+
 		}
 
 		if (usuarioSeleccionado.getEmailPersonal() == null || !usuarioSeleccionado.getEmailPersonal()
@@ -495,7 +521,7 @@ public class GestionUsuario implements Serializable {
 				|| !usuarioSeleccionado.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,20}$")) {
 			errores.add(
 					"Debe completar el campo “Contraseña” con 6 a 20 caracteres que contengan al menos una minúscula, una mayúscula y un número");
-		} else if (!(usuarioSeleccionado.getPassword().equals(confirmacionContraseña))) {
+		} else if (!(usuarioSeleccionado.getPassword().equals(confirmacionPassword))) {
 			errores.add("No concuerdan las contraseñas ingresadas");
 		}
 		return errores;
@@ -522,20 +548,18 @@ public class GestionUsuario implements Serializable {
 			errores.add("Debe completar el campo “Año de ingreso a la carrera”");
 		}
 		int anioIngreso = Integer.parseInt(usuario.getAnioIngreso());
-	    
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(usuario.getFechaNac());
-	    int nacimiento = calendar.get(Calendar.YEAR);
-	    
-	    int ageAtIngreso = anioIngreso - nacimiento;
-	    
-	    if (ageAtIngreso < 18) {
-	        errores.add("Los estudiantes deben tener al menos 18 años al momento de ingresar a la carrera");
-	    }
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(usuario.getFechaNac());
+		int nacimiento = calendar.get(Calendar.YEAR);
+
+		int ageAtIngreso = anioIngreso - nacimiento;
+
+		if (ageAtIngreso < 18) {
+			errores.add("Los estudiantes deben tener al menos 18 años al momento de ingresar a la carrera");
+		}
 		return errores;
 	}
-
-	
 
 	private List<String> validarDatos(Usuario usuario) throws Exception {
 		List<String> errores = new ArrayList<>();
@@ -590,12 +614,12 @@ public class GestionUsuario implements Serializable {
 	}
 
 	public String getConfirmacionContraseña() {
-		return confirmacionContraseña;
+		return confirmacionPassword;
 
 	}
 
 	public void setConfirmacionContraseña(String confirmacionContraseña) {
-		this.confirmacionContraseña = confirmacionContraseña;
+		this.confirmacionPassword = confirmacionContraseña;
 
 	}
 

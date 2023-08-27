@@ -99,15 +99,13 @@ h2 {
 				value="#{gestionUsuario.usuarioSeleccionado.departamento}" />
 			<h:message for="departamento" style="color:red" />
 
-			<h:outputLabel value="Nombre de Usuario*" />
-			<p:inputText id="nombreDeUsuario"
-				value="#{gestionUsuario.usuarioSeleccionado.nombreDeUsuario}" />
-			<h:message for="nombreDeUsuario" style="color:red" />
-
 			<h:outputLabel value="Email Institucional*" />
 			<p:inputText id="emailInstitucional"
-				value="#{gestionUsuario.usuarioSeleccionado.emailInstitucional}" />
+				value="#{gestionUsuario.usuarioSeleccionado.nombreDeUsuario}" />
+			<h:outputLabel value="@estudiantes.utec.edu.uy" />
 			<h:message for="emailInstitucional" style="color:red" />
+		</h:panelGrid>
+		<h:panelGrid columns="3">
 
 			<h:outputLabel value="Contraseña*" />
 			<p:password id="password"
@@ -146,8 +144,8 @@ h2 {
 				<f:selectItem itemValue="2023" itemLabel="2023" />
 			</p:selectOneMenu>
 			<h:message for="anoIngreso" style="color:red" />
-
 		</h:panelGrid>
+
 		<h:commandButton value="Registrarme"
 			action="#{gestionUsuario.crearAlumno()}" />
 	</h:form>
