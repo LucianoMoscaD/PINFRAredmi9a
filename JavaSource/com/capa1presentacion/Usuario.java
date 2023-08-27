@@ -1,6 +1,6 @@
 package com.capa1presentacion;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Usuario {
 
@@ -18,7 +18,7 @@ public class Usuario {
 
 	private String documento;
 
-	private Date fechaNac;
+	private LocalDate fechaNac;
 
 	private String emailPersonal;
 
@@ -58,7 +58,7 @@ public class Usuario {
 	}
 
 	public Usuario(long id, String nombre1, String nombre2, String apellido1, String apellido2, String documento,
-			Date fechaNac, String emailPersonal, String telefono, String localidad, String departamento,
+			LocalDate fechaNac, String emailPersonal, String telefono, String localidad, String departamento,
 			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo ) {
 		super();
 		this.id = id;
@@ -145,11 +145,11 @@ public class Usuario {
 		this.documento = documento;
 	}
 
-	public Date getFechaNac() {
+	public LocalDate getFechaNac() {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(LocalDate fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 

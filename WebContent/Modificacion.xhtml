@@ -64,7 +64,8 @@ h2 {
 
 			<h:outputLabel value="Fecha de Nacimiento*" />
 			<p:calendar id="fechaNac"
-				value="#{gestionUsuario.usuarioAModificar.fechaNac}" />
+				value="#{gestionUsuario.usuarioAModificar.fechaNac}"
+				dateOnly="true" />
 			<h:message for="fechaNac" style="color:red" />
 
 			<h:outputLabel value="Email Personal*" />
