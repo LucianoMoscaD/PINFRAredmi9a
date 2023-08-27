@@ -30,6 +30,7 @@ public class NavigationBean implements Serializable {
 	LoginBean loginBean;
 
     public void goToLogin() throws IOException {
+        gestionUsuarios.setUsuarioSeleccionado(new Usuario());
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath() + "/Login.xhtml");
     }

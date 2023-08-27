@@ -47,7 +47,7 @@ public class GestionUsuario implements Serializable {
 
 	@Inject
 	NavigationBean navegacion;
-	
+
 	@Inject
 	LoginBean loginBean;
 
@@ -203,16 +203,17 @@ public class GestionUsuario implements Serializable {
 
 	public void actualizarUsuario() throws PersistenciaException, IOException {
 		if (usuarioAModificar != null) {
-			if(loginBean.getUsuarioLogueado().getId()!=usuarioAModificar.getId() && usuarioAModificar.getPassword().isBlank()) {
+			if (loginBean.getUsuarioLogueado().getId() != usuarioAModificar.getId()
+					&& usuarioAModificar.getPassword().isBlank()) {
 				usuarioAModificar.setPassword(loginBean.getUsuarioLogueado().getPassword());
 				confirmacionPassword = loginBean.getUsuarioLogueado().getPassword();
 			}
 			try {
-				//if (validarDatos(usuarioAModificar).isEmpty()) {
-					persistenciaBean.agregarUsuario(usuarioAModificar);
-					navegacion.goToBienvenida();
-					usuarioAModificar = null;
-					confirmacionPassword = null;
+				// if (validarDatos(usuarioAModificar).isEmpty()) {
+				persistenciaBean.agregarUsuario(usuarioAModificar);
+				navegacion.goToBienvenida();
+				usuarioAModificar = null;
+				confirmacionPassword = null;
 //				} else {
 //					for (String error : validarDatos(usuarioAModificar)) {
 //						FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", error);
@@ -445,7 +446,7 @@ public class GestionUsuario implements Serializable {
 		this.estadoFiltro = estadoFiltro;
 	}
 
-	private List<String> validarDatosBasicosUsuario(Usuario usuarioSeleccionado2) {
+	private List<String> validarDatosBasicosUsuario(Usuario usuarioSeleccionado) {
 		List<String> errores = new ArrayList<>();
 
 		if (usuarioSeleccionado.getNombre1() == null || usuarioSeleccionado.getNombre1().length() < 3
@@ -524,18 +525,25 @@ public class GestionUsuario implements Serializable {
 		} else if (!(usuarioSeleccionado.getPassword().equals(confirmacionPassword))) {
 			errores.add("No concuerdan las contraseñas ingresadas");
 		}
+
 		return errores;
 	}
 
 	private List<String> validarDatosUsuarioTutor(Usuario usuario) {
 		List<String> errores = validarDatosBasicosUsuario(usuario);
 
-		if (usuario.getAreaTutor() == null || usuario.getAreaTutor().length() < 2) {
-			errores.add("Debe completar el campo “Área a la que pertenece como Tutor”");
-		}
+		if (usuario.getAreaTutor() == null || usuario.getRolTutor() == null) {
+			errores = new ArrayList<>();
+			errores.add("Debe completar todos los campos marcados con un asterisco *");
 
-		if (usuario.getRolTutor() == null || usuario.getRolTutor().length() < 2) {
-			errores.add("Debe completar el campo “Rol como Tutor”");
+		} else {
+			if (usuario.getAreaTutor().length() < 2) {
+				errores.add("Debe completar el campo “Área a la que pertenece como Tutor”");
+			}
+
+			if (usuario.getRolTutor().length() < 2) {
+				errores.add("Debe completar el campo “Rol como Tutor”");
+			}
 		}
 
 		return errores;
@@ -544,68 +552,84 @@ public class GestionUsuario implements Serializable {
 	private List<String> validarDatosUsuarioAlumno(Usuario usuario) {
 		List<String> errores = validarDatosBasicosUsuario(usuario);
 
-		if (usuario.getAnioIngreso() == null || usuario.getAnioIngreso().length() < 2) {
-			errores.add("Debe completar el campo “Año de ingreso a la carrera”");
+		if (usuario.getAnioIngreso() == null) {
+			errores = new ArrayList<>();
+			errores.add("Debe completar todos los campos marcados con un asterisco *");
+		} else {
+			if (usuario.getAnioIngreso().length() < 2) {
+				errores.add("Debe completar el campo “Año de ingreso a la carrera”");
+			}
+			int anioIngreso = Integer.parseInt(usuario.getAnioIngreso());
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(usuario.getFechaNac());
+			int nacimiento = calendar.get(Calendar.YEAR);
+
+			int ageAtIngreso = anioIngreso - nacimiento;
+
+			if (ageAtIngreso < 18) {
+				errores.add("Los estudiantes deben tener al menos 18 años al momento de ingresar a la carrera");
+			}
 		}
-		int anioIngreso = Integer.parseInt(usuario.getAnioIngreso());
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(usuario.getFechaNac());
-		int nacimiento = calendar.get(Calendar.YEAR);
-
-		int ageAtIngreso = anioIngreso - nacimiento;
-
-		if (ageAtIngreso < 18) {
-			errores.add("Los estudiantes deben tener al menos 18 años al momento de ingresar a la carrera");
-		}
 		return errores;
 	}
 
 	private List<String> validarDatos(Usuario usuario) throws Exception {
 		List<String> errores = new ArrayList<>();
 
-		if (usuario != null) {
-			if (usuario.getTipo() == 1) {
-				errores = validarDatosBasicosUsuario(usuario);
-				try {
+		if (usuarioSeleccionado.getNombre1() == null || usuarioSeleccionado.getApellido1() == null
+				|| usuarioSeleccionado.getDocumento() == null || usuarioSeleccionado.getFechaNac() == null
+				|| usuarioSeleccionado.getEmailPersonal() == null || usuarioSeleccionado.getTelefono() == null
+				|| usuarioSeleccionado.getLocalidad() == null || usuarioSeleccionado.getDepartamento() == null
+				|| usuarioSeleccionado.getEmailInstitucional() == null || usuarioSeleccionado.getPassword() == null
+				|| confirmacionPassword.isBlank() || usuarioSeleccionado.getItr() == null) {
+			errores.add("Debe completar todos los campos marcados con un asterisco *");
+		} else {
+
+			if (usuario != null) {
+				if (usuario.getTipo() == 1) {
+					errores = validarDatosBasicosUsuario(usuario);
+					try {
+
+						if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
+								&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 1) {
+							errores.add("El documento ingresado ya está siendo utilizado por otro analista");
+						}
+						if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 1) != null) {
+							errores.add("El documento ingresado ya está siendo utilizado por otro analista");
+						}
+					} catch (PersistenciaException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				if (usuario.getTipo() == 2) {
+					errores = validarDatosUsuarioAlumno(usuario);
 
 					if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
-							&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 1) {
-						errores.add("El documento ingresado ya está siendo utilizado por otro analista");
+							&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 2) {
+						errores.add("El documento ingresado ya está siendo utilizado por otro alumno");
 					}
-					if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 1) != null) {
-						errores.add("El documento ingresado ya está siendo utilizado por otro analista");
+					if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 2) != null) {
+						errores.add("El email personal ingresado ya está siendo utilizado por otro alumno");
 					}
-				} catch (PersistenciaException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
-			}
-
-			if (usuario.getTipo() == 2) {
-				errores = validarDatosUsuarioAlumno(usuario);
-
-				if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
-						&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 2) {
-					errores.add("El documento ingresado ya está siendo utilizado por otro alumno");
-				}
-				if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 2) != null) {
-					errores.add("El email personal ingresado ya está siendo utilizado por otro alumno");
-				}
-			}
-			if (usuario.getTipo() == 3) {
-				errores = validarDatosUsuarioTutor(usuario);
-				try {
-					if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
-							&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 3) {
-						errores.add("El documento ingresado ya está siendo utilizado por otro tutor");
+				if (usuario.getTipo() == 3) {
+					errores = validarDatosUsuarioTutor(usuario);
+					try {
+						if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
+								&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 3) {
+							errores.add("El documento ingresado ya está siendo utilizado por otro tutor");
+						}
+						if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 3) != null) {
+							errores.add("El email personal ingresado ya está siendo utilizado por otro tutor");
+						}
+					} catch (PersistenciaException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 3) != null) {
-						errores.add("El email personal ingresado ya está siendo utilizado por otro tutor");
-					}
-				} catch (PersistenciaException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 
