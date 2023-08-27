@@ -81,6 +81,7 @@ public class GestionUsuario implements Serializable {
 
 		Usuario usuarioNuevo;
 		try {
+			usuarioSeleccionado.setEmailInstitucional(usuarioSeleccionado.getNombreDeUsuario()+"@utec.edu.uy");
 			usuarioSeleccionado.setTipo(1);
 			if (validarDatos(usuarioSeleccionado).isEmpty()) {
 				usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
@@ -123,6 +124,7 @@ public class GestionUsuario implements Serializable {
 	public void crearAlumno() throws Exception {
 		Usuario usuarioNuevo;
 		try {
+			usuarioSeleccionado.setEmailInstitucional(usuarioSeleccionado.getNombreDeUsuario()+"@estudiantes.utec.edu.uy");
 			usuarioSeleccionado.setTipo(2);
 			if (validarDatos(usuarioSeleccionado).isEmpty()) {
 				usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
@@ -160,6 +162,7 @@ public class GestionUsuario implements Serializable {
 	public void crearTutor() throws Exception {
 		Usuario usuarioNuevo;
 		try {
+			usuarioSeleccionado.setEmailInstitucional(usuarioSeleccionado.getNombreDeUsuario()+"@utec.edu.uy");
 			usuarioSeleccionado.setTipo(3);
 			if (validarDatos(usuarioSeleccionado).isEmpty()) {
 				usuarioNuevo = (Usuario) persistenciaBean.agregarUsuario(usuarioSeleccionado);
