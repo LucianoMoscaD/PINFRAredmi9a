@@ -637,12 +637,12 @@ public class GestionUsuario implements Serializable {
 		return errores;
 	}
 
-	public String getConfirmacionContraseña() {
+	public String getConfirmacionPassword() {
 		return confirmacionPassword;
 
 	}
 
-	public void setConfirmacionContraseña(String confirmacionContraseña) {
+	public void setConfirmacionPassword(String confirmacionContraseña) {
 		this.confirmacionPassword = confirmacionContraseña;
 
 	}

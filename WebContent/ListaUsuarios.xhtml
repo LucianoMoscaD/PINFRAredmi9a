@@ -30,7 +30,7 @@
 			actionListener="#{gestionUsuario.mostrarAnalistas}"
 			update="usuariosTable estadoFiltroMenu" />
 
-		<h:outputLabel value="Filtrar por estado:" />
+		<p:outputLabel value="Filtrar por estado:" />
 		<p:selectOneMenu id="estadoFiltroMenu" value="#{gestionUsuario.estadoFiltro}">
 			<f:selectItem itemValue="Todos" itemLabel="Todos" />
 			<f:selectItem itemValue="Activo" itemLabel="Activo" />
