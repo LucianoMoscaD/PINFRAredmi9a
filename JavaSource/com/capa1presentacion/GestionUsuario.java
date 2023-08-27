@@ -54,10 +54,15 @@ public class GestionUsuario implements Serializable {
 	boolean logueado;
 
 	private List<UsuarioDTO> usuarios;
+	
+	private List<UsuarioDTO> usuariosDescartados;
+
 
 	private Usuario usuarioAModificar;
 
 	private boolean fromAlumnoPage;
+
+	private String estadoFiltro = "Todos";
 
 	@PostConstruct
 	public void init() {
@@ -287,18 +292,79 @@ public class GestionUsuario implements Serializable {
 
 	public void mostrarAlumnos() throws PersistenciaException {
 		usuarios = buscarAlumnos();
+		usuariosDescartados = new ArrayList<>();
+		estadoFiltro = "Todos";
 	}
 
 	public void mostrarAnalistas() throws PersistenciaException {
 		usuarios = buscarFuncionarios();
+		usuariosDescartados = new ArrayList<>();
+		estadoFiltro = "Todos";
 	}
 
 	public void mostrarTutores() throws PersistenciaException {
 		usuarios = buscarTutores();
+		usuariosDescartados = new ArrayList<>();
+		estadoFiltro = "Todos";
 	}
 
 	public void mostrarUsuarios() throws PersistenciaException {
 		usuarios = buscarUsuarios();
+		usuariosDescartados = new ArrayList<>();
+		estadoFiltro = "Todos";
+	}
+	
+	public void filtrar() {
+		List<UsuarioDTO> usuariosFiltrados = new ArrayList<>();
+		usuarios.addAll(usuariosDescartados);
+		
+		for (UsuarioDTO descartado : usuariosDescartados) {
+		    boolean idExists = false;
+		    
+		    for (UsuarioDTO usuario : usuarios) {
+		        if (usuario.getId() == descartado.getId()) {
+		            idExists = true;
+		            break;
+		        }
+		    }
+		    
+		    if (!idExists) {
+		        usuarios.add(descartado);
+		    }
+		}
+		
+		
+		if (estadoFiltro.equals("Activo")) {
+			for (UsuarioDTO usuario : usuarios) {
+		        if (usuario.getActivo() == 1) {
+		            usuariosFiltrados.add(usuario);
+		        }else {
+		        	usuariosDescartados.add(usuario);
+		        }
+		    }
+			System.out.println("usuarios filtrados en Activo --> " + usuariosFiltrados);
+		}
+		if (estadoFiltro.equals("Inactivo")) {
+			
+			for (UsuarioDTO usuario : usuarios) {
+		        if (usuario.getActivo() == 0) {
+		            usuariosFiltrados.add(usuario);
+		        }else {
+		        	usuariosDescartados.add(usuario);
+		        }
+		    }
+			System.out.println("usuarios filtrados en Inactivo --> " + usuariosFiltrados);
+
+		}
+		if (estadoFiltro.equals("Todos")) {
+			if(!usuariosDescartados.isEmpty()) {
+				usuariosFiltrados.addAll(usuariosDescartados);
+			}else {
+				usuariosFiltrados = usuarios;
+			}
+		}
+	    usuarios = usuariosFiltrados;
+
 	}
 
 	public UsuarioDTO login() throws PersistenciaException {
@@ -341,6 +407,13 @@ public class GestionUsuario implements Serializable {
 
 	public void setFromAlumnoPage(boolean fromAlumnoPage) {
 		this.fromAlumnoPage = fromAlumnoPage;
+	}
+	public String getEstadoFiltro() {
+		return estadoFiltro;
+	}
+
+	public void setEstadoFiltro(String estadoFiltro) {
+		this.estadoFiltro = estadoFiltro;
 	}
 
 	private List<String> validarDatosBasicosUsuario(Usuario usuarioSeleccionado2){
