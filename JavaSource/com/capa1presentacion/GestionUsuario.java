@@ -642,8 +642,8 @@ public class GestionUsuario implements Serializable {
 
 	}
 
-	public void setConfirmacionPassword(String confirmacionContraseña) {
-		this.confirmacionPassword = confirmacionContraseña;
+	public void setConfirmacionPassword(String confirmacionPassword) {
+		this.confirmacionPassword = confirmacionPassword;
 
 	}
 

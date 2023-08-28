@@ -95,6 +95,7 @@ h2 {
 				value="#{gestionUsuario.usuarioSeleccionado.localidad}" />
 			<h:message for="localidad" style="color:red" />
 
+			<h:outputLabel value="Departamento*" />
 			<p:selectOneMenu id="departamento"
 				value="#{gestionUsuario.usuarioSeleccionado.departamento}">
 				<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
@@ -117,7 +118,8 @@ h2 {
 				<f:selectItem itemLabel="Soriano" itemValue="Soriano" />
 				<f:selectItem itemLabel="Tacuarembó" itemValue="Tacuarembó" />
 			</p:selectOneMenu>
-
+						<h:message for="emailInstitucional" style="color:red" />
+			
 			<h:outputLabel value="Email Institucional*" />
 			<p:inputText id="emailInstitucional"
 				value="#{gestionUsuario.usuarioSeleccionado.nombreDeUsuario}" />
