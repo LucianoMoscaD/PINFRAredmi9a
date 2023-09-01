@@ -42,7 +42,7 @@
 
 		<p:dataTable id="usuariosTable" value="#{gestionUsuario.usuarios}"
 			var="usuario" emptyMessage="No hay usuarios disponibles"
-			sortMode="multiple">
+			sortMode="multiple" >
 
 			<p:column headerText="Primer Nombre">
                 #{usuario.nombre1}
@@ -71,24 +71,9 @@
 			<p:column headerText="ITR">
                 #{usuario.itr}
             </p:column>
-			<p:column headerText="Activo">
-                #{usuario.activo}
+			<p:column headerText="Estado">
+                #{usuario.activo == 1 ? 'Activo' : 'Inactivo'}
             </p:column>
-
-			<!--SI ES ESTUDIANTE 
-	 * <p:column headerText="Año de ingreso">
-                #{usuario.anoIngreso}
-            </p:column>;
-	
-	SI ES TUTOR 
-	  <p:column headerText="Area del Tutor">
-                #{usuario.areaTutor}
-            </p:column>;
-		
-		<p:column headerText="Rol del Tutor">
-                #{usuario.rolTutor}
-            </p:column>;
-	 -->
 
 
 		</p:dataTable>
