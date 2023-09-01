@@ -35,16 +35,19 @@ h2 {
 </h1>
 <hr color="skyblue" size="5px" />
 <h:body>
-	<h:form>
+<h:messages id="messages" showDetail="true" globalOnly="true"
+		closable="true" for = "formBuscar" />
+	<h:form id="formBuscar">
 		<p:outputLabel value="Seleccionar Usuario:" />
 
 		<p:inputText value="#{gestionUsuario.selectedUserCedula}" />
-
+		
 		<p:commandButton value="Cargar datos"
 			action="#{navigationBean.goToModificacion}" />
 
 		<p:commandButton value="Volver"
 			action="#{navigationBean.goToBienvenida}" />
+		<br/>
 	</h:form>
 </h:body>
 </html>

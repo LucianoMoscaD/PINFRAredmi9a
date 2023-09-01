@@ -203,44 +203,48 @@ public class GestionUsuario implements Serializable {
 
 	public void actualizarUsuario() throws PersistenciaException, IOException {
 		if (usuarioAModificar != null) {
-			if (loginBean.getUsuarioLogueado().getId() != usuarioAModificar.getId()
-					&& usuarioAModificar.getPassword().isBlank()) {
-				usuarioAModificar.setPassword(loginBean.getUsuarioLogueado().getPassword());
-				confirmacionPassword = loginBean.getUsuarioLogueado().getPassword();
-			}
-			try {
-				// if (validarDatos(usuarioAModificar).isEmpty()) {
-				persistenciaBean.agregarUsuario(usuarioAModificar);
-				navegacion.goToBienvenida();
-				usuarioAModificar = null;
-				confirmacionPassword = null;
-//				} else {
-//					for (String error : validarDatos(usuarioAModificar)) {
-//						FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", error);
-//						FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-//					}
-//				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			System.out.println(usuarioAModificar.toString());
+			if (loginBean.getUsuarioLogueado().getTipo() != 1 &&( usuarioAModificar.getPassword() == null
+					|| confirmacionPassword.isBlank())) {
 
+				FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+						"Debe completar todos los campos marcados con un asterisco *");
+				FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+
+			} else {
+				String password = persistenciaBean.buscarUsuario(usuarioAModificar.getId()).getPassword();
+				usuarioAModificar.setPassword(password);
+				confirmacionPassword = password;
+				if (validarDatosModificacion(usuarioAModificar).isEmpty()) {
+					try {
+						persistenciaBean.agregarUsuario(usuarioAModificar);
+						navegacion.goToBienvenida();
+						usuarioAModificar = null;
+						confirmacionPassword = null;
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					for (String error : validarDatosModificacion(usuarioAModificar)) {
+						FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", error);
+						FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+					}
+				}
+			}
 		}
 	}
 
-	public void cargarUsuarioAModificar() {
+	public void cargarUsuarioAModificar() throws Exception {
+
 		try {
-
 			usuarioAModificar = persistenciaBean.obtenerUsuarioPorCedula(selectedUserCedula);
-
 			selectedUserCedula = null;
-
-		} catch (PersistenciaException e) {
-			String errorMessage = "Error al cargar los datos del usuario";
-			FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, "");
-			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
+
 	}
 
 	public UsuariosDAO getUsuarioDAO() {
@@ -371,7 +375,6 @@ public class GestionUsuario implements Serializable {
 					usuariosDescartados.add(usuario);
 				}
 			}
-			System.out.println("usuarios filtrados en Activo --> " + usuariosFiltrados);
 		}
 		if (estadoFiltro.equals("Inactivo")) {
 
@@ -382,7 +385,6 @@ public class GestionUsuario implements Serializable {
 					usuariosDescartados.add(usuario);
 				}
 			}
-			System.out.println("usuarios filtrados en Inactivo --> " + usuariosFiltrados);
 
 		}
 		if (estadoFiltro.equals("Todos")) {
@@ -446,38 +448,35 @@ public class GestionUsuario implements Serializable {
 		this.estadoFiltro = estadoFiltro;
 	}
 
-	private List<String> validarDatosBasicosUsuario(Usuario usuarioSeleccionado) {
+	private List<String> validarDatosBasicosUsuario(Usuario usuario) {
 		List<String> errores = new ArrayList<>();
 
-		if (usuarioSeleccionado.getNombre1() == null || usuarioSeleccionado.getNombre1().length() < 3
-				|| usuarioSeleccionado.getNombre1().length() > 30
-				|| usuarioSeleccionado.getNombre1().matches(".*\\d.*")) {
-			errores.add("Debe completar el campo “Primer nombre” con de 2 a 30 caracteres alfabéticos");
+		if (usuario.getNombre1() == null || usuario.getNombre1().length() < 3 || usuario.getNombre1().length() > 30
+				|| usuario.getNombre1().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo -Primer nombre- con de 2 a 30 caracteres alfabeticos");
 		}
-		if (usuarioSeleccionado.getNombre2() != null && usuarioSeleccionado.getNombre2().matches(".*\\d.*")) {
-			errores.add("Debe completar el campo “Segundo nombre” con caracteres alfabéticos");
+		if (usuario.getNombre2() != null && usuario.getNombre2().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo -Segundo nombre- con caracteres alfabeticos");
 		}
-		if (usuarioSeleccionado.getApellido1() == null || usuarioSeleccionado.getApellido1().length() < 3
-				|| usuarioSeleccionado.getApellido1().length() > 30
-				|| usuarioSeleccionado.getApellido1().matches(".*\\d.*")) {
-			errores.add("Debe completar el campo “Primer apellido” con de 2 a 30 caracteres alfabéticos");
+		if (usuario.getApellido1() == null || usuario.getApellido1().length() < 3
+				|| usuario.getApellido1().length() > 30 || usuario.getApellido1().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo -Primer apellido- con de 2 a 30 caracteres alfabeticos");
 		}
-		if (usuarioSeleccionado.getApellido2() != null && usuarioSeleccionado.getApellido2().matches(".*\\d.*")) {
-			errores.add("Debe completar el campo “Segundo apellido” con caracteres alfabéticos");
+		if (usuario.getApellido2() != null && usuario.getApellido2().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo -Segundo apellido- con caracteres alfabeticos");
 		}
 
-		if (usuarioSeleccionado.getDocumento() == null || usuarioSeleccionado.getDocumento().length() < 8
-				|| usuarioSeleccionado.getDocumento().length() > 8
-				|| !usuarioSeleccionado.getDocumento().matches("^\\d+$")) {
-			errores.add("Debe completar el campo “Documento” con 8 caracteres numéricos, sin guiones o puntos");
+		if (usuario.getDocumento() == null || usuario.getDocumento().length() < 8 || usuario.getDocumento().length() > 8
+				|| !usuario.getDocumento().matches("^\\d+$")) {
+			errores.add("Debe completar el campo -Documento- con 8 caracteres numï¿½ricos, sin guiones o puntos");
 		}
 
 		// FECHA DE NACIMIENTO
-		if (usuarioSeleccionado.getFechaNac() == null) {
-			errores.add("Debe completar el campo “Fecha de nacimiento” ");
+		if (usuario.getFechaNac() == null) {
+			errores.add("Debe completar el campo -Fecha de nacimiento- ");
 		} else {
 			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(usuarioSeleccionado.getFechaNac());
+			calendar.setTime(usuario.getFechaNac());
 			int birthYear = calendar.get(Calendar.YEAR);
 
 			int currentYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -490,40 +489,38 @@ public class GestionUsuario implements Serializable {
 
 		}
 
-		if (usuarioSeleccionado.getEmailPersonal() == null || !usuarioSeleccionado.getEmailPersonal()
-				.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-			errores.add("Debe completar el campo “Email Personal” con un mail valido");
+		if (usuario.getEmailPersonal() == null
+				|| !usuario.getEmailPersonal().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+			errores.add("Debe completar el campo -Email Personal- con un mail valido");
 		}
 
-		if (usuarioSeleccionado.getTelefono() == null || usuarioSeleccionado.getTelefono().length() < 4
-				|| usuarioSeleccionado.getTelefono().length() > 9
-				|| !usuarioSeleccionado.getTelefono().matches("^\\d+$")) {
-			errores.add("Debe completar el campo “Teléfono” con de 4 a 9 caracteres numéricos, sin guiones o puntos");
-		}
-
-		if (usuarioSeleccionado.getLocalidad() == null || usuarioSeleccionado.getLocalidad().length() < 3
-				|| usuarioSeleccionado.getLocalidad().length() > 30
-				|| usuarioSeleccionado.getLocalidad().matches(".*\\d.*")) {
-			errores.add("Debe completar el campo “Localidad” con de 2 a 30 caracteres alfabéticos");
-		}
-
-		if (usuarioSeleccionado.getDepartamento() == null || usuarioSeleccionado.getDepartamento().length() < 3
-				|| usuarioSeleccionado.getDepartamento().length() > 30
-				|| usuarioSeleccionado.getDepartamento().matches(".*\\d.*")) {
-			errores.add("Debe completar el campo “Departamento” con de 2 a 30 caracteres alfabéticos");
-		}
-
-		if (usuarioSeleccionado.getEmailInstitucional() == null || !usuarioSeleccionado.getEmailInstitucional()
-				.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-			errores.add("Debe completar el campo “Email Institucional” con un mail valido");
-		}
-
-		if (usuarioSeleccionado.getPassword() == null
-				|| !usuarioSeleccionado.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,20}$")) {
+		if (usuario.getTelefono() == null || usuario.getTelefono().length() < 4 || usuario.getTelefono().length() > 9
+				|| !usuario.getTelefono().matches("^\\d+$")) {
 			errores.add(
-					"Debe completar el campo “Contraseña” con 6 a 20 caracteres que contengan al menos una minúscula, una mayúscula y un número");
-		} else if (!(usuarioSeleccionado.getPassword().equals(confirmacionPassword))) {
-			errores.add("No concuerdan las contraseñas ingresadas");
+					"Debe completar el campo -Telefono- con de 4 a 9 caracteres numericos, sin guiones o puntos");
+		}
+
+		if (usuario.getLocalidad() == null || usuario.getLocalidad().length() < 3
+				|| usuario.getLocalidad().length() > 30 || usuario.getLocalidad().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo -Localidad- con de 2 a 30 caracteres alfabeticos");
+		}
+
+		if (usuario.getDepartamento() == null || usuario.getDepartamento().length() < 3
+				|| usuario.getDepartamento().length() > 30 || usuario.getDepartamento().matches(".*\\d.*")) {
+			errores.add("Debe completar el campo -Departamento- con de 2 a 30 caracteres alfabeticos");
+		}
+
+		if (usuario.getEmailInstitucional() == null
+				|| !usuario.getEmailInstitucional().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+			errores.add("Debe completar el campo -Email Institucional- con un mail valido");
+		}
+
+		if (usuario.getPassword() == null
+				|| !usuario.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,20}$")) {
+			errores.add(
+					"Debe completar el campo -Contraseña- con 6 a 20 caracteres que contengan al menos una minuscula, una mayuscula y un numero");
+		} else if (!(usuario.getPassword().equals(confirmacionPassword))) {
+			errores.add("No concuerdan las contraseï¿½as ingresadas");
 		}
 
 		return errores;
@@ -538,11 +535,11 @@ public class GestionUsuario implements Serializable {
 
 		} else {
 			if (usuario.getAreaTutor().length() < 2) {
-				errores.add("Debe completar el campo “Área a la que pertenece como Tutor”");
+				errores.add("Debe completar el campo -Area a la que pertenece como Tutor-");
 			}
 
 			if (usuario.getRolTutor().length() < 2) {
-				errores.add("Debe completar el campo “Rol como Tutor”");
+				errores.add("Debe completar el campo -Rol como Tutor-");
 			}
 		}
 
@@ -557,7 +554,7 @@ public class GestionUsuario implements Serializable {
 			errores.add("Debe completar todos los campos marcados con un asterisco *");
 		} else {
 			if (usuario.getAnioIngreso().length() < 2) {
-				errores.add("Debe completar el campo “Año de ingreso a la carrera”");
+				errores.add("Debe completar el campo -Año de ingreso a la carrera-");
 			}
 			int anioIngreso = Integer.parseInt(usuario.getAnioIngreso());
 
@@ -594,10 +591,10 @@ public class GestionUsuario implements Serializable {
 
 						if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
 								&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 1) {
-							errores.add("El documento ingresado ya está siendo utilizado por otro analista");
+							errores.add("El documento ingresado ya esta siendo utilizado por otro analista");
 						}
 						if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 1) != null) {
-							errores.add("El documento ingresado ya está siendo utilizado por otro analista");
+							errores.add("El documento ingresado ya esta siendo utilizado por otro analista");
 						}
 					} catch (PersistenciaException e) {
 						// TODO Auto-generated catch block
@@ -610,10 +607,10 @@ public class GestionUsuario implements Serializable {
 
 					if (persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()) != null
 							&& persistenciaBean.obtenerUsuarioPorCedula(usuario.getDocumento()).getTipo() == 2) {
-						errores.add("El documento ingresado ya está siendo utilizado por otro alumno");
+						errores.add("El documento ingresado ya esta siendo utilizado por otro alumno");
 					}
 					if (persistenciaBean.obtenerUsuarioPorMail(usuario.getEmailPersonal(), 2) != null) {
-						errores.add("El email personal ingresado ya está siendo utilizado por otro alumno");
+						errores.add("El email personal ingresado ya esta siendo utilizado por otro alumno");
 					}
 				}
 				if (usuario.getTipo() == 3) {
@@ -634,6 +631,29 @@ public class GestionUsuario implements Serializable {
 			}
 
 		}
+		return errores;
+	}
+
+	public List<String> validarDatosModificacion(Usuario usuario) {
+		List<String> errores = new ArrayList<>();
+
+		if (usuario.getNombre1() == null || usuario.getApellido1() == null || usuario.getDocumento() == null
+				|| usuario.getFechaNac() == null || usuario.getEmailPersonal() == null || usuario.getTelefono() == null
+				|| usuario.getLocalidad() == null || usuario.getDepartamento() == null
+				|| usuario.getEmailInstitucional() == null || usuario.getItr() == null) {
+			errores.add("Debe completar todos los campos marcados con un asterisco *");
+		} else {
+			if (usuario.getTipo() == 3) {
+				errores = validarDatosUsuarioTutor(usuario);
+			}
+			if (usuario.getTipo() == 2) {
+				errores = validarDatosUsuarioAlumno(usuario);
+			}
+			if (usuario.getTipo() == 1) {
+				errores = validarDatosBasicosUsuario(usuario);
+			}
+		}
+
 		return errores;
 	}
 

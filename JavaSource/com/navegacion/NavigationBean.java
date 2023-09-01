@@ -1,11 +1,13 @@
 package com.navegacion;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.capa1presentacion.GestionUsuario;
 import com.capa1presentacion.Usuario;
@@ -14,7 +16,7 @@ import com.capa3Persistencia.exception.PersistenciaException;
 import java.io.IOException;
 import java.io.Serializable;
 
-@ManagedBean
+@Named(value = "navigationBean")
 @SessionScoped
 public class NavigationBean implements Serializable {
 	
@@ -79,17 +81,33 @@ public class NavigationBean implements Serializable {
         externalContext.redirect(externalContext.getRequestContextPath() + "/ListaUsuarios.xhtml");
     }
     
-    public void goToModificacion() throws IOException {
-    	gestionUsuarios.cargarUsuarioAModificar();
-    	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.redirect(externalContext.getRequestContextPath() + "/Modificacion.xhtml");
+    public void goToModificacion() {
+    	
+    	try {
+        	gestionUsuarios.cargarUsuarioAModificar();
+        	if(gestionUsuarios.getUsuarioAModificar()!=null) {
+        		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                externalContext.redirect(externalContext.getRequestContextPath() + "/Modificacion.xhtml");
+        	}
+    
+    	} catch(Exception npe) {
+    		FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"No se ha encontrado el usuario con el siguiente documento:" + gestionUsuarios.getSelectedUserCedula(), "");
+			FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+    	}
     }
     
     public void goToModificarDatosPropios() throws IOException {
     	gestionUsuarios.setSelectedUserCedula(loginBean.getUsuarioLogueado().getDocumento());
-    	gestionUsuarios.cargarUsuarioAModificar();
-    	ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.redirect(externalContext.getRequestContextPath() + "/Modificacion.xhtml");
+    	try {
+			gestionUsuarios.cargarUsuarioAModificar();
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+	        externalContext.redirect(externalContext.getRequestContextPath() + "/Modificacion.xhtml");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     }
     
 }

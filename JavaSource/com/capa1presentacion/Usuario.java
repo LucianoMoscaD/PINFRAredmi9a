@@ -59,7 +59,7 @@ public class Usuario {
 
 	public Usuario(long id, String nombre1, String nombre2, String apellido1, String apellido2, String documento,
 			Date fechaNac, String emailPersonal, String telefono, String localidad, String departamento,
-			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo ) {
+			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo, String areaTutor, String rolTutor) {
 		super();
 		this.id = id;
 		this.nombre1 = nombre1;
@@ -79,6 +79,8 @@ public class Usuario {
 		this.anioIngreso = anioIngreso;
 		this.tipo = tipo;
 		this.activo = activo;
+		this.rolTutor = rolTutor;
+		this.areaTutor = areaTutor;
 	}
 
 	public int getActivo() {

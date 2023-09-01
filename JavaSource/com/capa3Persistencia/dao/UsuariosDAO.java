@@ -74,16 +74,22 @@ public class UsuariosDAO {
 		return UsuarioDTO;
 	}
 
-	public UsuarioDTO buscarUsuario(String cedula) {
-		String query = "SELECT u FROM UsuarioDTO u WHERE u.documento = :cedula";
-		TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
-		typedQuery.setParameter("cedula", cedula);
-
+	public UsuarioDTO buscarUsuario(String cedula) throws Exception {
 		UsuarioDTO result = null;
 		try {
-		    result = typedQuery.getSingleResult();
-		} catch (NoResultException e) {
+
+			String query = "SELECT u FROM UsuarioDTO u WHERE u.documento = :cedula";
+			TypedQuery<UsuarioDTO> typedQuery = em.createQuery(query, UsuarioDTO.class);
+			typedQuery.setParameter("cedula", cedula);
+			List<UsuarioDTO> listaUsuarios = typedQuery.getResultList();
+			
+			if(!listaUsuarios.isEmpty()) {
+				result = listaUsuarios.get(0);
+			}
+		} catch (Exception e) {
+			throw e;
 		}
+
 		return result;
 	}
 

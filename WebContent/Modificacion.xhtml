@@ -33,6 +33,8 @@ h2 {
 		<img src="utec.jpg" alt="Logo UTEC" width="200px" height="auto" />
 	</h1>
 	<hr color="skyblue" size="5px" />
+	<h:messages id="messages" showDetail="true" globalOnly="true"
+		closable="true" />
 	<h:form>
 
 		<h:panelGrid id="usuarioForm" columns="3"
@@ -59,7 +61,8 @@ h2 {
 
 			<h:outputLabel value="Documento*" />
 			<p:inputText id="documento"
-				value="#{gestionUsuario.usuarioAModificar.documento}" />
+				value="#{gestionUsuario.usuarioAModificar.documento}"
+				disabled="#{loginBean.usuarioLogueado.documento ne gestionUsuario.usuarioAModificar.documento}" />
 			<h:message for="documento" style="color:red" />
 
 			<h:outputLabel value="Fecha de Nacimiento*" />
@@ -70,7 +73,8 @@ h2 {
 
 			<h:outputLabel value="Email Personal*" />
 			<p:inputText id="emailPersonal"
-				value="#{gestionUsuario.usuarioAModificar.emailPersonal}" />
+				value="#{gestionUsuario.usuarioAModificar.emailPersonal}"
+				disabled="#{loginBean.usuarioLogueado.documento ne gestionUsuario.usuarioAModificar.documento}" />
 			<h:message for="emailPersonal" style="color:red" />
 
 			<h:outputLabel value="Teléfono*" />
@@ -114,18 +118,21 @@ h2 {
 			<h:outputLabel value="@estudiantes.utec.edu.uy" />
 			<h:message for="emailInstitucional" style="color:red" />
 		</h:panelGrid>
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="3"
+			rendered="#{not empty gestionUsuario.usuarioAModificar}">
 
 			<h:outputLabel
-				value="Contraseña#{loginBean.usuarioLogueado.tipo ne gestionUsuario.usuarioAModificar.id ? '' : '*'}" />
+				value="Contraseña#{loginBean.usuarioLogueado.id ne gestionUsuario.usuarioAModificar.id ? '' : '*'}" />
 			<p:password id="password"
-				value="#{gestionUsuario.usuarioAModificar.password}" />
+				value="#{gestionUsuario.usuarioAModificar.password}"
+				disabled="#{loginBean.usuarioLogueado.documento ne gestionUsuario.usuarioAModificar.documento}" />
 			<h:message for="password" style="color:red" />
 
 			<h:outputLabel
-				value="Confirmar contraseña#{loginBean.usuarioLogueado.tipo ne gestionUsuario.usuarioAModificar.id ? '' : '*'}" />
+				value="Confirmar contraseña#{loginBean.usuarioLogueado.id ne gestionUsuario.usuarioAModificar.id ? '' : '*'}" />
 			<p:password id="confirmarPassword"
-				value="#{gestionUsuario.confirmacionPassword}" />
+				value="#{gestionUsuario.confirmacionPassword}"
+				disabled="#{loginBean.usuarioLogueado.documento ne gestionUsuario.usuarioAModificar.documento}" />
 			<h:message for="password" style="color:red" />
 			<h:outputLabel value="ITR a asistir*" />
 
@@ -156,14 +163,13 @@ h2 {
 				<f:selectItem itemValue="2022" itemLabel="2022" />
 				<f:selectItem itemValue="2023" itemLabel="2023" />
 			</p:selectOneMenu>
-			<h:message for="anioIngreso" style="color:red" />
 
 
 			<h:outputLabel value="Área a la que pertenece como Tutor*"
-				rendered="#{sesionBean.tipo eq 3}" />
+				rendered="#{gestionUsuario.usuarioAModificar.tipo eq 3}" />
 			<p:selectOneMenu id="areaTutor"
 				value="#{gestionUsuario.usuarioAModificar.areaTutor}"
-				rendered="#{sesionBean.tipo eq 3}">
+				rendered="#{gestionUsuario.usuarioAModificar.tipo eq 3}">
 				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
 				<f:selectItem itemValue="Testing" itemLabel="Testing" />
 				<f:selectItem itemValue="Programación" itemLabel="Programación" />
@@ -174,10 +180,10 @@ h2 {
 			<h:message for="areaTutor" style="color:red" />
 
 			<h:outputLabel value="Rol como Tutor*"
-				rendered="#{sesionBean.tipo eq 3}" />
+				rendered="#{gestionUsuario.usuarioAModificar.tipo eq 3}" />
 			<p:selectOneMenu id="rolTutor"
 				value="#{gestionUsuario.usuarioAModificar.rolTutor}"
-				rendered="#{sesionBean.tipo eq 3}">
+				rendered="#{gestionUsuario.usuarioAModificar.tipo eq 3}">
 				<f:selectItem itemValue="" itemLabel="Seleccione uno" />
 				<f:selectItem itemValue="Encargado" itemLabel="Encargado" />
 				<f:selectItem itemValue="Tutor" itemLabel="Tutor" />
@@ -185,7 +191,8 @@ h2 {
 			<h:message for="rolTutor" style="color:red" />
 
 		</h:panelGrid>
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="3"
+			rendered="#{not empty gestionUsuario.usuarioAModificar}">
 			<h:outputLabel value="Activo" rendered="#{sesionBean.tipo eq 1}" />
 			<p:selectOneRadio value="#{gestionUsuario.usuarioAModificar.activo}"
 				rendered="#{sesionBean.tipo eq 1}">
@@ -193,7 +200,8 @@ h2 {
 				<f:selectItem itemValue="0" itemLabel="No" />
 			</p:selectOneRadio>
 		</h:panelGrid>
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="3"
+			rendered="#{not empty gestionUsuario.usuarioAModificar}">
 			<h:commandButton value="Guardar Cambios"
 				action="#{gestionUsuario.actualizarUsuario}" />
 

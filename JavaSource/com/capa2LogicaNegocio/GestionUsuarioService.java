@@ -26,61 +26,65 @@ public class GestionUsuarioService implements Serializable {
 	UsuariosDAO usuariosPersistenciaDAO;
 
 	public Usuario fromUsuarioDTO(UsuarioDTO e) {
-	    Usuario usuario = new Usuario();
-	    usuario.setId(e.getId());
-	    usuario.setNombre1(e.getNombre1());
-	    usuario.setNombre2(e.getNombre2());
-	    usuario.setApellido1(e.getApellido1());
-	    usuario.setApellido2(e.getApellido2());
-	    usuario.setDocumento(e.getDocumento());
-	    usuario.setFechaNac(e.getFechaNac());
-	    usuario.setEmailPersonal(e.getEmailPersonal());
-	    usuario.setTelefono(e.getTelefono());
-	    usuario.setLocalidad(e.getLocalidad());
-	    usuario.setDepartamento(e.getDepartamento());
-	    usuario.setNombreDeUsuario(e.getNombreDeUsuario());
-	    usuario.setEmailInstitucional(e.getEmailInstitucional());
-	    usuario.setPassword(e.getPassword());
-	    usuario.setItr(e.getItr());
-	    usuario.setAnioIngreso(e.getAnioIngreso());
-	    usuario.setTipo(e.getTipo());
-	    usuario.setActivo(e.getActivo());
+		Usuario usuario = new Usuario();
+		usuario.setId(e.getId());
+		usuario.setNombre1(e.getNombre1());
+		usuario.setNombre2(e.getNombre2());
+		usuario.setApellido1(e.getApellido1());
+		usuario.setApellido2(e.getApellido2());
+		usuario.setDocumento(e.getDocumento());
+		usuario.setFechaNac(e.getFechaNac());
+		usuario.setEmailPersonal(e.getEmailPersonal());
+		usuario.setTelefono(e.getTelefono());
+		usuario.setLocalidad(e.getLocalidad());
+		usuario.setDepartamento(e.getDepartamento());
+		usuario.setNombreDeUsuario(e.getNombreDeUsuario());
+		usuario.setEmailInstitucional(e.getEmailInstitucional());
+		usuario.setPassword(e.getPassword());
+		usuario.setItr(e.getItr());
+		usuario.setAnioIngreso(e.getAnioIngreso());
+		usuario.setTipo(e.getTipo());
+		usuario.setActivo(e.getActivo());
+		usuario.setAreaTutor(e.getAreaTutor());
+		usuario.setRolTutor(e.getRolTutor());
 
-	    return usuario;
+		return usuario;
 	}
 
 	public UsuarioDTO toUsuarioDTO(Usuario e) {
-	    UsuarioDTO usuario = new UsuarioDTO();
+		UsuarioDTO usuario = new UsuarioDTO();
 
-	    usuario.setId(e.getId());
-	    usuario.setNombre1(e.getNombre1());
-	    usuario.setNombre2(e.getNombre2());
-	    usuario.setApellido1(e.getApellido1());
-	    usuario.setApellido2(e.getApellido2());
-	    usuario.setDocumento(e.getDocumento());
-	    usuario.setFechaNac(e.getFechaNac());
-	    usuario.setEmailPersonal(e.getEmailPersonal());
-	    usuario.setTelefono(e.getTelefono());
-	    usuario.setLocalidad(e.getLocalidad());
-	    usuario.setDepartamento(e.getDepartamento());
-	    usuario.setNombreDeUsuario(e.getNombreDeUsuario());
-	    usuario.setEmailInstitucional(e.getEmailInstitucional());
-	    usuario.setPassword(e.getPassword());
-	    usuario.setItr(e.getItr());
-	    usuario.setAnioIngreso(e.getAnioIngreso());
-	    usuario.setTipo(e.getTipo());
-	    usuario.setActivo(e.getActivo());
+		usuario.setId(e.getId());
+		usuario.setNombre1(e.getNombre1());
+		usuario.setNombre2(e.getNombre2());
+		usuario.setApellido1(e.getApellido1());
+		usuario.setApellido2(e.getApellido2());
+		usuario.setDocumento(e.getDocumento());
+		usuario.setFechaNac(e.getFechaNac());
+		usuario.setEmailPersonal(e.getEmailPersonal());
+		usuario.setTelefono(e.getTelefono());
+		usuario.setLocalidad(e.getLocalidad());
+		usuario.setDepartamento(e.getDepartamento());
+		usuario.setNombreDeUsuario(e.getNombreDeUsuario());
+		usuario.setEmailInstitucional(e.getEmailInstitucional());
+		usuario.setPassword(e.getPassword());
+		usuario.setItr(e.getItr());
+		usuario.setAnioIngreso(e.getAnioIngreso());
+		usuario.setTipo(e.getTipo());
+		usuario.setActivo(e.getActivo());
+		usuario.setAreaTutor(e.getAreaTutor());
+		usuario.setRolTutor(e.getRolTutor());
 
-	    return usuario;
+		return usuario;
 	}
-	
-    public Usuario obtenerUsuarioPorId(Long id) throws PersistenciaException {
-        try {
-            return fromUsuarioDTO(usuariosPersistenciaDAO.buscarUsuario(id));
-        } catch (Exception e) {
-            throw new PersistenciaException("Error al obtener el usuario por ID", e);
-        }
-    }
+
+	public Usuario obtenerUsuarioPorId(Long id) throws PersistenciaException {
+		try {
+			return fromUsuarioDTO(usuariosPersistenciaDAO.buscarUsuario(id));
+		} catch (Exception e) {
+			throw new PersistenciaException("Error al obtener el usuario por ID", e);
+		}
+	}
 
 	// servicios para capa de Presentacion
 	public List<Usuario> seleccionarUsuarios() throws PersistenciaException {
@@ -98,8 +102,6 @@ public class GestionUsuarioService implements Serializable {
 
 	public Usuario agregarUsuario(Usuario usuarioSeleccionado) throws PersistenciaException {
 		UsuarioDTO u = usuariosPersistenciaDAO.agregarUsuario(toUsuarioDTO(usuarioSeleccionado));
-		
-		System.out.println("en agregarUsuario --> "+ u.getActivo());
 
 		return fromUsuarioDTO(u);
 	}
@@ -119,7 +121,7 @@ public class GestionUsuarioService implements Serializable {
 		}
 		return e;
 	}
-	
+
 	public List<UsuarioDTO> buscarAlumnos() {
 		List<UsuarioDTO> e = null;
 		try {
@@ -130,7 +132,7 @@ public class GestionUsuarioService implements Serializable {
 		}
 		return e;
 	}
-	
+
 	public List<UsuarioDTO> buscarTutores() {
 		List<UsuarioDTO> e = null;
 		try {
@@ -145,7 +147,7 @@ public class GestionUsuarioService implements Serializable {
 	public void modificarUsuario(Usuario usuarioExistente) throws PersistenciaException {
 		UsuarioDTO u = usuariosPersistenciaDAO.modificarUsuario(toUsuarioDTO(usuarioExistente));
 	}
-	
+
 	public UsuarioDTO login(final String usuario, final String password) throws PersistenciaException {
 		UsuarioDTO usuarioDTO = usuariosPersistenciaDAO.checkCredenciales(usuario, password);
 		return usuarioDTO;
@@ -162,44 +164,48 @@ public class GestionUsuarioService implements Serializable {
 		return e;
 	}
 
-	public Usuario obtenerUsuarioPorCedula(String cedula) throws PersistenciaException {
-		UsuarioDTO e = usuariosPersistenciaDAO.buscarUsuario(cedula);
-		if(e!=null) {
-			return fromUsuarioDTO(e);
+	public Usuario obtenerUsuarioPorCedula(String cedula) throws Exception {
+		try {
+			UsuarioDTO e = usuariosPersistenciaDAO.buscarUsuario(cedula);
+			if (e != null) {
+				return fromUsuarioDTO(e);
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 		return null;
+
 	}
-	
+
 	public Usuario obtenerUsuarioPorMail(String mail, int tipo) throws PersistenciaException {
 		List<UsuarioDTO> usuarios;
 		UsuarioDTO usuario = new UsuarioDTO();
 
-		if(tipo == 1) {
+		if (tipo == 1) {
 			usuarios = usuariosPersistenciaDAO.buscarFuncionarios();
 			for (UsuarioDTO u : usuarios) {
-				if(u.getEmailPersonal().equals(mail)) {
+				if (u.getEmailPersonal().equals(mail)) {
 				}
 			}
 		}
-		if(tipo == 2) {
+		if (tipo == 2) {
 			usuarios = usuariosPersistenciaDAO.buscarAlumnos();
 			for (UsuarioDTO u : usuarios) {
-				if(u.getEmailPersonal().equals(mail)) {
+				if (u.getEmailPersonal().equals(mail)) {
 					return fromUsuarioDTO(u);
 
 				}
 			}
 		}
-		if(tipo == 3) {
+		if (tipo == 3) {
 			usuarios = usuariosPersistenciaDAO.buscarTutores();
 			for (UsuarioDTO u : usuarios) {
-				if(u.getEmailPersonal().equals(mail)) {
+				if (u.getEmailPersonal().equals(mail)) {
 					return fromUsuarioDTO(u);
 				}
 			}
 		}
-	
+
 		return null;
 	}
 }
-

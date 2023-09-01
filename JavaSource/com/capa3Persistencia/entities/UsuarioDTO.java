@@ -11,7 +11,23 @@ import javax.persistence.*;
 @Table(name = "USUARIOS")
 public class UsuarioDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public String getAreaTutor() {
+		return areaTutor;
+	}
+
+	public void setAreaTutor(String areaTutor) {
+		this.areaTutor = areaTutor;
+	}
+
+	public String getRolTutor() {
+		return rolTutor;
+	}
+
+	public void setRolTutor(String rolTutor) {
+		this.rolTutor = rolTutor;
+	}
+
+	private static final long serialVersionUID = 1L;
 
 
 	@Id
@@ -230,7 +246,7 @@ public class UsuarioDTO implements Serializable {
 
 	public UsuarioDTO(long id, String nombre1, String nombre2, String apellido1, String apellido2, String documento,
 			Date fechaNac, String emailPersonal, String telefono, String localidad, String departamento,
-			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo ) {
+			String nombreDeUsuario, String emailInstitucional, String password, String itr, String anioIngreso, int tipo, int activo, String areaTutor, String rolTutor) {
 		super();
 		this.id = id;
 		this.nombre1 = nombre1;
@@ -250,6 +266,8 @@ public class UsuarioDTO implements Serializable {
 		this.anioIngreso = anioIngreso;
 		this.tipo = tipo;
 		this.activo = activo;
+		this.rolTutor = rolTutor;
+		this.areaTutor = areaTutor;
     }
 
 	@Override
@@ -259,7 +277,7 @@ public class UsuarioDTO implements Serializable {
 				+ ", emailPersonal=" + emailPersonal + ", telefono=" + telefono + ", localidad=" + localidad
 				+ ", departamento=" + departamento + ", nombreDeUsuario=" + nombreDeUsuario + ", emailInstitucional="
 				+ emailInstitucional + ", password=" + password + ", itr=" + itr + ", anioIngreso=" + anioIngreso
-				+ ", tipo=" + tipo + "]";
+				+ ", tipo=" + tipo + ", activo=" + activo + ", areaTutor=" + areaTutor + ", rolTutor=" + rolTutor + "]";
 	}
 
 }
